@@ -1,0 +1,278 @@
+public Main()
+{
+	EnumerateFiles
+	(
+		inDir: "capsules"
+		inExtensions: "png"
+		inSort: Name
+		inRepeat: False
+		inSubdirs: False
+		outFilePath: con_8c0bc2c7_7354_48fb_8c5d_0f21a592ffd0
+		outFileName: con_cf61aade_9c04_4e2d_afd4_099458e0802f
+	)
+
+	LoadImage
+	(
+		inFile: con_8c0bc2c7_7354_48fb_8c5d_0f21a592ffd0
+		outImage: con_5724dac0_c943_46f3_add0_1b56af2df693
+		outAlphaChannel: Nil
+	)
+
+	ProcessCapsuleImage
+	(
+		inImage: con_5724dac0_c943_46f3_add0_1b56af2df693
+		outInputImage: con_09cbc91a_6ebb_4387_9bf4_8a9f65b1d2e0
+		outRegionImage: con_8a7f8871_c062_4363_815a_cd28b8839342
+		outFilledImage: con_31d9a923_7109_4d76_b256_d1712dcd2a8a
+		outOpenedImage: con_187947e6_05da_479f_8223_8495db394109
+		outRectangleImage: con_a0853851_9f80_4946_8367_c5a681b31538
+	)
+
+	ConstructOutputFilename
+	(
+		inString: "input"
+		inInputFilename: con_cf61aade_9c04_4e2d_afd4_099458e0802f
+		outFilename: con_3730e166_95a6_45df_a11f_660a55f790e1
+	)
+
+	SaveImage
+	(
+		inImage: con_09cbc91a_6ebb_4387_9bf4_8a9f65b1d2e0
+		inImageFileFormat: Nil
+		inFile: con_3730e166_95a6_45df_a11f_660a55f790e1
+	)
+
+	ConstructOutputFilename
+	(
+		inString: "region"
+		inInputFilename: con_cf61aade_9c04_4e2d_afd4_099458e0802f
+		outFilename: con_ef20595e_53df_4586_931d_cde1a129db71
+	)
+
+	SaveImage
+	(
+		inImage: con_8a7f8871_c062_4363_815a_cd28b8839342
+		inImageFileFormat: Nil
+		inFile: con_ef20595e_53df_4586_931d_cde1a129db71
+	)
+
+	ConstructOutputFilename
+	(
+		inString: "filled"
+		inInputFilename: con_cf61aade_9c04_4e2d_afd4_099458e0802f
+		outFilename: con_d5628921_2190_42d1_80ac_531fd7129496
+	)
+
+	SaveImage
+	(
+		inImage: con_31d9a923_7109_4d76_b256_d1712dcd2a8a
+		inImageFileFormat: Nil
+		inFile: con_d5628921_2190_42d1_80ac_531fd7129496
+	)
+
+	ConstructOutputFilename
+	(
+		inString: "opened"
+		inInputFilename: con_cf61aade_9c04_4e2d_afd4_099458e0802f
+		outFilename: con_bcbfaf57_264e_4ef1_b572_6eb2e916d4c8
+	)
+
+	SaveImage
+	(
+		inImage: con_187947e6_05da_479f_8223_8495db394109
+		inImageFileFormat: Nil
+		inFile: con_bcbfaf57_264e_4ef1_b572_6eb2e916d4c8
+	)
+
+	ConstructOutputFilename
+	(
+		inString: "rectangle"
+		inInputFilename: con_cf61aade_9c04_4e2d_afd4_099458e0802f
+		outFilename: con_75d58d16_8e6c_4f2e_9e1d_80c8d25bc224
+	)
+
+	SaveImage
+	(
+		inImage: con_a0853851_9f80_4946_8367_c5a681b31538
+		inImageFileFormat: Nil
+		inFile: con_75d58d16_8e6c_4f2e_9e1d_80c8d25bc224
+	)
+}
+
+public ProcessCapsuleImage(Image inImage, Image outInputImage, Image outRegionImage, Image outFilledImage, Image outOpenedImage, Image outRectangleImage)
+{
+	CropImage
+	(
+		inImage: inImage
+		inSelection:
+			Box
+			(
+				X: 0
+				Y: 57
+				Width: 640
+				Height: 350
+			)
+		outImage: con_193d7864_5a93_4dea_aec8_544698d92fb2
+	)
+
+	NormalizeImage
+	(
+		inImage: con_193d7864_5a93_4dea_aec8_544698d92fb2
+		inRoi: Nil
+		inNewMinimum: 10.000000
+		inNewMaximum: 245.000000
+		outImage: outInputImage
+		outA: Nil
+		outB: Nil
+	)
+
+	ThresholdToRegion_Dynamic
+	(
+		inImage: outInputImage
+		inRoi: Nil
+		inRadiusX: 10
+		inRadiusY: Nil
+		inMinRelativeValue: Nil
+		inMaxRelativeValue: -12.000000
+		outRegion: con_3d6d8f43_49e7_4e17_bff7_321a6d08b235
+	)
+
+	DrawRegionNicely
+	(
+		inImage: outInputImage
+		inRegion: con_3d6d8f43_49e7_4e17_bff7_321a6d08b235
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 128.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		outImage: outRegionImage
+	)
+
+	FillRegionHoles
+	(
+		inRegion: con_3d6d8f43_49e7_4e17_bff7_321a6d08b235
+		inConnectivity: EightDirections
+		inMinHoleArea: Nil
+		inMaxHoleArea: Nil
+		outRegion: con_fcc9231b_2d9e_40f3_ab4b_8a8d2f00dfab
+	)
+
+	DrawRegionNicely
+	(
+		inImage: outInputImage
+		inRegion: con_fcc9231b_2d9e_40f3_ab4b_8a8d2f00dfab
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 128.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		outImage: outFilledImage
+	)
+
+	OpenRegion
+	(
+		inRegion: con_fcc9231b_2d9e_40f3_ab4b_8a8d2f00dfab
+		inKernel: Ellipse
+		inRadiusX: 5
+		inRadiusY: Nil
+		outRegion: con_4f179197_6a3d_4094_8052_76519a3a0401
+	)
+
+	DrawRegionNicely
+	(
+		inImage: outInputImage
+		inRegion: con_4f179197_6a3d_4094_8052_76519a3a0401
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 128.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		outImage: outOpenedImage
+	)
+
+	RegionBoundingRectangle
+	(
+		inRegion: con_4f179197_6a3d_4094_8052_76519a3a0401
+		outBoundingRectangle: con_77cce962_3706_48d4_a76c_52249742c744
+		outCenter: Nil
+		outLongSide: Nil
+		outShortSide: Nil
+	)
+
+	DrawPaths
+	(
+		inImage: outOpenedImage
+		inPaths: con_77cce962_3706_48d4_a76c_52249742c744
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 255.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		inPointShape: Nil
+		inDrawingMode: HighQuality
+		inThickness: 2.500000
+		inPointSize: 2.000000
+		inOpacity: 1.000000
+		inFilled: False
+		outImage: outRectangleImage
+	)
+
+	RegionRectangularity
+	(
+		inRegion: con_4f179197_6a3d_4094_8052_76519a3a0401
+		outRectangularity: con_09e9433c_a6ae_427c_ae7d_e9a5dd896e32
+	)
+}
+
+public ConstructOutputFilename(String inString, String inInputFilename, String outFilename)
+{
+	Substring
+	(
+		inString: inInputFilename
+		inStart: 0
+		inLength: 1
+		outSubstring: con_246741ea_e098_4385_8c94_90871c7868ff
+	)
+
+	ConcatenateStrings
+	(
+		inString1: "results/capsule_"
+		inString2: con_246741ea_e098_4385_8c94_90871c7868ff
+		outString: con_07473069_13cb_4c60_bce3_65a418f8389a
+	)
+
+	ConcatenateStrings
+	(
+		inString1: con_07473069_13cb_4c60_bce3_65a418f8389a
+		inString2: "_"
+		outString: con_3e580a52_3a1c_49fb_bfdb_62a580141341
+	)
+
+	ConcatenateStrings
+	(
+		inString1: con_3e580a52_3a1c_49fb_bfdb_62a580141341
+		inString2: inString
+		outString: con_0b481837_9186_40cb_a146_84b12cd88cc9
+	)
+
+	ConcatenateStrings
+	(
+		inString1: con_0b481837_9186_40cb_a146_84b12cd88cc9
+		inString2: ".png"
+		outString: outFilename
+	)
+}
+

@@ -1,0 +1,70 @@
+\section{Examples}
+
+\paragraph*{}
+In this section we will demonstrate a few industrial applications of 1D Edge Detection methods.
+
+\subsection{Positioning}
+
+\paragraph*{}
+\textbf{1D Edge Detection} methods are commonly employed to determine position of image objects. Let us consider an image of a capsule on production line demonstrated in \reffig{OneDEdgeDetectionPositioning}. We assume that the capsule is aligned with the axis of the image and want to determine the range of x-coordinates occupied by the object.
+
+\twoFigures
+{img/1DEdgeDetection/positioning_edge_points}
+{img/1DEdgeDetection/positioning_result}
+{1D Edge Detection applied to determine capsule position along the x axis.}
+{OneDEdgeDetectionPositioning}
+{\basicWidth}
+
+\paragraph*{}
+As long as the background is plain and contrasting with object border, such problem can be solved easily regardless of the inner content of the object. \reffig{OneDEdgeDetectionPositioning} demonstrates the edge points detected along the horizontal scan line and visualisation of the resulting capsule position. The algorithm detects redundant, inner edges, but this does not pose a difficulty, as we only need the first and the last edge point of the returned list.
+
+\subsection{Code Reading}
+
+\paragraph*{}
+One of the classic applications of stripe detection is reading of 1D data codes. Depending on the barcode format, we may\footnote{E.g. in case of codes from EAN/UPC family commonly used in trade.} or may not\footnote{E.g. in case of Pharmacode or Code128 standard.} know the number of bars the code is composed of - in the first case we may improve the robustness of the method using the post-processing routine for extracting the fixed number of strongest stripes which we have discussed before.
+
+\oneFigure
+{img/1DEdgeDetection/bars_res}
+{1D Edge Detection applied to read the widths of 1D code bars.}
+{OneDEdgeDetectionCodeReading}
+{\basicWidth}
+
+\paragraph*{}
+In either case we expect the method to measure the width of the bars present in the image. It is interesting to note that the intercept theorem guarantees that we may scan the barcode at any orientation of the scan line, as long as its deviation from the barcode axis does not disrupt the stripe detection routine - the proportions of widths of the intersected bars are preserved under any orientation of the scan line.
+
+\paragraph*{}
+Once the widths of the bars are obtained they can be passed to a decoder for the specific barcode format to obtain the final reading.
+
+
+%\subsection{Counting}
+
+%\paragraph*{}
+%Another popular application of \textbf{1D Edge Detection} is counting of the objects positioned along a path. Let us assume that we want to count the blades of a circular presented in \reffig{Blade}.
+
+%\singleFigure
+%{img/1DEdgeDetection/blade}
+%{A circular saw blade to be inspected.}
+%{Blade}
+%{0.65}
+
+%\paragraph*{}
+%Such task may be solved by running a single edge detection scan along a circular path intersecting the blades. To produce the scan path we can use a straightforward \filter{CreateCircularPath}{PathBasics} filter. The built-in plugin will allow us to point \& click the required \param{inCircle} parameter, as demonstrated in \reffig{BladePlugin}.
+
+%\singleFigure
+%{img/1DEdgeDetection/blade_plugin}
+%{Interactive selection of the circle parameter.}
+%{BladePlugin}
+%{0.5}
+
+%\paragraph*{}
+%The next step will be to pick the specific algorithm for the actual edge detection. As the objects being inspected appear as stripes in one-dimensional brightness profile and we do not know how many of them there are, the \filter{ScanMultipleStripes}{1DEdgeDetection} would be a right tool for the job.
+
+%\paragraph*{}
+%The program depicted in (...) solves the problem as expected (perhaps after increasing the inSmoothingStdDev from default of 0.6 to bigger value of 1.0 or 2.0) and detects all 30 blades of the saw.
+
+%\twinFigure
+%{img/1DEdgeDetection/blade_scan_area}
+%{img/1DEdgeDetection/blade_results}
+%{Scan area and the extracted stripes.}
+%{BladeResults}
+%{0.5}

@@ -1,0 +1,285 @@
+extern Real PathThickness = 4.000000
+extern Real PointSize = 7.000000
+
+public Main()
+{
+	LoadImage
+	(
+		inFile: "tooth.png"
+		outImage: con_69fed067_d63a_403f_987f_abb56d82cd35
+		outAlphaChannel: Nil
+	)
+
+	CropImage
+	(
+		inImage: con_69fed067_d63a_403f_987f_abb56d82cd35
+		inSelection:
+			Box
+			(
+				X: 24
+				Y: 54
+				Width: 55
+				Height: 30
+			)
+		outImage: con_14585bdd_0bdb_48b8_a4f2_ef654d323978
+	)
+
+	DetectEdges
+	(
+		inImage: con_14585bdd_0bdb_48b8_a4f2_ef654d323978
+		inRoi: Nil
+		inEdgeFilter: Lanser
+		inStdDevX: 1.500000
+		inStdDevY: 1.500000
+		inEdgeThreshold: 70.000000
+		inEdgeHysteresis: 40.000000
+		outEdges: con_337cff7a_0834_4002_9e2f_2eb9735a886b
+		diagGradientAmplitudeImage: con_dd3992f2_7714_46d6_ad88_5e3f4a447ed5
+		diagEdgeRegion: Nil
+	)
+
+	PathSize
+	(
+		inPath: con_337cff7a_0834_4002_9e2f_2eb9735a886b
+		outSize: con_0fc84900_0312_4399_b6ee_66c464a91a85
+	)
+
+	SubtractIntegers
+	(
+		inA: con_0fc84900_0312_4399_b6ee_66c464a91a85
+		inB: 5
+		outDifference: con_8600ad52_9f2e_41e6_877c_7b89908746ee
+	)
+
+	Subpath
+	(
+		inPath: con_337cff7a_0834_4002_9e2f_2eb9735a886b
+		inStart: 2
+		inPointCount: con_8600ad52_9f2e_41e6_877c_7b89908746ee
+		outPath: con_5a8dc2ae_1366_4f6e_b830_6639bf614694
+	)
+
+	DrawPaths_Subpixel
+	(
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 0.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		inImage: con_14585bdd_0bdb_48b8_a4f2_ef654d323978
+		inPaths: con_5a8dc2ae_1366_4f6e_b830_6639bf614694
+		inScaleFactor: 15
+		inThickness: 3.000000
+		inPointSize: 6.000000
+		outImage: con_7f935b7f_d5d5_48e1_abbf_3890ec6b6088
+	)
+
+	SaveImage
+	(
+		inImage: con_7f935b7f_d5d5_48e1_abbf_3890ec6b6088
+		inImageFileFormat: Nil
+		inFile: "results/ramer_tooth_before.png"
+	)
+
+	GetArrayElement<Path>
+	(
+		inArray: con_5a8dc2ae_1366_4f6e_b830_6639bf614694
+		inIndex: 0
+		inReverse: False
+		outValue: con_4c8e4227_cfae_45b3_a57f_c9ef0fbfe5e4
+	)
+
+	ReducePath_AllSteps
+	(
+		inPath: con_4c8e4227_cfae_45b3_a57f_c9ef0fbfe5e4
+		inMaxDistance: 0.500000
+		outPaths: con_e29149d2_5e2d_4aa1_a4aa_7663040fecdc
+	)
+
+	ReducePath
+	(
+		inPath: con_5a8dc2ae_1366_4f6e_b830_6639bf614694
+		inMaxDistance: 1.000000
+		outPath: con_ed16a606_9da7_4f35_b021_ec3ba933b901
+	)
+
+	DrawPaths_Subpixel
+	(
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 0.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		inImage: con_14585bdd_0bdb_48b8_a4f2_ef654d323978
+		inPaths: con_ed16a606_9da7_4f35_b021_ec3ba933b901
+		inScaleFactor: 15
+		inThickness: 3.000000
+		inPointSize: 6.000000
+		outImage: con_1a9f2751_576a_4fcb_81d8_08f7346982a1
+	)
+
+	SaveImage
+	(
+		inImage: con_1a9f2751_576a_4fcb_81d8_08f7346982a1
+		inImageFileFormat: Nil
+		inFile: "results/ramer_tooth_after.png"
+	)
+
+	ResizePath_ByScaleFactor
+	(
+		inB: 15
+		inPath: con_e29149d2_5e2d_4aa1_a4aa_7663040fecdc
+		outPath: con_1a18e97e_85ff_4637_a0fb_af7644edc81b
+	)
+
+	GetArrayElement<Path>
+	(
+		inArray: con_1a18e97e_85ff_4637_a0fb_af7644edc81b
+		inIndex: 0
+		inReverse: False
+		outValue: con_55dca01e_f8a5_43f1_89c5_f21bd88256d9
+	)
+
+	DrawPaths
+	(
+		inImage: con_7f935b7f_d5d5_48e1_abbf_3890ec6b6088
+		inPaths: con_55dca01e_f8a5_43f1_89c5_f21bd88256d9
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 255.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		inPointShape: Square
+		inDrawingMode: HighQuality
+		inThickness: PathThickness
+		inPointSize: PointSize
+		inOpacity: 1.000000
+		inFilled: False
+		outImage: con_5afa0655_47e0_4f2d_8c19_272424af34d3
+	)
+
+	SaveImage
+	(
+		inImage: con_5afa0655_47e0_4f2d_8c19_272424af34d3
+		inImageFileFormat: Nil
+		inFile: "results/ramer_tooth_after_0.png"
+	)
+
+	GetArrayElement<Path>
+	(
+		inArray: con_1a18e97e_85ff_4637_a0fb_af7644edc81b
+		inIndex: 1
+		inReverse: False
+		outValue: con_ceaa8f45_19a9_43c6_926a_337f19d3f5a9
+	)
+
+	DrawPaths
+	(
+		inImage: con_7f935b7f_d5d5_48e1_abbf_3890ec6b6088
+		inPaths: con_ceaa8f45_19a9_43c6_926a_337f19d3f5a9
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 255.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		inPointShape: Square
+		inDrawingMode: HighQuality
+		inThickness: PathThickness
+		inPointSize: PointSize
+		inOpacity: 1.000000
+		inFilled: False
+		outImage: con_5e06b5c5_bf8f_48ed_b9ef_a2574c33105f
+	)
+
+	SaveImage
+	(
+		inImage: con_5e06b5c5_bf8f_48ed_b9ef_a2574c33105f
+		inImageFileFormat: Nil
+		inFile: "results/ramer_tooth_after_1.png"
+	)
+
+	GetArrayElement<Path>
+	(
+		inArray: con_1a18e97e_85ff_4637_a0fb_af7644edc81b
+		inIndex: 2
+		inReverse: False
+		outValue: con_046db37c_9ff4_48a0_96cf_4243be3443e1
+	)
+
+	DrawPaths
+	(
+		inImage: con_7f935b7f_d5d5_48e1_abbf_3890ec6b6088
+		inPaths: con_046db37c_9ff4_48a0_96cf_4243be3443e1
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 255.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		inPointShape: Square
+		inDrawingMode: HighQuality
+		inThickness: PathThickness
+		inPointSize: PointSize
+		inOpacity: 1.000000
+		inFilled: False
+		outImage: con_28f49a51_c087_4984_a204_7d176d70ee36
+	)
+
+	SaveImage
+	(
+		inImage: con_28f49a51_c087_4984_a204_7d176d70ee36
+		inImageFileFormat: Nil
+		inFile: "results/ramer_tooth_after_2.png"
+	)
+
+	GetArrayElement<Path>
+	(
+		inArray: con_1a18e97e_85ff_4637_a0fb_af7644edc81b
+		inIndex: 3
+		inReverse: False
+		outValue: con_a0db5b32_02df_464a_852b_9da13a7488fb
+	)
+
+	DrawPaths
+	(
+		inImage: con_7f935b7f_d5d5_48e1_abbf_3890ec6b6088
+		inPaths: con_a0db5b32_02df_464a_852b_9da13a7488fb
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 255.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		inPointShape: Square
+		inDrawingMode: HighQuality
+		inThickness: PathThickness
+		inPointSize: PointSize
+		inOpacity: 1.000000
+		inFilled: False
+		outImage: con_d51d3665_1777_41b9_9810_7fc759a91397
+	)
+
+	SaveImage
+	(
+		inImage: con_d51d3665_1777_41b9_9810_7fc759a91397
+		inImageFileFormat: Nil
+		inFile: "results/ramer_tooth_after_3.png"
+	)
+}
+

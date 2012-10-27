@@ -1,0 +1,35 @@
+% I am very thankful for Tom Bombadil help on that issue :)
+% http://tex.stackexchange.com/questions/68742/plot-a-square-grid-with-a-subset-of-squares-marked-using-pgfplots
+
+\makeatletter
+\def\trimspace#1{\trim@spaces@in{#1}}
+\makeatother
+
+
+\newcommand{\drawslabs}[1]% dataarray
+{   
+    \draw[gray,densely dashed] (0,0) grid (\gridwidth,\gridheight);
+    \foreach \x in {1,...,\gridwidth}
+    { \foreach \y in {1,...,\gridheight}
+        {   \pgfmathtruncatemacro{\colnum}{\x}
+            \pgfmathtruncatemacro{\rownum}{\gridheight+1-\y}
+            \expandafter\csname check#1\endcsname(\rownum,\colnum)\trimspace\cachedata
+            \ifthenelse{\cachedata=1\OR\cachedata=2}
+                {\fill[blue!50!gray,fill opacity=0.5,draw=blue!50!gray,thick] (\x-1,\y-1) rectangle (\x,\y);}
+                {}
+            \ifthenelse{\cachedata=3\OR\cachedata=4}
+                {\fill[red!50!gray,fill opacity=0.5,draw=red!50!gray,thick] (\x-1,\y-1) rectangle (\x,\y);}
+                {}
+            \ifthenelse{\cachedata=2\OR\cachedata=4}
+                {\fill[black!50!gray,fill opacity=1,draw=black!50!gray,thick] (\x-0.6,\y-0.6) rectangle (\x-0.4,\y-0.4);}
+                {}  
+        }
+    }
+}
+
+\newcommand{\gridDimensions}[2]
+{
+    \pgfmathtruncatemacro{\gridwidth}{#1}
+    \pgfmathtruncatemacro{\gridheight}{#2}
+    \dataheight=\gridwidth
+}

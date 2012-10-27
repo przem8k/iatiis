@@ -1,0 +1,287 @@
+\pgfmathtruncatemacro{\gridwidth}{7}
+\pgfmathtruncatemacro{\gridheight}{5}
+
+\section{Elementary Operators}
+
+\paragraph*{}
+In this section we will introduce six elementary operations that can be performed on regions. Four of them refer to the set nature of regions, two further are defined in relation to its spatial properties. 
+
+\paragraph*{}
+In the next section we will use these building blocks to define powerful transformations from the field of Mathematical Morphology.
+
+\subsection{Set Operators}
+
+\paragraph*{}
+Applicability of basic set operators to region processing follows directly from the definition of region. 
+
+\subsubsection{Union}
+
+\paragraph*{}
+Union of two regions is a region containing the pixels belonging to either, or both of the input regions, as demonstrated in \reftab{RegionUnion}.
+
+\newarray\unionInputA
+\readarray{unionInputA}{%
+0 & 0 & 0 & 0 & 0 & 0 & 0 &%
+0 & 0 & 1 & 1 & 1 & 1 & 0 &%
+0 & 0 & 1 & 1 & 0 & 0 & 0 &%
+0 & 0 & 1 & 1 & 0 & 0 & 0 &%
+0 & 0 & 0 & 0 & 0 & 0 & 0}
+
+\newarray\unionInputB
+\readarray{unionInputB}{%
+0 & 0 & 0 & 0 & 0 & 0 & 0 &%
+0 & 0 & 0 & 1 & 1 & 1 & 0 &%
+0 & 0 & 0 & 0 & 0 & 1 & 0 &%
+0 & 0 & 0 & 0 & 0 & 1 & 0 &%
+0 & 0 & 0 & 0 & 0 & 0 & 0}
+
+\newarray\unionResult
+\readarray{unionResult}{%
+0 & 0 & 0 & 0 & 0 & 0 & 0 &%
+0 & 0 & 1 & 1 & 1 & 1 & 0 &%
+0 & 0 & 1 & 1 & 0 & 1 & 0 &%
+0 & 0 & 1 & 1 & 0 & 1 & 0 &%
+0 & 0 & 0 & 0 & 0 & 0 & 0}
+
+\dataheight=\gridwidth
+
+\begin{table}[h]
+\centering
+\tabular{c c c}
+
+\begin{tikzpicture}[scale=0.40]\drawslabs{unionInputA}\end{tikzpicture} &
+\begin{tikzpicture}[scale=0.40]\drawslabs{unionInputB}\end{tikzpicture} &
+\begin{tikzpicture}[scale=0.40]\drawslabs{unionResult}\end{tikzpicture} 
+
+\\
+
+$A$ &
+$B$ &
+$A \cup B$
+
+\endtabular
+\caption{Union of two regions}
+\label{tab:RegionUnion}
+\end{table}
+
+
+\subsubsection{Intersection}
+
+\paragraph*{}
+Similarily, intersection of two regions is a region containing the pixels belonging to both of the input regions, as demonstrated in \reftab{RegionIntersection}.
+
+\newarray\intersectionInputA
+\readarray{intersectionInputA}{%
+0 & 0 & 0 & 0 & 0 & 0 & 0 &%
+0 & 0 & 1 & 1 & 1 & 1 & 0 &%
+0 & 0 & 1 & 1 & 0 & 0 & 0 &%
+0 & 0 & 1 & 1 & 0 & 0 & 0 &%
+0 & 0 & 0 & 0 & 0 & 0 & 0}
+
+\newarray\intersectionInputB
+\readarray{intersectionInputB}{%
+0 & 0 & 0 & 0 & 0 & 0 & 0 &%
+0 & 0 & 0 & 1 & 1 & 1 & 0 &%
+0 & 0 & 0 & 0 & 0 & 1 & 0 &%
+0 & 0 & 0 & 0 & 0 & 1 & 0 &%
+0 & 0 & 0 & 0 & 0 & 0 & 0}
+
+\newarray\intersectionResult
+\readarray{intersectionResult}{%
+0 & 0 & 0 & 0 & 0 & 0 & 0 &%
+0 & 0 & 0 & 1 & 1 & 0 & 0 &%
+0 & 0 & 0 & 0 & 0 & 0 & 0 &%
+0 & 0 & 0 & 0 & 0 & 0 & 0 &%
+0 & 0 & 0 & 0 & 0 & 0 & 0}
+
+\dataheight=\gridwidth
+
+\begin{table}[h]
+\centering
+\tabular{c c c}
+
+\begin{tikzpicture}[scale=0.40]\drawslabs{intersectionInputA}\end{tikzpicture} &
+\begin{tikzpicture}[scale=0.40]\drawslabs{intersectionInputB}\end{tikzpicture} &
+\begin{tikzpicture}[scale=0.40]\drawslabs{intersectionResult}\end{tikzpicture} 
+
+\\
+
+$A$ &
+$B$ &
+$A \cap B$
+
+\endtabular
+\caption{Intersection of two regions}
+\label{tab:RegionIntersection}
+\end{table}
+
+
+\subsubsection{Difference}
+
+\paragraph*{}
+Last binary operation in this group is difference, yielding the pixels belonging to first region, but not to the second region. Thus, this operation is not commutative, contrary to intersection and union. 
+
+\newarray\differenceInputA
+\readarray{differenceInputA}{%
+0 & 0 & 0 & 0 & 0 & 0 & 0 &%
+0 & 0 & 1 & 1 & 1 & 1 & 0 &%
+0 & 0 & 1 & 1 & 0 & 0 & 0 &%
+0 & 0 & 1 & 1 & 0 & 0 & 0 &%
+0 & 0 & 0 & 0 & 0 & 0 & 0}
+
+\newarray\differenceInputB
+\readarray{differenceInputB}{%
+0 & 0 & 0 & 0 & 0 & 0 & 0 &%
+0 & 0 & 0 & 1 & 1 & 1 & 0 &%
+0 & 0 & 0 & 0 & 0 & 1 & 0 &%
+0 & 0 & 0 & 0 & 0 & 1 & 0 &%
+0 & 0 & 0 & 0 & 0 & 0 & 0}
+
+\newarray\differenceResult
+\readarray{differenceResult}{%
+0 & 0 & 0 & 0 & 0 & 0 & 0 &%
+0 & 0 & 1 & 0 & 0 & 0 & 0 &%
+0 & 0 & 1 & 1 & 0 & 0 & 0 &%
+0 & 0 & 1 & 1 & 0 & 0 & 0 &%
+0 & 0 & 0 & 0 & 0 & 0 & 0}
+
+\dataheight=\gridwidth
+
+\begin{table}[h]
+\centering
+\tabular{c c c}
+
+\begin{tikzpicture}[scale=0.40]\drawslabs{differenceInputA}\end{tikzpicture} &
+\begin{tikzpicture}[scale=0.40]\drawslabs{differenceInputB}\end{tikzpicture} &
+\begin{tikzpicture}[scale=0.40]\drawslabs{differenceResult}\end{tikzpicture} 
+
+\\
+
+$A$ &
+$B$ &
+$A \setminus B$
+
+\endtabular
+\caption{Difference of two regions}
+\label{tab:RegionDifference}
+\end{table}
+
+\subsubsection{Complement}
+
+\paragraph*{}
+The only unary set operator, complement, is also applicable to region; however industrial implementations differ in its interpretation. We will follow the way of our reference implementation, where complement is easy to define as each region stores the dimensions of its finite reference space.
+
+\newarray\complementInput
+\readarray{complementInput}{%
+0 & 0 & 0 & 0 & 0 & 0 & 0 &%
+0 & 0 & 1 & 1 & 1 & 1 & 0 &%
+0 & 0 & 1 & 1 & 0 & 0 & 0 &%
+0 & 0 & 1 & 1 & 0 & 0 & 0 &%
+0 & 0 & 0 & 0 & 0 & 0 & 0}
+
+\newarray\complementResult
+\readarray{complementResult}{%
+1 & 1 & 1 & 1 & 1 & 1 & 1 &%
+1 & 1 & 0 & 0 & 0 & 0 & 1 &%
+1 & 1 & 0 & 0 & 1 & 1 & 1 &%
+1 & 1 & 0 & 0 & 1 & 1 & 1 &%
+1 & 1 & 1 & 1 & 1 & 1 & 1}
+
+\dataheight=\gridwidth
+
+\begin{table}[h!]
+\centering
+\tabular{c c}
+
+\begin{tikzpicture}[scale=0.40]\drawslabs{complementInput}\end{tikzpicture} &
+\begin{tikzpicture}[scale=0.40]\drawslabs{complementResult}\end{tikzpicture} 
+
+\\
+
+$A$ &
+$A^{\complement}$
+
+\endtabular
+\caption{Complement of a region}
+\label{tab:RegionComplement}
+\end{table}
+
+
+\subsection{Spatial Operators}
+
+\paragraph*{} 
+Two further operators refer to spatial properties of region. Naturally, there are far more spatial operators than can be defined for region; for now we introduce only two that are neccessary to define morphological operators discussed in the next section.
+
+\subsubsection{Translation}
+
+\paragraph*{}
+Translation of a region shifts its pixel coordinates by integer vector.
+
+\newarray\translationInput
+\readarray{translationInput}{%
+0 & 0 & 0 & 0 & 0 & 0 & 0 &%
+0 & 0 & 1 & 1 & 1 & 1 & 0 &%
+0 & 0 & 1 & 1 & 0 & 0 & 0 &%
+0 & 0 & 1 & 1 & 0 & 0 & 0 &%
+0 & 0 & 0 & 0 & 0 & 0 & 0}
+
+\newarray\translationResult
+\readarray{translationResult}{%
+0 & 0 & 0 & 0 & 0 & 0 & 0 &%
+0 & 0 & 0 & 0 & 0 & 0 & 0 &%
+1 & 1 & 1 & 1 & 0 & 0 & 0 &%
+1 & 1 & 0 & 0 & 0 & 0 & 0 &%
+1 & 1 & 0 & 0 & 0 & 0 & 0}
+
+\dataheight=\gridwidth
+
+\begin{table}[h!]
+\centering
+\tabular{c c}
+
+\begin{tikzpicture}[scale=0.40]\drawslabs{translationInput}\end{tikzpicture} &
+\begin{tikzpicture}[scale=0.40]\drawslabs{translationResult}\end{tikzpicture} 
+
+\\
+
+$A$ &
+$Translate(A, v)$
+
+\endtabular
+\caption{Translation of a region by vector -2,1.}
+\label{tab:RegionTranslation}
+\end{table}
+
+\subsection{Reflection}
+
+\paragraph*{}
+Reflection mirrors a region over a location (origin). This operation will be particulary useful for processing morphological kernels, which we will discuss in the next section.
+
+\newarray\reflectionInput
+\readarray{reflectionInput}{%
+0 & 0 & 0 & 0 & 0 & 0 & 0 &%
+0 & 0 & 1 & 0 & 0 & 0 & 0 &%
+0 & 0 & 1 & 2 & 0 & 0 & 0 &%
+0 & 0 & 0 & 0 & 0 & 0 & 0 &%
+0 & 0 & 0 & 0 & 0 & 0 & 0}
+
+\newarray\reflectionResult
+\readarray{reflectionResult}{%
+0 & 0 & 0 & 0 & 0 & 0 & 0 &%
+0 & 0 & 0 & 0 & 0 & 0 & 0 &%
+0 & 0 & 0 & 2 & 1 & 0 & 0 &%
+0 & 0 & 0 & 0 & 1 & 0 & 0 &%
+0 & 0 & 0 & 0 & 0 & 0 & 0}
+
+\begin{table}[h!]
+	\centering
+	\tabular{c c}
+		\begin{tikzpicture}[scale=0.40]\drawslabs{reflectionInput}\end{tikzpicture} &
+		\begin{tikzpicture}[scale=0.40]\drawslabs{reflectionResult}\end{tikzpicture} 
+		\\
+		$A$ &
+		$Reflect(A, org)$
+	\endtabular
+	\caption{Reflection of a region, its origin marked with a black square.}
+	\label{tab:RegionReflection}
+\end{table}

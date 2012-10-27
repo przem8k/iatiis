@@ -1,0 +1,83 @@
+\documentclass[b5paper,openright]{memoir}
+
+\usepackage{amsmath} %Never write a paper without using amsmath for its many new commands 
+\usepackage{amssymb} %Some extra symbols 
+\usepackage{makeidx} %If you want to generate an index, automatically 
+\usepackage{graphicx} %If you want to include postscript graphics 
+\usepackage{wrapfig}
+\usepackage{calc}
+\usepackage{pbox}
+\usepackage{units} % nicefrac
+\usepackage[usenames,dvipsnames]{color, colortbl}
+
+%\usepackage[a4paper, left=3.0cm, right=3.0cm, top=3.5cm, bottom=3.5cm]{geometry}
+
+% http://tex.stackexchange.com/questions/18931/memoir-class-with-subcaption-and-hyperref-packages
+\let\subcaption\undefined
+\let\subfloat\undefined
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{hyperref}
+
+\usepackage{pgfplots}
+\usepackage{tikz}			% for grid drawing Tim Bombadil snippet
+\usepackage{arrayjobx}		% for grid drawing Tim Bombadil snippet
+\usepackage{trimspaces}		% for grid drawing Tim Bombadil snippet
+\usepackage{xifthen}		% for grid drawing Tim Bombadil snippet
+
+\usepgfplotslibrary{external} 
+\tikzset{external/system call={lualatex \tikzexternalcheckshellescape -halt-on-error -interaction=batchmode -jobname "\image" "\texsource"}}
+\tikzexternalize
+
+\pgfplotsset{compat=newest}
+
+\input{utils/drawslabs}
+\input{utils/figures}
+
+\input{styling}
+
+\input{commands}
+
+\setcounter{secnumdepth}{2}
+
+\hypersetup{
+    colorlinks=false,
+    pdfborder={0 0 0},
+}
+
+%\includeonly{}
+
+\author{Przemys\l aw Pietrzkiewicz} 
+\title{Image Analysis Techniques for Industrial Inspection Systems} 
+\date{\today} 
+
+
+\begin{document} 
+
+\frontmatter 
+
+\include{_Cover}
+\include{_Acknowledgments} 
+
+\tableofcontents 
+
+\mainmatter 
+\include{Introduction}
+\include{Thresholding}
+\include{BlobAnalysis}
+\include{1DEdgeDetection} 
+\include{2DEdgeDetection}
+\include{ContourAnalysis} 
+\include{ShapeFitting}
+\include{TemplateMatching}
+
+\include{_ConcludingRemarks}
+
+%\backmatter 
+%\include{glossary} 
+%\include{notat} 
+\bibliographystyle{unsrt}
+\bibliography{bibliography}
+\printindex
+
+\end{document} 

@@ -1,0 +1,8 @@
+<AdaptiveVisionProject Name="Otsu" Version="2.5.0" StartUpProgramName="Main">
+  <Configuration />
+  <Files>
+    <Program Path="Otsu.avcode" />
+    <View Path="Otsu.avview" />
+    <Lib Path="C:\Users\dx\projects\AdaptiveVisionStudio\depot\mvg\gen\PowerTools.avlib" />
+  </Files>
+</AdaptiveVisionProject>

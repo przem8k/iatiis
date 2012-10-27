@@ -1,0 +1,8 @@
+<AdaptiveVisionProject Name="RegionMorphology" Version="2.4.1" StartUpProgramName="Main">
+  <Configuration />
+  <Files>
+    <Program Path="RegionMorphology.avcode" />
+    <View Path="RegionMorphology.avview" />
+    <Lib Path="C:\Users\dx\projects\AdaptiveVisionStudio\depot\mvg\gen\PowerTools.avlib" />
+  </Files>
+</AdaptiveVisionProject>

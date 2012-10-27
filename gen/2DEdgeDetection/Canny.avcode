@@ -1,0 +1,179 @@
+public Main()
+{
+	LoadImage
+	(
+		inFile: "tooth.png"
+		outImage: con_55bebef4_ddf0_4910_b5db_2c19a62c12f5
+		outAlphaChannel: Nil
+	)
+
+	GradientImage
+	(
+		inImage: con_55bebef4_ddf0_4910_b5db_2c19a62c12f5
+		inRoi: Nil
+		inOperator: Gauss
+		inStdDevX: 2.750000
+		inStdDevY: 2.750000
+		outGradientImage: con_2e27f1b9_2526_4247_9ac5_75e0ee6a9332
+	)
+
+	VectorImageAmplitude
+	(
+		inImage: con_2e27f1b9_2526_4247_9ac5_75e0ee6a9332
+		outImage: con_84a21633_34bf_4cb9_9c60_f1616430a0c8
+	)
+
+	ConvertPixelType
+	(
+		inImage: con_84a21633_34bf_4cb9_9c60_f1616430a0c8
+		inRoi: Nil
+		inNewType: UInt8
+		outImage: con_c6f7d3b3_8f95_41e0_ae85_09cd563fe010
+	)
+
+	SaveImage
+	(
+		inImage: con_c6f7d3b3_8f95_41e0_ae85_09cd563fe010
+		inImageFileFormat: Nil
+		inFile: "results/tooth_canny_high.png"
+	)
+
+	GradientImage
+	(
+		inImage: con_55bebef4_ddf0_4910_b5db_2c19a62c12f5
+		inRoi: Nil
+		inOperator: Gauss
+		inStdDevX: 0.700000
+		inStdDevY: 0.700000
+		outGradientImage: con_853a7fd6_9a5b_4ebf_a52b_7e16fe076244
+	)
+
+	VectorImageAmplitude
+	(
+		inImage: con_853a7fd6_9a5b_4ebf_a52b_7e16fe076244
+		outImage: con_86e6c727_4f3a_46e6_8932_413f9f1ba6a7
+	)
+
+	ConvertPixelType
+	(
+		inImage: con_86e6c727_4f3a_46e6_8932_413f9f1ba6a7
+		inRoi: Nil
+		inNewType: UInt8
+		outImage: con_a0a98cae_b4ca_44d8_b15b_f17578a23e7c
+	)
+
+	SaveImage
+	(
+		inImage: con_a0a98cae_b4ca_44d8_b15b_f17578a23e7c
+		inImageFileFormat: Nil
+		inFile: "results/tooth_canny_low.png"
+	)
+
+	ThresholdToRegion
+	(
+		inImage: con_86e6c727_4f3a_46e6_8932_413f9f1ba6a7
+		inRoi: Nil
+		inMinValue: 80.000000
+		inMaxValue: Nil
+		outRegion: con_c542aa09_4539_480b_ad93_d4f16b6b709c
+	)
+
+	ConvertPixelType
+	(
+		inImage: con_86e6c727_4f3a_46e6_8932_413f9f1ba6a7
+		inRoi: Nil
+		inNewType: UInt8
+		outImage: con_b0b5eaa6_32db_40b1_90df_a1c3b6bdcf92
+	)
+
+	ConvertToThreeChannelMono
+	(
+		inImage: con_b0b5eaa6_32db_40b1_90df_a1c3b6bdcf92
+		outImage: con_c1dcb898_5d27_402a_b6ca_13881795f37e
+	)
+
+	DrawRegionNicely
+	(
+		inImage: con_c1dcb898_5d27_402a_b6ca_13881795f37e
+		inRegion: con_c542aa09_4539_480b_ad93_d4f16b6b709c
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 128.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		outImage: con_c3930cd8_d15b_4010_8c90_08ee982c2a9b
+	)
+
+	SaveImage
+	(
+		inImage: con_c3930cd8_d15b_4010_8c90_08ee982c2a9b
+		inImageFileFormat: Nil
+		inFile: "results/tooth_canny_hist_high.png"
+	)
+
+	ThresholdToRegion
+	(
+		inImage: con_86e6c727_4f3a_46e6_8932_413f9f1ba6a7
+		inRoi: Nil
+		inMinValue: 38.000000
+		inMaxValue: Nil
+		outRegion: con_db375e81_23bf_4c0d_a82c_4cc554adcd31
+	)
+
+	DrawRegionNicely
+	(
+		inImage: con_c1dcb898_5d27_402a_b6ca_13881795f37e
+		inRegion: con_db375e81_23bf_4c0d_a82c_4cc554adcd31
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 128.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		outImage: con_31292c9c_7a00_454e_a4e2_958fd64f0fa2
+	)
+
+	SaveImage
+	(
+		inImage: con_31292c9c_7a00_454e_a4e2_958fd64f0fa2
+		inImageFileFormat: Nil
+		inFile: "results/tooth_canny_low_hist_low.png"
+	)
+
+	ThresholdToRegion_Hysteresis
+	(
+		inImage: con_86e6c727_4f3a_46e6_8932_413f9f1ba6a7
+		inRoi: Nil
+		inThreshold: 80.000000
+		inHysteresis: 42.000000
+		outRegion: con_ab134332_3ad2_47ed_a1c7_f156f690c0c5
+	)
+
+	DrawRegionNicely
+	(
+		inImage: con_c1dcb898_5d27_402a_b6ca_13881795f37e
+		inRegion: con_ab134332_3ad2_47ed_a1c7_f156f690c0c5
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 128.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		outImage: con_a087c502_76dc_4fda_a341_eed60a996c30
+	)
+
+	SaveImage
+	(
+		inImage: con_a087c502_76dc_4fda_a341_eed60a996c30
+		inImageFileFormat: Nil
+		inFile: "results/tooth_canny_hist.png"
+	)
+}
+

@@ -1,0 +1,52 @@
+\section{Dynamic Thresholding}
+
+\paragraph*{}
+When the lightning in the scene is uneven to the point where image foreground intensity in dark parts of the image is at the same level as the background intensity in bright sections - or, in other words, intensity ranges of background and foreground are overlapping - it is clear that global thresholding cannot be applied.
+
+\oneFigure
+{ImageThresholding/img/barcode_scanline}
+{.}
+{UnevenBarcode}
+{\basicWidth}
+
+\paragraph*{}
+An example of such problem is illustrated in \reffig{UnevenBarcode}. As we can see, bad lightning setup makes left bars of the barcode appear brighter than the background in the right part of the barcode. Key point in overcoming this issue lies in an observation that the barcode, even under bad lightning, is still \textit{locally} darker than the background in its entirety. 
+
+\paragraph*{}
+This is illustrated in \reffig{UnevenBarcodeProfiles}, where we plot the 1D profile of the barcode extracted along the scan line marked in the image and the same profile smoothed with running average operator of with 10.
+
+\profileFigure
+{
+	\addProfileData{ImageThresholding/img/dynamic_profile.values}
+	\addProfileData{ImageThresholding/img/dynamic_smoothed.values}
+}
+{Brightness profile of the barcode image in red, smoothed profile in blue.}
+{UnevenBarcodeProfiles}
+
+\paragraph*{}
+Therefore, if we define the threshold value in relation to mean local brightness at each location, we can get accurate results despite bad lightning conditions. Dynamic Thresholding classifies the pixels of image $I$ in relation to image $A$ representing local brightness means:
+
+\[
+B[i,j] = \left\{ 
+  \begin{array}{l l}
+    1 & \quad \text{if } minValue \leq I[i,j] - A[i,j] \leq maxValue \\
+    0 & \quad \text{otherwise} \\
+  \end{array} \right.
+\]
+
+\paragraph*{}
+The image of local averages may be obtained using smoothing operator. Depending on the specific application we may prefer to use different smoothing methods. In practice mean blur with box kernel is frequently used due to its efficiency and despite its anisotropy. Gaussian operator is isotropic, yet slower alternative. 
+
+\paragraph*{}
+\reffig{ThresholdedBarcode} demonstrates failed global thresholding attempt (with lowest threshold value that includes whole bar area in the result) and the results of dynamic thresholding of the image using mean blur with box kernel.
+
+\twoFigures
+{ImageThresholding/img/barcode_high}
+{ImageThresholding/img/barcode_dynamic}
+{Results of global thresholding and dynamic thresholding of the barcode picture.}
+{ThresholdedBarcode}
+{\basicWidth}
+
+\begin{refImpl}
+\studio \,filters \filter{ThresholdImage\_Dynamic}{ImageThresholding} and \filter{ThresholdToRegion\_Dynamic}{ImageThresholding} implement the dynamic thresholding method using mean average with box kernel. 
+\end{refImpl}

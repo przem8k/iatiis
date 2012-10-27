@@ -1,0 +1,156 @@
+extern Integer ZoomFactor = 15
+
+public Main()
+{
+	LoadImage
+	(
+		inFile: "capsule.png"
+		outImage: con_3132c917_9de8_47e3_b75d_ca97f56edb8a
+		outAlphaChannel: Nil
+	)
+
+	CropImage
+	(
+		inImage: con_3132c917_9de8_47e3_b75d_ca97f56edb8a
+		inSelection:
+			Box
+			(
+				X: 211
+				Y: 322
+				Width: 40
+				Height: 30
+			)
+		outImage: con_96b76c75_4d00_4b31_92d5_bbae75335d6d
+	)
+
+	DetectEdges
+	(
+		inImage: con_96b76c75_4d00_4b31_92d5_bbae75335d6d
+		inRoi: Nil
+		inEdgeFilter: Canny
+		inStdDevX: 0.500000
+		inStdDevY: 0.500000
+		inEdgeThreshold: 30.000000
+		inEdgeHysteresis: 10.000000
+		outEdges: con_439de250_0d42_4542_b002_f51e441de12b
+		diagGradientAmplitudeImage: Nil
+		diagEdgeRegion: Nil
+	)
+
+	ResizeImage_Relative
+	(
+		inImage: con_96b76c75_4d00_4b31_92d5_bbae75335d6d
+		inHorizontalScale: ZoomFactor
+		inVerticalScale: ZoomFactor
+		inResizeMethod: NearestNeighbour
+		outImage: con_48a39ef3_be01_420b_950f_a665a9fadbbe
+	)
+
+	ZoomPath
+	(
+		inZoomFactor: ZoomFactor
+		inPath: con_439de250_0d42_4542_b002_f51e441de12b
+		outPath: con_bd8445ec_73a9_4935_950f_cfc794a27f0f
+	)
+
+	DrawPaths
+	(
+		inImage: con_48a39ef3_be01_420b_950f_a665a9fadbbe
+		inPaths: con_bd8445ec_73a9_4935_950f_cfc794a27f0f
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 255.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		inPointShape: Circle
+		inDrawingMode: HighQuality
+		inThickness: 3.000000
+		inPointSize: 6.000000
+		inOpacity: 1.000000
+		inFilled: False
+		outImage: con_9e92c1d9_3e9f_4ddf_a165_de9abdf02e31
+	)
+
+	SaveImage
+	(
+		inImage: con_9e92c1d9_3e9f_4ddf_a165_de9abdf02e31
+		inImageFileFormat: Nil
+		inFile: "../img/ClosedPaths.png"
+	)
+
+	CropImage
+	(
+		inImage: con_3132c917_9de8_47e3_b75d_ca97f56edb8a
+		inSelection:
+			Box
+			(
+				X: 110
+				Y: 343
+				Width: 40
+				Height: 30
+			)
+		outImage: con_9611d04b_eab0_414c_beee_520101ec6f65
+	)
+
+	ResizeImage_Relative
+	(
+		inImage: con_9611d04b_eab0_414c_beee_520101ec6f65
+		inHorizontalScale: ZoomFactor
+		inVerticalScale: ZoomFactor
+		inResizeMethod: NearestNeighbour
+		outImage: con_75821780_33a0_47ad_b956_5fda8c697dbf
+	)
+
+	DetectEdges
+	(
+		inImage: con_9611d04b_eab0_414c_beee_520101ec6f65
+		inRoi: Nil
+		inEdgeFilter: Canny
+		inStdDevX: 0.500000
+		inStdDevY: 0.500000
+		inEdgeThreshold: 30.000000
+		inEdgeHysteresis: 10.000000
+		outEdges: con_de658e5f_1a30_48bd_93a4_17de5806cc24
+		diagGradientAmplitudeImage: Nil
+		diagEdgeRegion: Nil
+	)
+
+	ZoomPath
+	(
+		inZoomFactor: ZoomFactor
+		inPath: con_de658e5f_1a30_48bd_93a4_17de5806cc24
+		outPath: con_90436ce4_053f_496e_b43d_c7bf17f1ba5d
+	)
+
+	DrawPaths
+	(
+		inImage: con_75821780_33a0_47ad_b956_5fda8c697dbf
+		inPaths: con_90436ce4_053f_496e_b43d_c7bf17f1ba5d
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 255.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		inPointShape: Circle
+		inDrawingMode: HighQuality
+		inThickness: 3.000000
+		inPointSize: 6.000000
+		inOpacity: 1.000000
+		inFilled: False
+		outImage: con_96f45a11_4d18_42ec_a82c_3a6093d9a9a8
+	)
+
+	SaveImage
+	(
+		inImage: con_96f45a11_4d18_42ec_a82c_3a6093d9a9a8
+		inImageFileFormat: Nil
+		inFile: "../img/OpenPaths.png"
+	)
+}
+

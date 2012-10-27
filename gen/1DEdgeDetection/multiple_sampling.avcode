@@ -1,0 +1,139 @@
+public Main()
+{
+
+	LoadImage
+	(
+		inFile: "fuses.png"
+		outImage: con_947e38d0_a10f_492a_8d7e_e362f47d51d7
+		outAlphaChannel: Nil
+	)
+
+
+	CopyObject<Segment2D>
+	(
+		inObject: Segment2D
+		(
+			X1: 185.500000
+			Y1: 250.500000
+			X2: 215.500000
+			Y2: 250.500000
+		)
+		outObject: con_7858afff_ef0e_425c_b507_ac8b82d8d7bd
+	)
+
+
+	ConvertToEquidistantPath
+	(
+		inPath: con_7858afff_ef0e_425c_b507_ac8b82d8d7bd
+		inStep: 1.000000
+		outPath: con_204742ac_cb62_49ca_9524_18b1edb52052
+	)
+
+
+	AccessPath
+	(
+		inPath: con_204742ac_cb62_49ca_9524_18b1edb52052
+		outPoints: con_42dd1815_24a0_42e0_9054_8f0ad2121dac
+		outClosed: Nil
+	)
+
+
+	Single
+	(
+		inCenter: con_42dd1815_24a0_42e0_9054_8f0ad2121dac
+		inRadius: 5
+		outPath: con_0af650c7_8ee0_436b_b67b_c6cdcb185c85
+	)
+
+
+	PathArrayPoints
+	(
+		inPaths: con_0af650c7_8ee0_436b_b67b_c6cdcb185c85
+		outPoints: con_7772e640_10e5_4e90_aee5_4e8a7aa0de15
+	)
+
+
+	CreateCircle
+	(
+		inPoint: con_7772e640_10e5_4e90_aee5_4e8a7aa0de15
+		inPointAlignment: MiddleCenter
+		inRadius: 0.100000
+		outCircle: con_c0ae82ae_f47c_43e4_847a_72878d4f75e4
+	)
+
+
+	CreateShortArray<Path>
+	(
+		inValue1: Nil
+		inValue2: Nil
+		inValue3: Nil
+		inValue4: Nil
+		inValue5: Nil
+		inValue6: Nil
+		inValue7: Nil
+		inValue8: Nil
+		outArray: con_43d95d8e_d57e_4a02_98d6_b0dc02fc5337
+	)
+}
+
+public Single(Point2D inCenter, Integer inRadius, Path outPath)
+{
+
+	Translate
+	(
+		inDeltaY: inRadius
+		inPoint: inCenter
+		inInverse: False
+		outPoint: con_1844c141_9efc_4d52_b0ac_c17b7771c398
+	)
+
+
+	Translate
+	(
+		inDeltaY: inRadius
+		inPoint: inCenter
+		inInverse: True
+		outPoint: con_12036f69_f705_40ad_8b05_80be90b79901
+	)
+
+
+	IntegerExpression
+	(
+		inExpression: "2*A + 1"
+		inA: inRadius
+		inB: 0
+		inC: 0
+		inD: 0
+		outValue: con_59a927b5_6aa7_45aa_ae79_ef283df4184b
+	)
+
+
+	CreateStraightPath
+	(
+		inBegin: con_1844c141_9efc_4d52_b0ac_c17b7771c398
+		inEnd: con_12036f69_f705_40ad_8b05_80be90b79901
+		inPointCount: con_59a927b5_6aa7_45aa_ae79_ef283df4184b
+		outPath: outPath
+	)
+}
+
+public Translate(Integer inDeltaY, Point2D inPoint, Bool inInverse, Point2D outPoint)
+{
+
+	MakeVector
+	(
+		inDeltaX: 0.000000
+		inDeltaY: inDeltaY
+		outVector: con_6ac26305_2677_45ef_9d70_9aca48501ed1
+	)
+
+
+	TranslatePoint
+	(
+		inPoint: inPoint
+		inDelta: con_6ac26305_2677_45ef_9d70_9aca48501ed1
+		inInverse: inInverse
+		outPoint: outPoint
+	)
+}
+

@@ -1,0 +1,44 @@
+\section{Examples}
+
+\paragraph*{}
+In this section we will present a couple of industrial problems solved using techniques introduced in this chapter.
+
+\subsection{Capsule Extraction}
+
+\paragraph*{}
+Region-processing techniques are commonly applied to refine inaccurate results of image thresholding. \reffig{CapsuleExtraction} demonstrates a process of acquiring correct representation of semi-transparent dishwasher powder capsule. 
+
+\paragraph*{}
+Transparency of the capsule material makes the object appear at similar brightness levels as the background, thus precluding application of global thresholding. Dynamic thresholding is applied instead to extract the boundaries of the capsule, along with unwanted horizontal edges of the conveyor line.
+
+\paragraph*{}
+As long as we may rely on the capsule to have a closed, dark contour (which we assume we can), we can simply fill the region holes to acquire filled hull of the capsule and then perform morphological opening to remove unwanted thin traces of conveyor line. This process is illustrated in \reffig{CapsuleExtraction}.
+
+\fourFigures
+{BlobAnalysis/img/capsule_3_input}
+{BlobAnalysis/img/capsule_3_region}
+{BlobAnalysis/img/capsule_3_filled}
+{BlobAnalysis/img/capsule_3_opened}
+{Input image (a), results of dynamic thresholding (b), filled holes of the extracted region (c), morphological opening applied to filled region (d).}
+{CapsuleExtraction}
+{\basicWidth}
+
+\subsection{Counting}
+
+\paragraph*{}
+In this example our aim is to count the teeth of a saw blade. Contrary to the previous example, now the region representing the object being inspected is flawlessly extracted using simple thresholding while the interesting part lies in the counting itself, i.e. in analysis of the extracted region.
+
+\paragraph*{}
+\reffig{BlobAnalysisCounting} demonstrates a morphology-based approach. Opening of the extracted region with big circular kernel removes the teeth, so that we may extract the saw teeths using region difference and connected components operators.
+
+\paragraph*{}
+In industrial setting it would be prudent to perform slight dilation on the opened region before subtraction to make sure that none of the neighboring teeth pair will remain connected after that.
+
+\fourFigures
+{BlobAnalysis/img/blade_input}
+{BlobAnalysis/img/blade_region}
+{BlobAnalysis/img/blade_opened}
+{BlobAnalysis/img/blade_blobs}
+{Input image (a), results of global thresholding (b), opening of the extracted region (c), connected components of difference between b. and c. (d).}
+{BlobAnalysisCounting}
+{\basicWidth}

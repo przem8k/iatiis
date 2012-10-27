@@ -1,0 +1,28 @@
+<documents>
+  <hsplit>
+    <vsplit>
+      <views width="0.4951" height="0.4962">
+        <view>
+          <output name="con_8929e4a2_20d6_45d8_ade1_4fe6bd31bb7c" />
+        </view>
+      </views>
+      <views width="0.4951" height="0.4962">
+        <view>
+          <output name="con_2aed76ac_c6e2_410a_85dc_55da027373ed" />
+        </view>
+      </views>
+    </vsplit>
+    <vsplit>
+      <views width="0.4951" height="0.4947">
+        <view>
+          <output name="outCorrelationMaximaImage" macro="CorrelationSearch" />
+        </view>
+      </views>
+      <views width="0.4951" height="0.4947">
+        <view>
+          <output name="outResultsImage" macro="CorrelationSearch" />
+        </view>
+      </views>
+    </vsplit>
+  </hsplit>
+</documents>

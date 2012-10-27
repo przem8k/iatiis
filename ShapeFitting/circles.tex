@@ -1,0 +1,85 @@
+\section{Circles}
+
+\paragraph*{}
+We now move our attention to the problem of circle fitting. A canonical equation used to represent circles is the following:
+
+\[
+	\{(x,y): (x-a)^2 + (y-b)^2 = r^2\}
+\]
+
+where $(a,b)$ is the center of the circle and $r$ denotes its radius. Under this representation, distance between the circle and a point $(x_i, y_i)$ is given by:
+
+\[
+	|\sqrt{(x_i-a)^2 + (y_i-b)^2} - r|
+\]
+
+\paragraph*{}
+The least-squares circle fit to a point set $P$ may be therefore formulated as the minimization of the error:
+
+\[
+	\sum_{(x,y) \in P} (\sqrt{(x-a)^2 + (y-b)^2} - r)^2
+\]
+
+over possible circles $(a,b,r)$.
+
+
+\paragraph*{}
+Unfortunately, this problem is nonlinear and cannot be solved by a finite algorithm. The existing methods for circle fitting may be divided into two groups: iterative algorithms that optimize the least-squares function defined above (these methods are usually referred to as \textit{geometric}) and methods that optimize other, easier to solve, cost functions (these methods are usually called \textit{algebraic}).
+
+\paragraph*{}
+The geometric fit is theoretically enticing, but causes significant problems in practical applications. Every algorithm trying to find the least-squares fit is inherently subject to possibility of divergence or convergence to suboptimal local minimum. Moreover, the geometric fit algorithms tend to be computationally expensive, at least compared with the popular methods of algebraic fitting.
+
+\paragraph*{}
+At the same time the best available methods of algebraic fitting yield accurate, close-to-optimal results and are free from this limitations - both experimental and theoretical arguments on this issue can be found in the exhaustive work\cite{Chernov10} of Chernov.
+
+\subsection{Algebraic Fit}
+
+\paragraph*{}
+Perhaps the simplest method of algebraic circle fitting was given by Kasa, who proposed to minimize the following error function:
+
+\[
+	\sum_{(x,y) \in P} ((x-a)^2 + (y-b)^2 - r^2)^2
+\]
+
+\paragraph*{}
+After a simple substitution $A = -2a$, $B = -2b$, $C = a^2 + b^2 - r^2$ and introducing artificial, third dimension of the point set $z = x^2 + y^2$ we get:
+
+\[
+	\sum_{(x,y) \in P} (z + Ax + By + D)^2
+\]
+
+\paragraph*{}
+The minimum of this function can be found by computing the partial derivatives with respect to $A$, $B$, $C$ - we require that each such derivative will be equal to zero at the minimum, which leads to system of linear equations:
+
+\begin{align*}
+	m'_{2,0,0}A + m'_{1,1,0}B + m'_{1,0,0}C &= -m'_{1,0,1}\\
+	m'_{1,1,0}A + m'_{0,2,0}B + m'_{0,1,0}C &= -m'_{0,1,1}\\
+	m'_{1,0,0}A + m'_{0,1,0}B + C &= -m'_{0,0,1}
+\end{align*}
+
+where $m'_{p,q,s}$ denotes three-dimensional (together with the artificial dimension $z$), normalized moments. Such system can be solved efficiently by methods of linear algebra.
+
+\paragraph*{}
+Kasa method has important advantages: it is very fast, it is easy to implement, and its moment-based schema is easy to equip with the iterative outlier suppression which we have described in the last section. Its major weakness is poor performance on data representing small arcs (10 degrees or less), for which it often fails to yield a feasible estimation.
+
+\paragraph*{}
+Fortunately, more advanced methods of algebraic fitting by Pratt and Taubin achieve far better performance retaining the advantages of the algebraic fit. Details of these methods as well as a benchmark of their performance are given in already mentioned work\cite{Chernov10}, which indicates the Taubin method as feasible for most of the practical applications.  
+
+\paragraph*{}
+\reffig{AlgebraicFitResults} demonstrates the results of Kasa and Taubin fit for the data set representing small circular arc.
+
+\twoFigures
+{ShapeFitting/img/AlgebraicFit_Kasa}
+{ShapeFitting/img/AlgebraicFit_Taubin}
+{The algebraic fit of Kasa (on the left) and Taubin (on the right).}
+{AlgebraicFitResults}
+{\basicWidth}
+
+\subsection{Circular Arcs}
+
+\paragraph*{}
+Similarly to the line fitting, also circle fitting may be easily modified to return circular arcs rather than full circles. Again, all that we need to do is to compute the orthogonal projection of the input points onto the resulting circle and select the smallest section of the circle that contains all projection points.
+
+\begin{refImpl}
+\studio filter \filter{FitCircleToPoints}{GeometryFeatures} implements a selection of algebraic line fitting methods along with optional iterative outlier suppression, while the \filter{FitArcToPoints}{GeometryFeatures} performs analogous fitting of circular arcs.
+\end{refImpl}

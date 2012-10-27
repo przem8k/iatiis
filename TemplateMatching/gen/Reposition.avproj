@@ -1,0 +1,7 @@
+<AdaptiveVisionProject Name="Reposition" Version="2.5.0" StartUpProgramName="Main">
+  <Configuration />
+  <Files>
+    <Program Path="Reposition.avcode" />
+    <View Path="Reposition.avview" />
+  </Files>
+</AdaptiveVisionProject>

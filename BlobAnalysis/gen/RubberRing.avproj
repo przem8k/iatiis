@@ -1,0 +1,7 @@
+<AdaptiveVisionProject Name="RubberRing" Version="2.4.1" StartUpProgramName="Main">
+  <Configuration />
+  <Files>
+    <Program Path="RubberRing.avcode" />
+    <View Path="RubberRing.avview" />
+  </Files>
+</AdaptiveVisionProject>

@@ -1,0 +1,8 @@
+<AdaptiveVisionProject Name="Segmentation" Version="2.5.0" StartUpProgramName="Main">
+  <Configuration />
+  <Files>
+    <Program Path="Segmentation.avcode" />
+    <View Path="Segmentation.avview" />
+    <Lib Path="C:\Users\dx\projects\AdaptiveVisionStudio\depot\mvg\gen\PowerTools.avlib" />
+  </Files>
+</AdaptiveVisionProject>

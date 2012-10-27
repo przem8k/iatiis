@@ -1,0 +1,8 @@
+<AdaptiveVisionProject Name="classic_thresholding" Version="2.4.1" StartUpProgramName="Main">
+  <Configuration />
+  <Files>
+    <Program Path="classic_thresholding.avcode" />
+    <View Path="classic_thresholding.avview" />
+    <Lib Path="C:\Users\dx\projects\AdaptiveVisionStudio\depot\mvg\gen\PowerTools.avlib" />
+  </Files>
+</AdaptiveVisionProject>

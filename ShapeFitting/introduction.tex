@@ -1,0 +1,30 @@
+\section{Introduction}
+
+\paragraph*{}
+Images being subject to interpretation in industrial inspection tasks often contain simple geometric shapes such as segments and circles. Precise extraction of such features is the key point for various measurement tasks, such as calculating the diameter of a cylinder head, demonstrated in \reffig{RadiusOfCylinderHead}.
+
+\twoFigures
+{ShapeFitting/img/head}
+{ShapeFitting/img/measure_radius}
+{Example application of shape fitting - the diameter of a cylinder head is calculated indirectly as the diameter of a circle fitted to the image.}
+{RadiusOfCylinderHead}
+{\basicWidth}
+
+
+\paragraph*{}
+Various approaches may be taken to obtain abstract information about the geometrical primitives represented in an image. Famous Hough transform performs an exhaustive search iterating through the space of all possible shapes, e.g. all possible radii and centers of circles, within a predefined constraints and with a predefined precision. Each candidate is verified using gradient direction information at the pixels that it is expected to intersect.
+
+\paragraph*{}
+Unfortunately, such approach often proves computationally demanding and easy to disrupt by the imperfections of the shape being identified. Moreover, the method requires careful calibration of the search space constraints and precision of the search. \reffig{HoughProblem} demonstrates a typical problem that occurs frequently when the precision of the search is too low, causing the Hough transform to yield multiple results, none of which is accurate.
+
+\oneFigure
+{ShapeFitting/img/HoughWithFixedRadius}
+{Hough transform-based circle detection performed on the example image.}
+{HoughProblem}
+{\basicWidth}
+
+\paragraph*{}
+An alternative solution would be to apply one or two-dimensional \textbf{edge detection} to extract a group of edge points on the boundary of the shape being examined and fit the abstract shape to such points.
+
+\paragraph*{}
+In this chapter we will overview the classic methods of fitting lines and circles to sets of points in two-dimensional space. We will also demonstrate a particularily useful technique based on one-dimensional edge detection and shape fitting that allow to fit approximate positions of abstract primitives to their actual occurences.

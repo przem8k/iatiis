@@ -1,0 +1,36 @@
+\newcommand{\smallProfile}[1]
+{%
+	\begin{tikzpicture}
+	\begin{axis}[		
+		no markers,
+		scale only axis,
+		width=\linewidth,
+		height=0.5\linewidth,
+		xtick=\empty,
+		ytick=\empty,
+		enlargelimits=false
+	]
+
+	\addplot table[x=Index,y=Value] {#1};
+
+	\end{axis}
+	\end{tikzpicture}%
+}
+
+
+
+
+\chapter{1D Edge Detection} 
+\label{chap:1DEdgeDetection}
+
+\epigraph{The edge... There is no honest way to explain it because the only people who really know where it is are the ones who have gone over.}
+{\textsc{Hunter S. Thompson}}
+
+\pagebreak
+
+\input{1DEdgeDetection/introduction.tex}
+\input{1DEdgeDetection/profile_extraction.tex}
+\input{1DEdgeDetection/step_edges.tex}
+\input{1DEdgeDetection/ridges.tex}
+\input{1DEdgeDetection/stripes.tex}
+\input{1DEdgeDetection/examples.tex}

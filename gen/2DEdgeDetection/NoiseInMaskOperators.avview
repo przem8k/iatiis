@@ -1,0 +1,24 @@
+<documents>
+  <hsplit>
+    <vsplit>
+      <views width="0.494" height="0.497">
+        <view>
+          <output name="con_2be88cf8_ba05_478f_9259_b7f4e061e8b8" />
+        </view>
+      </views>
+      <views width="0.494" height="0.497">
+        <view>
+          <output name="con_381df6f8_3c13_44ab_9d6f_f1064e94adfa" />
+        </view>
+      </views>
+    </vsplit>
+    <vsplit>
+      <views width="0.494" height="0.4958">
+        <view />
+      </views>
+      <views width="0.494" height="0.4958">
+        <view />
+      </views>
+    </vsplit>
+  </hsplit>
+</documents>

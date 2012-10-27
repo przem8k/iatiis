@@ -1,0 +1,71 @@
+extern Real GradientThreshold = 80.000000
+
+public Main()
+{
+	LoadImage
+	(
+		inFile: "tooth.png"
+		outImage: con_2cf966b7_f389_465c_91a3_2aa04d40bf31
+		outAlphaChannel: Nil
+	)
+
+	SaveImage
+	(
+		inImage: con_2cf966b7_f389_465c_91a3_2aa04d40bf31
+		inImageFileFormat: Nil
+		inFile: "results/tooth.png"
+	)
+
+	AverageChannels
+	(
+		inImage: con_2cf966b7_f389_465c_91a3_2aa04d40bf31
+		inRoi: Nil
+		outImage: con_32b04ead_5bcf_4f47_92ea_996b24e09c00
+	)
+
+	GradientAmplitude_PartialDifference
+	(
+		inImage: con_32b04ead_5bcf_4f47_92ea_996b24e09c00
+		outImage: con_2be88cf8_ba05_478f_9259_b7f4e061e8b8
+	)
+
+	ThresholdToRegion
+	(
+		inImage: con_2be88cf8_ba05_478f_9259_b7f4e061e8b8
+		inRoi: Nil
+		inMinValue: GradientThreshold
+		inMaxValue: Nil
+		outRegion: con_ec27c112_4ca4_4729_8e71_b26e4cbd8bf4
+	)
+
+	GradientAmplitude_Prewitt
+	(
+		inImage: con_32b04ead_5bcf_4f47_92ea_996b24e09c00
+		outImage: con_155e0866_1f46_491d_b479_095a9c227e32
+	)
+
+	ThresholdToRegion
+	(
+		inImage: con_155e0866_1f46_491d_b479_095a9c227e32
+		inRoi: Nil
+		inMinValue: GradientThreshold
+		inMaxValue: Nil
+		outRegion: con_bdfa309b_db90_484b_a78b_48d8995e73de
+	)
+
+	GradientAmplitude_Sobel
+	(
+		inImage: con_32b04ead_5bcf_4f47_92ea_996b24e09c00
+		outImage: con_381df6f8_3c13_44ab_9d6f_f1064e94adfa
+	)
+
+	ThresholdToRegion
+	(
+		inImage: con_381df6f8_3c13_44ab_9d6f_f1064e94adfa
+		inRoi: Nil
+		inMinValue: GradientThreshold
+		inMaxValue: Nil
+		outRegion: con_1fdb4d1d_3706_4516_9f84_59f9e0c960d4
+	)
+}
+

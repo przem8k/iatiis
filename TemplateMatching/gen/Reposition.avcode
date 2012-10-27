@@ -1,0 +1,262 @@
+public Main()
+{
+	LoadImage
+	(
+		inFile: "bottles.png"
+		outImage: con_daa57e46_2d49_47fa_8fa1_c2aa54a76282
+		outAlphaChannel: Nil
+	)
+
+	ConvertToMultichannel
+	(
+		inMonoImage: con_daa57e46_2d49_47fa_8fa1_c2aa54a76282
+		inRoi: Nil
+		inNewDepth: 3
+		outImage: con_64f0e728_28f7_4499_ad96_10240ab0b55b
+	)
+
+	CropImage
+	(
+		inImage: con_64f0e728_28f7_4499_ad96_10240ab0b55b
+		inSelection:
+			Box
+			(
+				X: 71
+				Y: 0
+				Width: 66
+				Height: 268
+			)
+		outImage: con_43f08a24_6e68_4e4e_9c1a_d913cc070a44
+	)
+
+	CreateEdgeModel
+	(
+		inImage: con_43f08a24_6e68_4e4e_9c1a_d913cc070a44
+		inTemplateRegion: Region<Reposition0.avdata>
+		inPyramidHeight: Nil
+		inEdgeThreshold: 60.000000
+		inEdgeHysteresis: 40.000000
+		inMinAngle: 0.000000
+		inMaxAngle: 0.000000
+		inAnglePrecision: 1.000000
+		inPointOfReference: Nil
+		outModelPosition: con_2255f34d_7240_4506_a501_c0dcb749d752
+		outEdgeModel: con_a2947973_a5ca_454f_aa1a_a109091bd514
+		diagEdges: con_6fb9157c_6053_492a_afcb_ede0aefabb45
+		diagEdgePyramid: Nil
+	)
+
+	CopyObject<Segment2D>
+	(
+		inObject:
+			Segment2D
+			(
+				X1: 31.696453
+				Y1: 145.323608
+				X2: 31.696453
+				Y2: 259.859741
+			)
+		outObject: con_687baf19_a949_4936_b8ff_34a1db5075b2
+	)
+
+	DrawPositions
+	(
+		inImage: con_43f08a24_6e68_4e4e_9c1a_d913cc070a44
+		inPositions: con_2255f34d_7240_4506_a501_c0dcb749d752
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 255.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		inDrawingMode: HighQuality
+		inPointSize: 2.500000
+		inThickness: 2.000000
+		inOpacity: 1.000000
+		inFilled: False
+		outImage: con_762c42bd_87e5_40c4_9466_7ac77de72614
+	)
+
+	DrawSegments
+	(
+		inImage: con_762c42bd_87e5_40c4_9466_7ac77de72614
+		inSegments: con_687baf19_a949_4936_b8ff_34a1db5075b2
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 128.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		inDrawingMode: HighQuality
+		inMarkerType: Arrow
+		inThickness: 2.000000
+		inMarkerSize: 5.000000
+		inOpacity: 1.000000
+		outImage: con_50ad4440_c127_4482_91c3_00b72e17fd22
+	)
+
+	EmptyImage
+	(
+		inWidth: 395
+		inHeight: 268
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 255.000000
+				Z: 255.000000
+				W: 0.000000
+			)
+		inChannels: 3
+		outImage: con_4c957854_4da9_4e37_9533_766360c3f09e
+	)
+
+	RepositionSegment
+	(
+		inSegment: con_687baf19_a949_4936_b8ff_34a1db5075b2
+		inTargetPosition: con_2255f34d_7240_4506_a501_c0dcb749d752
+		inInverse: True
+		outSegment: con_06582907_6a6a_4909_8aeb_b0d3a4980cf5
+	)
+
+	DrawImage
+	(
+		inImage: con_4c957854_4da9_4e37_9533_766360c3f09e
+		inDrawnImage: con_50ad4440_c127_4482_91c3_00b72e17fd22
+		inLocation:
+			Location
+			(
+				X: 160
+				Y: 0
+			)
+		outImage: con_a928a14f_fae8_4fd0_aa61_bb21582b183c
+	)
+
+	SaveImage
+	(
+		inImage: con_a928a14f_fae8_4fd0_aa61_bb21582b183c
+		inImageFileFormat: Nil
+		inFile: "../img/Reposition_model.png"
+	)
+
+	MatchEdgeModel
+	(
+		inImage: con_64f0e728_28f7_4499_ad96_10240ab0b55b
+		inSearchRegion: Nil
+		inEdgeModel: con_a2947973_a5ca_454f_aa1a_a109091bd514
+		inMaxPyramidLevel: Nil
+		inMinScore: 0.500000
+		inMinDistance: 10.000000
+		inEdgeThreshold: 10.000000
+		inIgnoreEdgePolarity: False
+		outMatches: con_580229d4_b86b_412b_81e6_4ca221422350
+		outPoints: Nil
+		outAngles: Nil
+		outScores: Nil
+		diagEdgePyramid: Nil
+		diagMatchPyramid: Nil
+	)
+
+	DrawPositions
+	(
+		inImage: con_64f0e728_28f7_4499_ad96_10240ab0b55b
+		inPositions: con_580229d4_b86b_412b_81e6_4ca221422350
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 255.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		inDrawingMode: HighQuality
+		inPointSize: 2.500000
+		inThickness: 2.000000
+		inOpacity: 1.000000
+		inFilled: False
+		outImage: con_0af22b65_29b4_4a41_be04_152a17b46432
+	)
+
+	RepositionSegment
+	(
+		inSegment: con_06582907_6a6a_4909_8aeb_b0d3a4980cf5
+		inTargetPosition: con_580229d4_b86b_412b_81e6_4ca221422350
+		inInverse: False
+		outSegment: con_50d32dc6_8b22_4bfc_92c7_82ca0ef1b30d
+	)
+
+	ScanSingleRidge
+	(
+		inImage: con_64f0e728_28f7_4499_ad96_10240ab0b55b
+		inScanPath: con_50d32dc6_8b22_4bfc_92c7_82ca0ef1b30d
+		inScanWidth: 5
+		inInterpolationMethod: NearestNeighbour
+		inSmoothingStdDev: 0.600000
+		inRidgeWidth: 2
+		inMarginWidth: 5
+		inMinStrength: 5.000000
+		inIntensity: Bright
+		outRidgePoint: con_7083c1a0_e2e7_4209_9d45_d3ecba5e03aa
+		diagBrightnessProfile: Nil
+		diagResponseProfile: Nil
+		diagSamplingPoints: Nil
+	)
+
+	RemoveNilsFromArray<Point2D>
+	(
+		inArray: con_7083c1a0_e2e7_4209_9d45_d3ecba5e03aa
+		outArray: con_bf4dd700_ab34_41ac_83bd_4ea1fc590426
+	)
+
+	DrawSegments
+	(
+		inImage: con_0af22b65_29b4_4a41_be04_152a17b46432
+		inSegments: con_50d32dc6_8b22_4bfc_92c7_82ca0ef1b30d
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 128.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		inDrawingMode: HighQuality
+		inMarkerType: Arrow
+		inThickness: 2.000000
+		inMarkerSize: 5.000000
+		inOpacity: 1.000000
+		outImage: con_19d19c8b_c466_4da2_b387_f9e6858331f3
+	)
+
+	DrawPoints
+	(
+		inImage: con_19d19c8b_c466_4da2_b387_f9e6858331f3
+		inPoints: con_bf4dd700_ab34_41ac_83bd_4ea1fc590426
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 0.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		inPointShape: Circle
+		inDrawingMode: HighQuality
+		inPointSize: 5.000000
+		inThickness: 1.000000
+		inOpacity: 1.000000
+		outImage: con_6eac3290_527f_4c16_a996_3539758eb225
+	)
+
+	SaveImage
+	(
+		inImage: con_6eac3290_527f_4c16_a996_3539758eb225
+		inImageFileFormat: Nil
+		inFile: "../img/Reposition_results.png"
+	)
+}
+

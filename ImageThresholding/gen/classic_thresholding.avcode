@@ -1,0 +1,85 @@
+public Main()
+{
+
+	LoadImage
+	(
+		inFile: "images/fuses.png"
+		outImage: con_27be3127_dd0a_44c0_ba82_8b7ff043cb7d
+		outAlphaChannel: Nil
+	)
+
+
+	SaveImage
+	(
+		inImage: con_27be3127_dd0a_44c0_ba82_8b7ff043cb7d
+		inImageFileFormat: Nil
+		inFile: "results/fuses.png"
+	)
+
+
+	ThresholdToRegion
+	(
+		inImage: con_27be3127_dd0a_44c0_ba82_8b7ff043cb7d
+		inRoi: Nil
+		inMinValue: Nil
+		inMaxValue: 242.000000
+		outRegion: con_d034a7cb_271c_42da_bc32_99353a299661
+	)
+
+
+	DrawRegionNicely
+	(
+		inImage: con_27be3127_dd0a_44c0_ba82_8b7ff043cb7d
+		inRegion: con_d034a7cb_271c_42da_bc32_99353a299661
+		inColor: Pixel
+		(
+			X: 255.000000
+			Y: 128.000000
+			Z: 0.000000
+			W: 0.000000
+		)
+		outImage: con_bd6c5797_e678_4ef0_9688_3b079fc8ed69
+	)
+
+
+	SaveImage
+	(
+		inImage: con_bd6c5797_e678_4ef0_9688_3b079fc8ed69
+		inImageFileFormat: Nil
+		inFile: "results/fuses_high.png"
+	)
+
+
+	ThresholdToRegion
+	(
+		inImage: con_27be3127_dd0a_44c0_ba82_8b7ff043cb7d
+		inRoi: Nil
+		inMinValue: Nil
+		inMaxValue: 108.000000
+		outRegion: con_5ae4b7a3_1546_42b1_9295_824706799909
+	)
+
+
+	DrawRegionNicely
+	(
+		inImage: con_27be3127_dd0a_44c0_ba82_8b7ff043cb7d
+		inRegion: con_5ae4b7a3_1546_42b1_9295_824706799909
+		inColor: Pixel
+		(
+			X: 255.000000
+			Y: 128.000000
+			Z: 0.000000
+			W: 0.000000
+		)
+		outImage: con_30dd8eb8_a71a_45c5_bc88_6abd4e258e34
+	)
+
+
+	SaveImage
+	(
+		inImage: con_30dd8eb8_a71a_45c5_bc88_6abd4e258e34
+		inImageFileFormat: Nil
+		inFile: "results/fuses_low.png"
+	)
+}
+

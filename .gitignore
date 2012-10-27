@@ -1,4 +1,5 @@
 *.aux
+*.auxlock
 *.bbl
 *.blg
 *.dvi
@@ -25,3 +26,6 @@
 *.maf
 *.mtc
 *.mtc0
+*-figure*.pdf
+*-figure*.dep
+*-figure*.dpth

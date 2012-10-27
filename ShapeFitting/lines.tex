@@ -1,0 +1,132 @@
+\section{Lines}
+
+\paragraph*{}
+The problem of fitting lines to data frequently occurs in the field of statistics, where it is called \textit{linear regression}. In this context the aim of the fitting is to find a line in the form $y = ax + b$ that optimally models the relation between the (controlled, error-free) variable $x$ and (possibly affected by errors) $y$, given a set of data samples $(x_i, y_i)$. 
+
+\paragraph*{}
+The popular slope-intercept representation of lines works well for statistical regression, where the $x_i$ of data samples are unique, but causes problems in the general case, as the vertical lines can not be represented in this form and nearly-vertical lines require extremely high magnitude of the slope parameter, jeopardizing the numeric stability of the computation. We will therefore use the general equation of the line:
+\[
+	\{(x,y): ax + by + c = 0\}
+\]
+together with a normalization condition:
+\[
+	\sqrt{a^2 + b^2} = 1 
+\]
+
+\paragraph*{}
+The normalization of the vector $(a,b)$ asserts that every line has a unique representation and inherently includes the necessary requirement of $(a,b) \neq (0,0)$. It also allows easy computation of the distance between the line and any point $(x_i,y_i)$, which equals:
+
+\[
+	\frac{|ax_i + by_i + c|}{\sqrt{a^2 + b^2}} = |ax_i + by_i + c|
+\]
+
+\subsection{Problem Formulation}
+
+\paragraph*{}
+From the above, we can formulate a concise definition of the optimization problem that we want to solve for any set of points $P$. Assuming the standard least-squares criterion that aims at minimization of the squared distances from each points to the resulting line, we wish to minimize the following function:
+
+\[
+	\sum_{(x,y) \in P} (ax + by + c)^2
+\]
+
+over all lines $(a,b,c)$ that meet the criterion $\sqrt{a^2 + b^2} = 1$.
+
+\subsection{Moment-based Solution}
+
+\paragraph*{}
+Interestingly, it turns out that we have already discussed almost identical problem, although stated rather covertly. Minimization of the squared distances from a point set to a line is, under physical terminology, nothing else that finding the axis of minimal inertia of the point set; as its moment of inertia equals sum of squared distanced from each point to the axis of rotation.
+
+\paragraph*{}
+As we have already indicated in the \refchap{ContourAnalysis} chapter, such axis may be computed as the eigenvalue of the inertia tensor of the rigid body:
+\[
+I = \begin{bmatrix}
+c'_{2,0} & c'_{1,1}\\
+c'_{1,1} & c'_{0,2}
+\end{bmatrix}
+\]
+
+\paragraph*{}
+All that we need to do to adapt this solution to our needs is defining the moments of a point set $P$, which are direct equivalent of the moments which we have defined for regions:
+
+\begin{align*}
+	m_{p,q} &= \sum_{(x,y) \in P} {x}^p {y}^q \\
+	c_{p,q} &= \sum_{(x,y) \in P} ({x}-\overline{x})^p ({y}-\overline{y})^q
+\end{align*}
+
+\paragraph*{}
+Equivalent result may be also obtained directly using multivariate analysis - the derivation may be found in \cite[p.~588-591]{Haralick92}.
+
+\paragraph*{}
+\reffig{LineFittingResults} demonstrates example results of least-squares line fitting.
+
+\twoFigures
+{ShapeFitting/img/line_clean_fit}
+{ShapeFitting/img/line_outliers_fit}
+{Example results of least-squares line fitting.}
+{LineFittingResults}
+{\basicWidth}
+
+\subsection{Outlier Suppression}
+
+\paragraph*{}
+It is often the case that, due to the imperfections of edge extraction or the object being analyzed, the input data contains points that to do not represent accurately the shape that we wish to extract; as demonstrated in the image on the right of \reffig{LineFittingResults}. Such points, called outliers, distort the outcome of the fitting and should be skipped or suppressed in the computation.
+
+\subsubsection{Random Sample Consensus}
+
+\paragraph*{}
+Random Sample Consensus, proposed\cite{FischlerBolles81} by Fischler and Bolles, is a popular, probabilistic method of robust estimation that exhibits good performance against outliers, even when they represent a significant fraction of the data.
+
+\paragraph*{}
+The method iteratively selects a random minimal sample of points that allows an estimation of the results, in our case that would be a pair of points, to which a line $L$ is fitted. After each such estimation the algorithm counts the data points that \textit{support} the estimate, i.e. lie within a predefined distance $d$ from $L$. 
+
+\paragraph*{}
+The algorithm terminates after a predefined number of iterations, fitting a line to all points that supported the most supported estimate.
+
+\paragraph*{}
+The major drawback of such approach in the context of industrial applications is its probabilistic nature - for the robustness of the systems being designed it is crucial that the methods being deployed should succeed and fail deterministically and consistently on similar data instances.
+
+\subsubsection{Iterative Suppression}
+
+\paragraph*{}
+Another, more predictable in its outcomes, approach would be to improve the results of the fitting iteratively, progressively suppressing the influence of the points that are distant from the estimates being obtained. 
+
+\paragraph*{}
+After each least-squares fit yielding a line $L$, we may calculate the distances between each data point and $L$ and inspect the distribution of distances looking for possible outliers. If we compute a nonnegative weight $w_i$ for each point reflecting our belief that the point $i$ is not an outlier, we could limit the influence of the points with low weight using weighted moments defined as follows:
+
+\begin{align*}
+	m_{p,q} &= \sum_{(x,y,w) \in P} w {x}^p {y}^q \\
+	m'_{p,q} &= \frac{1}{t} m_{p,q} \\
+	c_{p,q} &= \sum_{(x,y,w) \in P} w ({x}-\overline{x})^p ({y}-\overline{y})^q \\
+	c'_{p,q} &= \frac{1}{t} c_{p,q}
+\end{align*}
+
+where $t = \sum_{(x,y,w) \in P} w$ is a sum of all weights. Such values would be used instead of the classic moments in the successive iteration of the algorithm.
+
+\paragraph*{}
+There are a number of possibilities regarding the specific methods of calculating the weights $w_i$ given the distances $d_i$ between each point and the last estimate of the line. A classic method proposed by Huber computes the weights as:
+
+\[
+  w_i = \left\{ 
+  \begin{array}{l l}
+    1 & \quad d_i \leq t\\
+    \frac{t}{d_i} & \quad d_i > t\\
+  \end{array} \right.
+\]
+
+where the threshold $t$ may be either calculated from the distribution of distances $d_i$ (e.g. as its median) or be left as a parameter of the algorithm. Example results of iterative outlier suppression are demonstrated in \reffig{LineFittingOutlierSuppresion}.
+
+\twoFigures
+{ShapeFitting/img/line_outliers_fit}
+{ShapeFitting/img/line_outliers_fit_with_suppresion}
+{Example results of line fitting without and with outlier suppression.}
+{LineFittingOutlierSuppresion}
+{\basicWidth}
+
+\subsection{Segments}
+
+\paragraph*{}
+Line fitting may be directly applied to fit segments to data points, as we may start with fitting a line to the points and then compute the resulting segment as a section of the line defined by the orthogonal projection of the input points onto the line.
+
+\begin{refImpl}
+\studio filter \filter{FitLineToPoints}{GeometryFeatures} implements the line fitting along with optional iterative outlier suppression, while the \filter{FitSegmentToPoints}{GeometryFeatures} performs analogous segment fitting.
+\end{refImpl}

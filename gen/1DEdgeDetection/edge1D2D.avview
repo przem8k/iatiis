@@ -1,0 +1,9 @@
+<documents>
+  <vsplit>
+    <views width="0.997" height="0.9967">
+      <view>
+        <output name="outImage" macro="TwoD" />
+      </view>
+    </views>
+  </vsplit>
+</documents>

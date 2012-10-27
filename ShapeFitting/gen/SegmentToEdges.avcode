@@ -1,0 +1,148 @@
+public Main()
+{
+	LoadImage
+	(
+		inFile: "edge.png"
+		outImage: con_3ab03d6c_79e4_4f88_84a7_61bacbb6aa97
+		outAlphaChannel: Nil
+	)
+
+	ConvertToMultichannel
+	(
+		inMonoImage: con_3ab03d6c_79e4_4f88_84a7_61bacbb6aa97
+		inRoi: Nil
+		inNewDepth: 3
+		outImage: con_cb2ff7a8_cd22_40dc_acba_4408faf19397
+	)
+
+	CopyObject<Segment2D>
+	(
+		inObject:
+			Segment2D
+			(
+				X1: 49.738220
+				Y1: 109.162308
+				X2: 329.842957
+				Y2: 65.706802
+			)
+		outObject: con_652a842b_f145_4858_bddb_74a026a943fb
+	)
+
+	FitSegmentToEdges
+	(
+		inImage: con_cb2ff7a8_cd22_40dc_acba_4408faf19397
+		inExpectedSegment: con_652a842b_f145_4858_bddb_74a026a943fb
+		inMaxDeviation: 50.000000
+		inScanCount: 10
+		inScanWidth: 5
+		inInterpolationMethod: Bilinear
+		inSmoothingStdDev: 1.000000
+		inMinStrength: 5.000000
+		outSegment: con_b1eba3ff_fb3b_46f4_baac_6c069c2b610e
+		outBoundary1: Nil
+		outBoundary2: Nil
+		outScanSegments: con_06e38d02_77d4_4118_b1c7_cbb92fd89429
+		outEdgePoints: con_0c3537a1_053d_4c32_968a_8c6e1f266ad8
+	)
+
+	DrawSegments
+	(
+		inImage: con_cb2ff7a8_cd22_40dc_acba_4408faf19397
+		inSegments: con_652a842b_f145_4858_bddb_74a026a943fb
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 128.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		inDrawingMode: HighQuality
+		inMarkerType: None
+		inThickness: 4.000000
+		inMarkerSize: 5.000000
+		inOpacity: 1.000000
+		outImage: con_4c81ab2f_a243_4a83_8e61_a1ee593624b7
+	)
+
+	ReverseSegment
+	(
+		inSegment: con_06e38d02_77d4_4118_b1c7_cbb92fd89429
+		outSegment: con_77956568_c00a_44ec_8515_c21e7c4ee296
+	)
+
+	DrawSegments
+	(
+		inImage: con_4c81ab2f_a243_4a83_8e61_a1ee593624b7
+		inSegments: con_06e38d02_77d4_4118_b1c7_cbb92fd89429
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 192.000000
+				Z: 128.000000
+				W: 0.000000
+			)
+		inDrawingMode: HighQuality
+		inMarkerType: Arrow
+		inThickness: 3.000000
+		inMarkerSize: 9.000000
+		inOpacity: 1.000000
+		outImage: con_28edfbc6_2b42_4be7_a565_06c3a9905afd
+	)
+
+	DrawPoints
+	(
+		inImage: con_28edfbc6_2b42_4be7_a565_06c3a9905afd
+		inPoints: con_0c3537a1_053d_4c32_968a_8c6e1f266ad8
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 255.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		inPointShape: Circle
+		inDrawingMode: HighQuality
+		inPointSize: 8.000000
+		inThickness: 1.000000
+		inOpacity: 1.000000
+		outImage: con_1b7d746a_f21e_43a7_a45a_e73997de5816
+	)
+
+	SaveImage
+	(
+		inImage: con_1b7d746a_f21e_43a7_a45a_e73997de5816
+		inImageFileFormat: Nil
+		inFile: "../img/SegmentToEdges_Scans.png"
+	)
+
+	DrawSegments
+	(
+		inImage: con_cb2ff7a8_cd22_40dc_acba_4408faf19397
+		inSegments: con_b1eba3ff_fb3b_46f4_baac_6c069c2b610e
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 0.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		inDrawingMode: HighQuality
+		inMarkerType: None
+		inThickness: 4.000000
+		inMarkerSize: 5.000000
+		inOpacity: 1.000000
+		outImage: con_8f96cd30_49b0_446b_96c9_3f6fe7ba3755
+	)
+
+	SaveImage
+	(
+		inImage: con_8f96cd30_49b0_446b_96c9_3f6fe7ba3755
+		inImageFileFormat: Nil
+		inFile: "../img/SegmentToEdges_Result.png"
+	)
+}
+

@@ -1,0 +1,121 @@
+public Main()
+{
+	LoadImage
+	(
+		inFile: "stripe_plain.png"
+		outImage: con_e957b237_bb26_4f60_90af_72659957b371
+		outAlphaChannel: Nil
+	)
+
+	MakeSegment
+	(
+		inX1: 0.000000
+		inY1: 100.500000
+		inX2: 200.000000
+		inY2: 100.500000
+		outSegment: con_3c659583_74db_4130_afb2_51894de3a0cf
+	)
+
+	ScanSingleStripe
+	(
+		inImage: con_e957b237_bb26_4f60_90af_72659957b371
+		inScanPath: con_3c659583_74db_4130_afb2_51894de3a0cf
+		inScanWidth: 5
+		inInterpolationMethod: NearestNeighbour
+		inSmoothingStdDev: 0.600000
+		inMinStrength: 5.000000
+		inIntensity: Dark
+		inMinInnerDistance: 0.000000
+		outFirstStripePoint: con_1e66a3e0_7862_4195_acdb_a0cfbf403cbf
+		outSecondStripePoint: con_d582a4b6_ebe2_40a7_860a_6fa3e40f43b7
+		outDistance: Nil
+		diagBrightnessProfile: Nil
+		diagResponseProfile: Nil
+	)
+
+	CreateShortArray<Point2D>
+	(
+		inValue1: con_1e66a3e0_7862_4195_acdb_a0cfbf403cbf
+		inValue2: con_d582a4b6_ebe2_40a7_860a_6fa3e40f43b7
+		inValue3: Nil
+		inValue4: Nil
+		inValue5: Nil
+		inValue6: Nil
+		inValue7: Nil
+		inValue8: Nil
+		outArray: con_75258a21_3929_4ee5_8167_8161a7d169a5
+	)
+
+	DrawSegments
+	(
+		inImage: con_e957b237_bb26_4f60_90af_72659957b371
+		inSegments: con_3c659583_74db_4130_afb2_51894de3a0cf
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 0.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		inDrawingMode: HighQuality
+		inMarkerType: Arrow
+		inThickness: 2.000000
+		inMarkerSize: 5.000000
+		inOpacity: 1.000000
+		outImage: con_c7480af8_953c_4a8d_a52e_8cb6f7e9d8b5
+	)
+
+	SegmentBetweenPoints
+	(
+		inPoint1: con_1e66a3e0_7862_4195_acdb_a0cfbf403cbf
+		inPoint2: con_d582a4b6_ebe2_40a7_860a_6fa3e40f43b7
+		outSegment: con_3aa7802a_7faa_4ed2_8c0a_4ed0e7d95e96
+	)
+
+	DrawSegments
+	(
+		inImage: con_c7480af8_953c_4a8d_a52e_8cb6f7e9d8b5
+		inSegments: con_3aa7802a_7faa_4ed2_8c0a_4ed0e7d95e96
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 255.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		inDrawingMode: HighQuality
+		inThickness: 3.000000
+		inOpacity: 1.000000
+		outImage: con_da3d02f8_d949_477c_83a1_7b37f61df50a
+	)
+
+	DrawPoints
+	(
+		inImage: con_da3d02f8_d949_477c_83a1_7b37f61df50a
+		inPoints: con_75258a21_3929_4ee5_8167_8161a7d169a5
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 255.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		inPointShape: Circle
+		inDrawingMode: HighQuality
+		inPointSize: 7.000000
+		inThickness: 1.000000
+		inOpacity: 1.000000
+		outImage: con_89052f1b_e3bb_4627_8b2d_df37935f46a3
+	)
+
+	SaveImage
+	(
+		inImage: con_89052f1b_e3bb_4627_8b2d_df37935f46a3
+		inImageFileFormat: Nil
+		inFile: "results/stripe.png"
+	)
+}
+

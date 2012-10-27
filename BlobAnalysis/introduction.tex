@@ -1,0 +1,25 @@
+\section{Introduction}
+
+\paragraph*{}
+In the previous chapter we have been looking into methods that allow us to extract pixel-precise regions corresponding to the objects present in the image. The obtained regions can be and usually are subject to inspection - measurements, classification, counting, etc. Such analysis of pixel-precise shapes extracted from image is called \textbf{Blob Analysis}, Region Analysis or Binary Shape Analysis.
+
+\paragraph*{}
+\textbf{Blob Analysis} is a fundamental technique of image inspection; its main advantages include high flexibility and excellent performance. Its applicability is however limited to tasks in which we are able to reliably extract the object regions (see \textbf{Template Matching} for an alternative). Another drawback of the technique is pixel-precision of the computation (see \textbf{Contour Analysis} for a subpixel-precise alternative).
+
+\twoFigures
+{BlobAnalysis/img/ring_excessive}
+{BlobAnalysis/img/fuses_bad}
+{Example Blob Analysis applications - detection of excessive rubber band segment and disconnected fuses.}
+{BlobAnalysisExample}
+{\basicWidth}
+
+\paragraph*{}
+A typical Blob Analysis-based solution consists of the following steps:
+\begin{enumerate}
+	\item \textbf{Extraction} - firstly, the region corresponding to image objects is extracted from the image, usually by means of \refchap{ImageThresholding}.
+	\item \textbf{Processing} - secondly, the region is subject to various transformations that aim at enhancing the region correspondence to the actual object or highlighting the features that we want to inspect. In this phase the region is often split into connected components so that each one can be analyzed individually.
+	\item \textbf{Feature Extraction} - in the final part the numerical and geometrical features describing the refined regions, such as its diameter, perimeter, compactness, etc. are computed. Such features may be the desired result themselves, or be used as discriminants for region classification.
+\end{enumerate}
+
+\paragraph*{}
+As \refchap{ImageThresholding} has already been discussed in the previous chapter, this chapter will focus entirely on two latter steps. We will commence with a demonstration of the data structure that we will use for representation of pixel-precise shapes and proceed to discussion of morphological and topological transformations that may be performed on such shapes. After that we will review the numerical and geometrical features of binary shapes that are particularily useful for the needs of visual inspection and conclude the chapter with a handful of example Blob Analysis applications.

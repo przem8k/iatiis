@@ -1,0 +1,7 @@
+<AdaptiveVisionProject Name="multiple_sampling" Version="2.4.1">
+  <Configuration />
+  <Files>
+    <Program Path="multiple_sampling.avcode" />
+    <View Path="multiple_sampling.avview" />
+  </Files>
+</AdaptiveVisionProject>

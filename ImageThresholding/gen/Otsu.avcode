@@ -1,0 +1,73 @@
+public Main()
+{
+	LoadImage
+	(
+		inFile: "C:\\Users\\dx\\projects\\AdaptiveVisionStudio\\depot\\mvg\\gen\\ImageThresholding\\images\\needle.png"
+		outImage: con_7943b901_1c78_43f1_b8cf_c648d0e9a900
+		outAlphaChannel: Nil
+	)
+
+	AutoThreshold2
+	(
+		inImage: con_7943b901_1c78_43f1_b8cf_c648d0e9a900
+		inBrightForeground: True
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 128.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		inMethod: Clustering_Otsu
+		outDrawnResult: con_0d47a547_c8da_4026_97a9_4f27b39747e7
+		outThresholdValue: con_3e46af56_1c80_46cb_b3e2_d6a6b043c772
+		outImagePixelValues: con_369600b7_4ed2_4374_8be6_7e578c50e652
+		outImageHistogram: con_d420aeb3_8f40_4881_bf8c_43dfa2bd72ab
+	)
+
+	SaveString
+	(
+		inString: con_3e46af56_1c80_46cb_b3e2_d6a6b043c772
+		inFileAccessMode: CreateOrErase
+		inFile: "results/needle_otsu_threshold.txt"
+	)
+
+	SaveImage
+	(
+		inImage: con_0d47a547_c8da_4026_97a9_4f27b39747e7
+		inImageFileFormat: Nil
+		inFile: "results/needle_otsu_img.png"
+	)
+
+	ExportProfile
+	(
+		inProfile: con_369600b7_4ed2_4374_8be6_7e578c50e652
+		inFilename: "results/needle_otsu_pixels.values"
+	)
+}
+
+public SmoothHistogramRepeatedely(Integer inCount, Histogram inHistogram, Histogram outHistogram, Histogram regHistogram = inHistogram)
+{
+	EnumerateIntegers
+	(
+		inStart: 0
+		inCount: inCount
+		inStep: 1
+		outValue: Nil
+	)
+
+	SmoothHistogram_Mean
+	(
+		inHistogram: prevHistogram
+		inKernelRadius: 1
+		outHistogram: nextHistogram
+	)
+
+	CopyObject<Histogram>
+	(
+		inObject: nextHistogram
+		outObject: outHistogram
+	)
+}
+

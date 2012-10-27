@@ -1,0 +1,268 @@
+extern Pixel OutputRegionColor = Pixel (
+	X: 255.000000
+	Y: 128.000000
+	Z: 0.000000
+	W: 0.000000
+)
+
+public Main()
+{
+
+	LoadImage
+	(
+		inFile: "rubber_ring.png"
+		outImage: con_f990d966_a6e4_4598_abcd_15b8e2363fa3
+		outAlphaChannel: Nil
+	)
+
+
+	NormalizeImage
+	(
+		inImage: con_f990d966_a6e4_4598_abcd_15b8e2363fa3
+		inRoi: Nil
+		inNewMinimum: 0.000000
+		inNewMaximum: 255.000000
+		outImage: con_c07f2c30_fad4_44a6_9a79_4d69d03927ec
+		outA: Nil
+		outB: Nil
+	)
+
+
+	ThresholdToRegion_HSV
+	(
+		inRgbImage: con_f990d966_a6e4_4598_abcd_15b8e2363fa3
+		inRoi: Nil
+		inBeginHue: 0
+		inEndHue: 10
+		inMinSaturation: 190
+		inMaxSaturation: Nil
+		inMinValue: 65
+		inMaxValue: Nil
+		outRegion: con_70eea2ec_39e4_47a0_8a34_0d6be06b785e
+	)
+
+
+	ConvertToThreeChannelMono
+	(
+		inImage: con_c07f2c30_fad4_44a6_9a79_4d69d03927ec
+		outImage: con_3a0bd1fb_ae74_439f_a9bc_0d471b148074
+	)
+
+
+	CopyObject<Integer>
+	(
+		inObject: 8
+		outObject: con_84a92e08_171f_4e1f_8b12_833441aead78
+	)
+
+
+	Dilate
+	(
+		inImage: con_3a0bd1fb_ae74_439f_a9bc_0d471b148074
+		inRegion: con_70eea2ec_39e4_47a0_8a34_0d6be06b785e
+		inRadiusX: con_84a92e08_171f_4e1f_8b12_833441aead78
+		outRegion: con_8007ab66_25c5_4e24_9cf3_2cd031da0e48
+	)
+
+
+	Erode
+	(
+		inImage: con_3a0bd1fb_ae74_439f_a9bc_0d471b148074
+		inRegion: con_8007ab66_25c5_4e24_9cf3_2cd031da0e48
+		inRadiusX: con_84a92e08_171f_4e1f_8b12_833441aead78
+	)
+
+
+	Close
+	(
+		inImage: con_3a0bd1fb_ae74_439f_a9bc_0d471b148074
+		inRegion: con_70eea2ec_39e4_47a0_8a34_0d6be06b785e
+		inRadiusX: con_84a92e08_171f_4e1f_8b12_833441aead78
+		outRegion: con_16733be4_4b45_4b26_8bb7_2473a30c02b0
+	)
+
+
+	Open
+	(
+		inImage: con_3a0bd1fb_ae74_439f_a9bc_0d471b148074
+		inRegion: con_16733be4_4b45_4b26_8bb7_2473a30c02b0
+		inRadiusX: 14
+	)
+}
+
+public Dilate(Image inImage = Image (
+	Width: 0
+	Height: 0
+	Pitch: 0
+	Type: Int8
+	Depth: 1
+	Data: Nil
+), Region inRegion = Region (
+	Width: 0
+	Height: 0
+	Data: Nil
+), Integer inRadiusX = 0, Region outRegion = Region (
+	Width: 0
+	Height: 0
+	Data: Nil
+))
+{
+
+	OutputRegion
+	(
+		inImage: inImage
+		inRegion: inRegion
+		inFile: "results/morphology_dilate_before.png"
+		inColor: OutputRegionColor
+	)
+
+
+	DilateRegion
+	(
+		inRegion: inRegion
+		inKernel: Ellipse
+		inRadiusX: inRadiusX
+		inRadiusY: Nil
+		outRegion: outRegion
+	)
+
+
+	OutputRegion
+	(
+		inImage: inImage
+		inRegion: outRegion
+		inFile: "results/morphology_dilate_after.png"
+		inColor: OutputRegionColor
+	)
+}
+
+public Erode(Image inImage = Image (
+	Width: 0
+	Height: 0
+	Pitch: 0
+	Type: Int8
+	Depth: 1
+	Data: Nil
+), Region inRegion = Region (
+	Width: 0
+	Height: 0
+	Data: Nil
+), Integer inRadiusX = 0)
+{
+
+	OutputRegion
+	(
+		inImage: inImage
+		inRegion: inRegion
+		inFile: "results/morphology_erode_before.png"
+		inColor: OutputRegionColor
+	)
+
+
+	ErodeRegion
+	(
+		inRegion: inRegion
+		inKernel: Ellipse
+		inRadiusX: inRadiusX
+		inRadiusY: Nil
+		outRegion: con_4c1e5bcf_b1eb_48d4_8a8d_6bb714e3c48d
+	)
+
+
+	OutputRegion
+	(
+		inImage: inImage
+		inRegion: con_4c1e5bcf_b1eb_48d4_8a8d_6bb714e3c48d
+		inFile: "results/morphology_erode_after.png"
+		inColor: OutputRegionColor
+	)
+}
+
+public Open(Image inImage = Image (
+	Width: 0
+	Height: 0
+	Pitch: 0
+	Type: Int8
+	Depth: 1
+	Data: Nil
+), Region inRegion = Region (
+	Width: 0
+	Height: 0
+	Data: Nil
+), Integer inRadiusX = 0)
+{
+
+	OutputRegion
+	(
+		inImage: inImage
+		inRegion: inRegion
+		inFile: "results/morphology_open_before.png"
+		inColor: OutputRegionColor
+	)
+
+
+	OpenRegion
+	(
+		inRegion: inRegion
+		inKernel: Ellipse
+		inRadiusX: inRadiusX
+		inRadiusY: Nil
+		outRegion: con_4c31e38d_49d4_4917_a1a4_e48e10d56ca7
+	)
+
+
+	OutputRegion
+	(
+		inImage: inImage
+		inRegion: con_4c31e38d_49d4_4917_a1a4_e48e10d56ca7
+		inFile: "results/morphology_open_after.png"
+		inColor: OutputRegionColor
+	)
+}
+
+public Close(Image inImage = Image (
+	Width: 0
+	Height: 0
+	Pitch: 0
+	Type: Int8
+	Depth: 1
+	Data: Nil
+), Region inRegion = Region (
+	Width: 0
+	Height: 0
+	Data: Nil
+), Integer inRadiusX = 0, Region outRegion = Region (
+	Width: 0
+	Height: 0
+	Data: Nil
+))
+{
+
+	OutputRegion
+	(
+		inImage: inImage
+		inRegion: inRegion
+		inFile: "results/morphology_close_before.png"
+		inColor: OutputRegionColor
+	)
+
+
+	CloseRegion
+	(
+		inRegion: inRegion
+		inKernel: Ellipse
+		inRadiusX: inRadiusX
+		inRadiusY: Nil
+		outRegion: outRegion
+	)
+
+
+	OutputRegion
+	(
+		inImage: inImage
+		inRegion: outRegion
+		inFile: "results/morphology_close_after.png"
+		inColor: OutputRegionColor
+	)
+}
+

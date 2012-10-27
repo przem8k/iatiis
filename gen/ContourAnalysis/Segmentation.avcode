@@ -1,0 +1,99 @@
+public Main()
+{
+	LoadImage
+	(
+		inFile: "tooth.png"
+		outImage: con_69fed067_d63a_403f_987f_abb56d82cd35
+		outAlphaChannel: Nil
+	)
+
+	CropImage
+	(
+		inImage: con_69fed067_d63a_403f_987f_abb56d82cd35
+		inSelection:
+			Box
+			(
+				X: 24
+				Y: 54
+				Width: 55
+				Height: 30
+			)
+		outImage: con_14585bdd_0bdb_48b8_a4f2_ef654d323978
+	)
+
+	DetectEdges
+	(
+		inImage: con_14585bdd_0bdb_48b8_a4f2_ef654d323978
+		inRoi: Nil
+		inEdgeFilter: Lanser
+		inStdDevX: 1.500000
+		inStdDevY: 1.500000
+		inEdgeThreshold: 70.000000
+		inEdgeHysteresis: 40.000000
+		outEdges: con_337cff7a_0834_4002_9e2f_2eb9735a886b
+		diagGradientAmplitudeImage: con_dd3992f2_7714_46d6_ad88_5e3f4a447ed5
+		diagEdgeRegion: Nil
+	)
+
+	PathSize
+	(
+		inPath: con_337cff7a_0834_4002_9e2f_2eb9735a886b
+		outSize: con_0fc84900_0312_4399_b6ee_66c464a91a85
+	)
+
+	SubtractIntegers
+	(
+		inA: con_0fc84900_0312_4399_b6ee_66c464a91a85
+		inB: 5
+		outDifference: con_8600ad52_9f2e_41e6_877c_7b89908746ee
+	)
+
+	Subpath
+	(
+		inPath: con_337cff7a_0834_4002_9e2f_2eb9735a886b
+		inStart: 2
+		inPointCount: con_8600ad52_9f2e_41e6_877c_7b89908746ee
+		outPath: con_5a8dc2ae_1366_4f6e_b830_6639bf614694
+	)
+
+	GetArrayElement<Path>
+	(
+		inArray: con_5a8dc2ae_1366_4f6e_b830_6639bf614694
+		inIndex: 0
+		inReverse: False
+		outValue: con_38d9a280_8d15_41eb_a660_d16181b386d9
+	)
+
+	SegmentPath
+	(
+		inPath: con_38d9a280_8d15_41eb_a660_d16181b386d9
+		inSmoothingStdDev: 0.000000
+		inMaxDeviation: 0.500000
+		inInitialMaxDeviation: Nil
+		inSegmentationMode: Segments
+		inMaxArcRadius: 100.000000
+		outStraight: con_44916d28_648a_4a7a_9005_632b431eb50a
+		outArciform: Nil
+		outSegments: con_cb3ce937_2252_431d_8d38_b1642dd13a7c
+		outArcs: con_a539d285_09e2_48d1_b123_93ede6f3feb6
+	)
+
+	DrawPaths_Subpixel
+	(
+		inColor: Nil
+		inImage: con_14585bdd_0bdb_48b8_a4f2_ef654d323978
+		inPaths: con_44916d28_648a_4a7a_9005_632b431eb50a
+		inScaleFactor: 15
+		inThickness: 4.000000
+		inPointSize: 7.000000
+		outImage: con_1883d881_9b82_4e34_8d13_52eb915067fe
+	)
+
+	SaveImage
+	(
+		inImage: con_1883d881_9b82_4e34_8d13_52eb915067fe
+		inImageFileFormat: Nil
+		inFile: "results/ramer_tooth_segmentation.png"
+	)
+}
+

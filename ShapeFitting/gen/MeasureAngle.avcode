@@ -1,0 +1,278 @@
+public Main()
+{
+	LoadImage
+	(
+		inFile: "C:\\Users\\dx\\projects\\AdaptiveVisionStudio\\depot\\mvg\\ShapeFitting\\gen\\tooth.png"
+		outImage: con_870f9790_a8ed_48c1_98ca_96aa14c67b6b
+		outAlphaChannel: Nil
+	)
+
+	CropImage
+	(
+		inImage: con_870f9790_a8ed_48c1_98ca_96aa14c67b6b
+		inSelection:
+			Box
+			(
+				X: 0
+				Y: 0
+				Width: 300
+				Height: 225
+			)
+		outImage: con_4e7e3ae3_eb7e_4f3c_bb85_7a70db692249
+	)
+
+	CopyObject<Segment2D>
+	(
+		inObject:
+			Segment2D
+			(
+				X1: 43.333321
+				Y1: 59.166664
+				X2: 74.313744
+				Y2: 59.166664
+			)
+		outObject: con_3ca46b56_a5b9_4821_825a_388b8a985f9b
+	)
+
+	FitSegmentToEdges
+	(
+		inImage: con_4e7e3ae3_eb7e_4f3c_bb85_7a70db692249
+		inExpectedSegment: con_3ca46b56_a5b9_4821_825a_388b8a985f9b
+		inMaxDeviation: 25.000000
+		inScanCount: 4
+		inScanWidth: 5
+		inInterpolationMethod: NearestNeighbour
+		inSmoothingStdDev: 1.000000
+		inMinStrength: 5.000000
+		outSegment: con_5022a96c_bef8_436d_ae85_2a80fbe57e0d
+		outScanSegments: con_ce643d7c_0e0c_483a_b436_3d989251f391
+	)
+
+	SegmentLine
+	(
+		inSegment: con_5022a96c_bef8_436d_ae85_2a80fbe57e0d
+		outLine: con_21fca9bd_8276_4d3a_8ea6_6881392a68f0
+	)
+
+	CopyObject<Segment2D>
+	(
+		inObject:
+			Segment2D
+			(
+				X1: 35.098038
+				Y1: 77.598038
+				X2: 35.098038
+				Y2: 101.911766
+			)
+		outObject: con_f349edd6_3ac0_4b17_964f_c8765aa9bcdc
+	)
+
+	CreateShortArray<Segment2D>
+	(
+		inValue1: con_3ca46b56_a5b9_4821_825a_388b8a985f9b
+		inValue2: con_f349edd6_3ac0_4b17_964f_c8765aa9bcdc
+		inValue3: Nil
+		inValue4: Nil
+		inValue5: Nil
+		inValue6: Nil
+		inValue7: Nil
+		inValue8: Nil
+		outArray: con_5d15b86b_f0c1_4118_b715_d2bf4f80d095
+	)
+
+	FitSegmentToEdges
+	(
+		inImage: con_4e7e3ae3_eb7e_4f3c_bb85_7a70db692249
+		inExpectedSegment: con_f349edd6_3ac0_4b17_964f_c8765aa9bcdc
+		inMaxDeviation: 25.000000
+		inScanCount: 4
+		inScanWidth: 5
+		inInterpolationMethod: NearestNeighbour
+		inSmoothingStdDev: 1.000000
+		inMinStrength: 5.000000
+		outSegment: con_f53cb8d8_5137_4df7_aa58_46445f45939f
+		outScanSegments: con_9fe6fb46_515f_4958_9777_3870a8344cac
+	)
+
+	ReverseSegment
+	(
+		inSegment: con_9fe6fb46_515f_4958_9777_3870a8344cac
+		outSegment: con_a0db02a5_219a_49eb_ab01_c213ed524e5e
+	)
+
+	CreateShortArray<Segment2D>
+	(
+		inValue1: con_5022a96c_bef8_436d_ae85_2a80fbe57e0d
+		inValue2: con_f53cb8d8_5137_4df7_aa58_46445f45939f
+		inValue3: Nil
+		inValue4: Nil
+		inValue5: Nil
+		inValue6: Nil
+		inValue7: Nil
+		inValue8: Nil
+		outArray: con_7163099b_ec70_462c_832e_345b8b8a1395
+	)
+
+	DrawSegments
+	(
+		inImage: con_4e7e3ae3_eb7e_4f3c_bb85_7a70db692249
+		inSegments: con_5d15b86b_f0c1_4118_b715_d2bf4f80d095
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 128.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		inDrawingMode: HighQuality
+		inMarkerType: None
+		inThickness: 3.000000
+		inMarkerSize: 5.000000
+		inOpacity: 1.000000
+		outImage: con_f339b426_01f6_4360_a678_9e308050066e
+	)
+
+	DrawSegments
+	(
+		inImage: con_f339b426_01f6_4360_a678_9e308050066e
+		inSegments: con_ce643d7c_0e0c_483a_b436_3d989251f391
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 255.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		inDrawingMode: HighQuality
+		inMarkerType: Arrow
+		inThickness: 1.500000
+		inMarkerSize: 5.000000
+		inOpacity: 1.000000
+		outImage: con_2a6e4854_11ae_4317_8edd_6fb3b3a60482
+	)
+
+	DrawSegments
+	(
+		inImage: con_2a6e4854_11ae_4317_8edd_6fb3b3a60482
+		inSegments: con_a0db02a5_219a_49eb_ab01_c213ed524e5e
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 255.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		inDrawingMode: HighQuality
+		inMarkerType: Arrow
+		inThickness: 1.500000
+		inMarkerSize: 5.000000
+		inOpacity: 1.000000
+		outImage: con_5b9e5c8b_19f9_4238_a833_2eb52273b043
+	)
+
+	SaveImage
+	(
+		inImage: con_5b9e5c8b_19f9_4238_a833_2eb52273b043
+		inImageFileFormat: Nil
+		inFile: "../img/measure_angle_scan.png"
+	)
+
+	SegmentLine
+	(
+		inSegment: con_f53cb8d8_5137_4df7_aa58_46445f45939f
+		outLine: con_f4bf1931_83a5_41cb_b27d_0a102daad6b4
+	)
+
+	CreateShortArray<Line2D>
+	(
+		inValue1: con_21fca9bd_8276_4d3a_8ea6_6881392a68f0
+		inValue2: con_f4bf1931_83a5_41cb_b27d_0a102daad6b4
+		outArray: con_5a3e4168_b75d_481d_b54f_bed5dad5b5c9
+	)
+
+	DrawLines
+	(
+		inImage: con_4e7e3ae3_eb7e_4f3c_bb85_7a70db692249
+		inLines: con_5a3e4168_b75d_481d_b54f_bed5dad5b5c9
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 255.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		inDrawingMode: HighQuality
+		inThickness: 2.500000
+		inOpacity: 1.000000
+		outImage: con_0fadd2e7_9323_473d_82f6_233dda3dcf37
+	)
+
+	DrawSegments
+	(
+		inImage: con_0fadd2e7_9323_473d_82f6_233dda3dcf37
+		inSegments: con_7163099b_ec70_462c_832e_345b8b8a1395
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 0.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		inDrawingMode: HighQuality
+		inMarkerType: None
+		inThickness: 2.000000
+		inMarkerSize: 5.000000
+		inOpacity: 1.000000
+		outImage: con_ed09958e_76dd_4662_b9cf_b4557eee362c
+	)
+
+	DrawCircles
+	(
+		inImage: con_ed09958e_76dd_4662_b9cf_b4557eee362c
+		inCircles:
+			Circle2DArray
+			{
+				Circle2D
+				(
+					X: 40.454544
+					Y: 70.568184
+					Radius: 27.707237
+				)
+			}
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 128.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		inDrawingMode: HighQuality
+		inThickness: 3.500000
+		inOpacity: 1.000000
+		inFilled: False
+		outImage: con_ae8d6ade_9c66_4e51_b6cb_1fd618d1b91e
+	)
+
+	CombineImages
+	(
+		inImage1: con_ae8d6ade_9c66_4e51_b6cb_1fd618d1b91e
+		inImage2: con_0fadd2e7_9323_473d_82f6_233dda3dcf37
+		inRoi: Nil
+		inRegion: Region<MeasureAngle0.avdata>
+		outImage: con_7c7eab4c_6e0a_47c1_892f_419c5ec8ffcb
+	)
+
+	SaveImage
+	(
+		inImage: con_ed09958e_76dd_4662_b9cf_b4557eee362c
+		inImageFileFormat: Nil
+		inFile: "../img/measure_angle_res.png"
+	)
+}
+

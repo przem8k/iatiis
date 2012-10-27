@@ -1,0 +1,171 @@
+\section{Threshold Selection}
+
+\paragraph*{}
+If the lightning is reasonably uniform throughout the image, but changes over time (which is usually the case whenever the system is not fully isolated from the sunlight) the threshold values should be adjusted accordingly. As the system should be essentially unsupervised in operation, we need to employ a technique that will allow us to determine the feasible threshold automatically, given only the image to be thresholded.
+
+\paragraph*{}
+Applying such technique would also eliminate the bias introduced by manual adjustment of the threshold parameters - usually there is a range of feasible threshold values and the extracted objects appear smaller or bigger depending on the selected value.
+
+\paragraph*{}
+Automatic threshold selection has been subject to extensive research and a rich set of different methods has been developed. A survey\cite{SezginSankur04} by Sezgin and Sankur mentions 31 different methods of automatic selection of global thresholding values. We will demonstrate a selection of techniques particularly popular in the industrial applications.
+
+\paragraph*{}
+The distribution of pixel intensities is an important source of information about the applicability of global thresholding and the possible threshold values. Because of that we will present histogram of pixel intensities along each example in this section.
+
+\paragraph*{}
+We will demostrate the strengths and weaknesses of individual methods using a set of industrial images demonstrated in \reffig{ThresholdBenchmarkSet}. As most of these images are used more than once, we have decided to display them collectively for brevity, in later section presenting solely the thresholding results.
+
+\fourFigures
+{ImageThresholding/img/tooth}
+{ImageThresholding/img/tooth_displaced}
+{ImageThresholding/img/meter}
+{ImageThresholding/img/needle}
+{Four images used to benchmark threshold selection methods.}
+{ThresholdBenchmarkSet}
+{\basicWidth}
+
+
+\subsection{Mean Brightness}
+
+\paragraph*{}
+As long as both background and foreground are consistent in brightness and occupy similar proportion of the image space, we may expect that the average image intensity will lie somewhere between the intensities of objects and background and as such would be a feasible threshold value. 
+
+\paragraph*{}
+In \reffig{ToothAverage} we can see an image for which this method performs correctly. Well separated background and foreground intensities appear as two significant modes in the image histogram. The modes are similar in size, which is a consequence of roughly even distribution of background and foreground in the image space. 
+
+\paragraph*{}
+
+\thresholdFigure
+{tooth_average}
+{96.4}
+{Example image successfully thresholded using mean brightness as the threshold value.}
+{ToothAverage}
+
+\paragraph*{}
+Unsurprisingly, the average pixel brightness (denoted with vertical line in the histogram) fits between the two modes and allow for accurate thresholding.
+
+\paragraph*{}
+Unfortunately the accuracy of this method quickly drops as the disproportion between background and foreground increases. \reffig{DisplacedAverage} demonstrates an example for which the method fails, even though the histogram modes are still well-separated and the range of feasible threshold values is trivial to read from the histogram. 
+
+\thresholdFigure
+{displaced_average}
+{34.7}
+{Example image for which mean brightness is not a feasible threshold value.}
+{DisplacedAverage}
+
+\paragraph*{}
+This makes the method in its basic form not advisable for most of the industrial applications, although its shortcomings may be addressed using edge detection, which we will inspect in detail in later chapter. If we compute the average brightness using only the pixels in fixed neighborhood of edges separating objects from background, we may assume that roughly the same amount of background and foreground pixels will be taken into account.
+
+
+\subsection{Histogram Shape Analysis}
+
+\paragraph*{}
+In the previous section we have seen two examples of images having bimodal histograms with a clear valley between two modes corresponding to the range of feasible threshold values. Some of the popular threshold selection methods look for this valley algorithmically - either directly or indirectly, analyzing the shape properties of image histogram. 
+
+\paragraph*{}
+In one of the first papers\cite{PrewittMendelsohn66} written on the threshold selection problem Prewitt and Mendelsohn proposed to smooth the image histogram iteratively until only two local maxima are preserved, and then select the threshold value as a mean of this two remaining maxima. \reffig{DisplacedIntermodes} demonstrates a successful application of this method to an example for which the mean brightness method failed.
+
+\thresholdFigure
+{displaced_intermodes}
+{95.5}
+{Threshold selection using Intermodes method.}
+{DisplacedIntermodes}
+
+\paragraph*{}
+Intermodes method performs well as long as the image histogram is essentially bimodal, but yields unstable results whenever this is not the case. \reffig{MeterIntermodes} demonstrates an example which at the first sight seems to have an obvious threshold value, but in fact has unimodal histogram with hardly any peak corresponding to the foreground. Unsurprisingly, the method fails on such image.
+
+\thresholdFigure
+{meter_intermodes}
+{118.5}
+{Threshold selection using Intermodes method.}
+{MeterIntermodes}
+
+%\paragraph*{}
+%Other methods based on the histogram shape properties vary in complexity from simple identification of prominent histogram cavities\cite{RosenfeldTorre83} to applications of multiscale analysis and wavelet transform.
+
+
+
+\subsection{Entropy}
+
+\paragraph*{}
+Entropy of a distribution (e.g. distribution of the pixel brightness, i.e. image histogram) is a quantitative measure of its \textit{disorder} - it is high when the fractions of pixels taking the individual intensities are similar throughout the range of possible pixel values\footnote{Such situation represents high disorder because the pixel values are uniformly scattered over the entire domain of pixel intensities.} and low when certain values are overrepresented in the image.
+
+\paragraph*{}
+The most commonly measure of entropy is the one proposed by Shannon, in which the entropy of a distribution  $D$ is defined as:
+
+\[
+	Entropy(D) = - \sum_{(v,f) \in D}f \log_2{f}
+\]
+
+where each element of the distribution $(v,f)$ represents that a value $v$ is taken by the fraction $f$ of the data, i.e. $\sum_{(v,f) \in D} f = 1.0$.
+
+\paragraph*{}
+Numerous attempts were made to employ analysis of entropic properties of the image intensity distribution to threshold selection, from early works of Pun to more recent investigations on applications of fuzzy entropy measures. We will demonstrate the method proposed\cite{KapurSahooWong85} by Kapur, Sahoo and Wong which is indicated\cite{SezginSankur04} as well-performing by by Sezgin and Sankur.
+
+\paragraph*{}
+In this technique the image intensity distribution is split into foreground and background distributions at the intensity level $k$ for each possible value of $k$. Then the entropy of both distributions is computed and the $k$ which yields the largest sum of two entropies is selected as the threshold value.
+
+\paragraph*{}
+The rationale for such schema lies in the fact that after the thresholding both foreground and background pixels will be set to a constant value\footnote{E.g. 0 for background and 255 for foreground.}, thus the entropy of both distributions will be reduced to 0. Therefore the threshold value that maximizes the entropies of two classes can be thought to imply the biggest reduction of disorder in image (at least in terms of intensity distribution).
+
+\paragraph*{}
+Such approach to threshold selection can yield good results on images for which other methods fail, as demonstrated in \reffig{MeterEntropy}, but it may also fail spectacularly on apparently simple images with clear, bimodal histogram, as demonstrated in \reffig{DisplacedEntropy}. For this reason we would discourage use of this technique in the industrial setting.
+
+\thresholdFigure
+{meter_entropy}
+{132.5}
+{Threshold selection using Entropy method.}
+{MeterEntropy}
+
+\thresholdFigure
+{displaced_entropy}
+{45.5}
+{Threshold selection using Entropy method.}
+{DisplacedEntropy}
+
+\subsection{Clustering}
+
+\paragraph*{}
+Threshold selection problem may be also formulated in terms of clustering - indeed, our aim is to divide the full intensity spectrum into two clusters, foreground and background intensities, separated by the threshold value. In this section we will demonstrate two techniques that follow this interpretation of the problem. 
+
+\subsubsection{K-Means}
+
+\paragraph*{}
+Well known general-purpose K-Means algorithm iteratively computes the means of current set of K clusters, and reassigns the elements being clustered, each one to the cluster represented by the nearest of means computed in this iteration. 
+
+\paragraph*{}
+This idea was applied\cite{RidlerCalvard78} to threshold selection problem by Ridler and Calvard. The algorithm maintains two clusters containing complementary parts of the intensity range. At each step mean brightness of the pixels in each cluster is computed and pixels are reassigned to the cluster of nearest mean.
+
+\paragraph*{}
+It is worth noting that even though the authors proposed an iterative scheme of computation, it is perfectly feasible to perform a brute force search over all possible threshold values and select the one that fits halfway between means of the induced clusters; especially in the common case of uint8 industrial images of only 255 possible intensity levels. If we precompute the image histogram and maintain the running averages of the clusters, we may process each threshold value in constant time.
+
+\subsubsection{Otsu Method}
+
+\paragraph*{}
+One of the first clustering approaches was proposed\cite{Otsu79} by Otsu, who described a method that selects the threshold value that maximizes the between-class variance between foreground and background intensities:
+\[
+	|F| \cdot |B| \cdot (\overline{F} - \overline{B})^2
+\]
+
+where $|F|$ and $|B|$ denote, accordingly, the number of foreground and background pixels while $\overline{F}$ and $\overline{B}$ denote their mean values.
+
+\paragraph*{}
+Both methods of clustering-based threshold selection yield similar results for the set of benchmark images used in this chapter. As the methods do not explicitly look for a valley between histogram modes, they can give stable and correct results for some images for which histogram shape analysis methods fail. Unfortunately, similarly to the entropic method we have already seen, the methods fail in some cases for which simple methods work correctly, as demonstrated in \reffig{NeedleOtsu}.
+
+\thresholdFigure
+{needle_otsu}
+{56.5}
+{Threshold selection using Otsu method.}
+{NeedleOtsu}
+
+\subsection{Summary}
+
+\paragraph*{}
+As we have demonstrated, automatic threshold selection is not an easy task in general case. As long as the image has clear, bimodal histogram, we may relay on the accuracy of simple histogram shape-analysis based methods, but when this is not the case things get more complicated. 
+
+\paragraph*{}
+If the system is supposed to operate at high levels of reliability, it would be prudent to use global thresholding with automatic threshold selection only if we can guarantee the conditions in which a method of our choice performs correctly. Often this will not be possible, in which case we should consider using dynamic thresholding (discussed in the next section) or discarding the thresholding methods at all in favor of \refchap{ContourAnalysis} or \refchap{TemplateMatching}.
+
+\begin{refImpl}
+\studio \,filter \filter{SelectThresholdValue}{ImageThresholding} implements the following threshold selection methods: Intermodes, Clustering\_KMeans, Clustering\_Otsu, Entropy. 
+\end{refImpl}

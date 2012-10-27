@@ -1,0 +1,290 @@
+public Main()
+{
+
+	LoadImage
+	(
+		inFile: "positioning.png"
+		outImage: con_948185f9_f964_44b7_82d7_37171eab035a
+		outAlphaChannel: Nil
+	)
+
+
+	SaveImage
+	(
+		inImage: con_948185f9_f964_44b7_82d7_37171eab035a
+		inImageFileFormat: Nil
+		inFile: "results/positioning.png"
+	)
+
+
+	MakeSegment
+	(
+		inX1: 0.000000
+		inY1: 160.000000
+		inX2: 640.000000
+		inY2: 160.000000
+		outSegment: con_84394d83_02fd_4a09_af2e_a425300885dd
+	)
+
+
+	ScanMultipleEdges
+	(
+		inImage: con_948185f9_f964_44b7_82d7_37171eab035a
+		inScanPath: con_84394d83_02fd_4a09_af2e_a425300885dd
+		inScanWidth: 5
+		inInterpolationMethod: Bilinear
+		inSmoothingStdDev: 1.000000
+		inMinStrength: 10.000000
+		inTransition: Any
+		inMinDistance: 0.000000
+		outEdgePoints: con_45e6036d_5139_44f5_be9f_ac1fcd40104e
+		outDistances: Nil
+		diagProfile: con_27c6fc52_5df2_4f9c_b623_dbbe009fd9b4
+		diagDerivative: Nil
+		diagScanArea: Nil
+	)
+
+
+	DrawSegments
+	(
+		inImage: con_948185f9_f964_44b7_82d7_37171eab035a
+		inSegments: con_84394d83_02fd_4a09_af2e_a425300885dd
+		inColor: Pixel
+		(
+			X: 255.000000
+			Y: 0.000000
+			Z: 0.000000
+			W: 0.000000
+		)
+		inDrawingMode: HighQuality
+		inMarkerType: Arrow
+		inThickness: 3.000000
+		inMarkerSize: 10.000000
+		inOpacity: 1.000000
+		outImage: con_88a44724_6e3d_4ca0_a916_7bb65439fcf5
+	)
+
+
+	SaveImage
+	(
+		inImage: con_88a44724_6e3d_4ca0_a916_7bb65439fcf5
+		inImageFileFormat: Nil
+		inFile: "results/positioning_scan_line.png"
+	)
+
+
+	DrawPoints
+	(
+		inImage: con_88a44724_6e3d_4ca0_a916_7bb65439fcf5
+		inPoints: con_45e6036d_5139_44f5_be9f_ac1fcd40104e
+		inColor: Pixel
+		(
+			X: 255.000000
+			Y: 255.000000
+			Z: 0.000000
+			W: 0.000000
+		)
+		inPointShape: Cross
+		inDrawingMode: HighQuality
+		inPointSize: 8.000000
+		inThickness: 3.000000
+		inOpacity: 1.000000
+		outImage: con_d0187cf6_2df2_4039_b3e7_489a2b60fdcf
+	)
+
+
+	SaveImage
+	(
+		inImage: con_d0187cf6_2df2_4039_b3e7_489a2b60fdcf
+		inImageFileFormat: Nil
+		inFile: "results/positioning_edge_points.png"
+	)
+
+
+	ComputeHull
+	(
+		inImage: con_948185f9_f964_44b7_82d7_37171eab035a
+		inArray: con_45e6036d_5139_44f5_be9f_ac1fcd40104e
+		outObject: con_dbbe6843_e9b5_4b7e_9d0c_1dbb88f3cd7a
+	)
+
+
+	DrawPaths
+	(
+		inImage: con_948185f9_f964_44b7_82d7_37171eab035a
+		inPaths: con_dbbe6843_e9b5_4b7e_9d0c_1dbb88f3cd7a
+		inColor: Pixel
+		(
+			X: 255.000000
+			Y: 255.000000
+			Z: 0.000000
+			W: 0.000000
+		)
+		inPointShape: Nil
+		inDrawingMode: HighQuality
+		inThickness: 1.000000
+		inPointSize: 2.000000
+		inOpacity: 0.500000
+		inFilled: True
+		outImage: con_ca5f3400_7027_477b_8803_e44d40205a95
+	)
+
+
+	SaveImage
+	(
+		inImage: con_ca5f3400_7027_477b_8803_e44d40205a95
+		inImageFileFormat: Nil
+		inFile: "results/positioning_result.png"
+	)
+}
+
+public SegmentThroughCenter(Image inImage, Segment2D? outSegment)
+{
+
+	ImageCenter
+	(
+		inImage: inImage
+		outCenter: con_26fbd4aa_9aff_444c_8d5c_7b713eab87cd
+	)
+
+
+	LineThroughPoint
+	(
+		inPoint: con_26fbd4aa_9aff_444c_8d5c_7b713eab87cd
+		inAngle: 0.000000
+		outLine: con_50ba7008_cdc0_4ca7_8b42_29115cae94a1
+	)
+
+
+	ImageBox
+	(
+		inImage: inImage
+		outBox: con_012d75d1_6edb_4ae2_a64a_2d5f38238f10
+	)
+
+
+	LineBoxIntersection
+	(
+		inLine: con_50ba7008_cdc0_4ca7_8b42_29115cae94a1
+		inBox: con_012d75d1_6edb_4ae2_a64a_2d5f38238f10
+		outSegment: con_50faa859_d92e_476c_9d79_a829098a980a
+	)
+
+
+	ReverseSegment
+	(
+		inSegment: con_50faa859_d92e_476c_9d79_a829098a980a
+		outSegment: outSegment
+	)
+}
+
+public ComputeHull(Image inImage, Point2DArray inArray, Path outObject)
+{
+
+	ImageBox
+	(
+		inImage: inImage
+		outBox: con_2be13d41_53d5_4cbc_9cfd_894f971db161
+	)
+
+
+	GetArrayElement<Point2D>
+	(
+		inArray: inArray
+		inIndex: 0
+		outValue: con_14b48acf_a0be_446d_8173_4e3a5a642c22
+	)
+
+
+	LineThroughPoint
+	(
+		inPoint: con_14b48acf_a0be_446d_8173_4e3a5a642c22
+		inAngle: 90.000000
+		outLine: con_aa695209_9a8d_49d6_b44d_34f2edd10f7c
+	)
+
+
+	LineBoxIntersection
+	(
+		inLine: con_aa695209_9a8d_49d6_b44d_34f2edd10f7c
+		inBox: con_2be13d41_53d5_4cbc_9cfd_894f971db161
+		outSegment: con_c415b48d_d17a_4617_ac9b_63eab460e5b2
+	)
+
+
+	SegmentEndpoints
+	(
+		inSegment: con_c415b48d_d17a_4617_ac9b_63eab460e5b2
+		outPoint1: con_8f19395a_6702_41ea_98ee_bbffb37374a7
+		outPoint2: con_b47b9d8a_5183_4995_b50e_adeb2918f4ac
+	)
+
+
+	GetArrayElement<Point2D>
+	(
+		inArray: inArray
+		inIndex: 12
+		outValue: con_86919fa4_b97c_4c4f_9090_e6f659e8fd98
+	)
+
+
+	LineThroughPoint
+	(
+		inPoint: con_86919fa4_b97c_4c4f_9090_e6f659e8fd98
+		inAngle: 90.000000
+		outLine: con_dcaf841c_f40d_49c6_909b_90b548c13254
+	)
+
+
+	LineBoxIntersection
+	(
+		inLine: con_dcaf841c_f40d_49c6_909b_90b548c13254
+		inBox: con_2be13d41_53d5_4cbc_9cfd_894f971db161
+		outSegment: con_21db0490_5c74_4895_b0ba_c57c076ff7f2
+	)
+
+
+	SegmentEndpoints
+	(
+		inSegment: con_21db0490_5c74_4895_b0ba_c57c076ff7f2
+		outPoint1: con_516b0beb_b532_41f1_b552_34a1b636fd0a
+		outPoint2: con_ac622540_e4fb_4a45_8dfc_e4ef76908656
+	)
+
+
+	CreateShortArray<Point2D>
+	(
+		inValue1: con_b47b9d8a_5183_4995_b50e_adeb2918f4ac
+		inValue2: con_8f19395a_6702_41ea_98ee_bbffb37374a7
+		inValue3: con_516b0beb_b532_41f1_b552_34a1b636fd0a
+		inValue4: con_ac622540_e4fb_4a45_8dfc_e4ef76908656
+		inValue5: Nil
+		inValue6: Nil
+		inValue7: Nil
+		inValue8: Nil
+		outArray: con_15dc057e_b6ce_4787_8126_3398601359cf
+	)
+
+
+	MakePath
+	(
+		inPoints: con_15dc057e_b6ce_4787_8126_3398601359cf
+		inClosed: True
+		outPath: con_09a4bd18_4e68_4957_8a1e_d3e52c1f26b2
+	)
+
+
+	MergeBranches<Path>
+	(
+		inConditionalObject1: con_09a4bd18_4e68_4957_8a1e_d3e52c1f26b2
+		inConditionalObject2: Nil
+		inConditionalObject3: Nil
+		inConditionalObject4: Nil
+		inConditionalObject5: Nil
+		inConditionalObject6: Nil
+		inConditionalObject7: Nil
+		inConditionalObject8: Nil
+		outObject: outObject
+	)
+}
+

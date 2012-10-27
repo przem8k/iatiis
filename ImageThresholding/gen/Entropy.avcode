@@ -1,0 +1,119 @@
+public Main()
+{
+	LoadImage
+	(
+		inFile: "C:\\Users\\dx\\projects\\AdaptiveVisionStudio\\depot\\mvg\\gen\\ImageThresholding\\images\\tooth_displaced.png"
+		outImage: con_51826cec_f2ab_43e2_a51c_3d938acdd509
+		outAlphaChannel: Nil
+	)
+
+	AutoThreshold2
+	(
+		inImage: con_51826cec_f2ab_43e2_a51c_3d938acdd509
+		inBrightForeground: True
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 128.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		inMethod: Entropy
+		outDrawnResult: con_dba206fa_3122_449d_9ac0_e8c34f1b512a
+		outThresholdValue: con_82f766c9_7fdc_44c2_a485_47e3fc65638d
+		outImagePixelValues: con_7323d9a3_ea61_4df1_86f7_0c78cbdf988a
+		outImageHistogram: con_78fe9c30_e037_4606_9fdd_348c217a0318
+	)
+
+	SaveString
+	(
+		inString: con_82f766c9_7fdc_44c2_a485_47e3fc65638d
+		inFileAccessMode: CreateOrErase
+		inFile: "results/displaced_entropy_threshold.txt"
+	)
+
+	SaveImage
+	(
+		inImage: con_dba206fa_3122_449d_9ac0_e8c34f1b512a
+		inImageFileFormat: Nil
+		inFile: "results/displaced_entropy_img.png"
+	)
+
+	ExportProfile
+	(
+		inProfile: con_7323d9a3_ea61_4df1_86f7_0c78cbdf988a
+		inFilename: "results/displaced_entropy_pixels.values"
+	)
+
+	LoadImage
+	(
+		inFile: "C:\\Users\\dx\\projects\\AdaptiveVisionStudio\\depot\\mvg\\gen\\ImageThresholding\\images\\meter.png"
+		outImage: con_7943b901_1c78_43f1_b8cf_c648d0e9a900
+		outAlphaChannel: Nil
+	)
+
+	AutoThreshold2
+	(
+		inImage: con_7943b901_1c78_43f1_b8cf_c648d0e9a900
+		inBrightForeground: False
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 128.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		inMethod: Entropy
+		outDrawnResult: con_0d47a547_c8da_4026_97a9_4f27b39747e7
+		outThresholdValue: con_3e46af56_1c80_46cb_b3e2_d6a6b043c772
+		outImagePixelValues: con_369600b7_4ed2_4374_8be6_7e578c50e652
+		outImageHistogram: con_d420aeb3_8f40_4881_bf8c_43dfa2bd72ab
+	)
+
+	SaveString
+	(
+		inString: con_3e46af56_1c80_46cb_b3e2_d6a6b043c772
+		inFileAccessMode: CreateOrErase
+		inFile: "results/meter_entropy_threshold.txt"
+	)
+
+	SaveImage
+	(
+		inImage: con_0d47a547_c8da_4026_97a9_4f27b39747e7
+		inImageFileFormat: Nil
+		inFile: "results/meter_entropy_img.png"
+	)
+
+	ExportProfile
+	(
+		inProfile: con_369600b7_4ed2_4374_8be6_7e578c50e652
+		inFilename: "results/meter_entropy_pixels.values"
+	)
+}
+
+public SmoothHistogramRepeatedely(Integer inCount, Histogram inHistogram, Histogram outHistogram, Histogram regHistogram = inHistogram)
+{
+	EnumerateIntegers
+	(
+		inStart: 0
+		inCount: inCount
+		inStep: 1
+		outValue: Nil
+	)
+
+	SmoothHistogram_Mean
+	(
+		inHistogram: prevHistogram
+		inKernelRadius: 1
+		outHistogram: nextHistogram
+	)
+
+	CopyObject<Histogram>
+	(
+		inObject: nextHistogram
+		outObject: outHistogram
+	)
+}
+

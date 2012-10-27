@@ -1,0 +1,844 @@
+public ScanSegment(Image inImage, Segment2D? outSegment)
+{
+	ImageCenter
+	(
+		inImage: inImage
+		outCenter: con_0a12f9cc_fa9d_40af_9580_6eabd3d98b5e
+	)
+
+	LineThroughPoint
+	(
+		inPoint: con_0a12f9cc_fa9d_40af_9580_6eabd3d98b5e
+		inAngle: 0.000000
+		outLine: con_9b0730a9_d9eb_434b_ac2d_a82fe417e580
+	)
+
+	ImageBox
+	(
+		inImage: inImage
+		outBox: con_49d24667_2ea1_48a2_b154_8d6b228fd592
+	)
+
+	LineBoxIntersection
+	(
+		inLine: con_9b0730a9_d9eb_434b_ac2d_a82fe417e580
+		inBox: con_49d24667_2ea1_48a2_b154_8d6b228fd592
+		outSegment: con_f1892385_6adc_4a4c_aafb_9819ce71da9d
+	)
+
+	ReverseSegment
+	(
+		inSegment: con_f1892385_6adc_4a4c_aafb_9819ce71da9d
+		outSegment: outSegment
+	)
+}
+
+public ConvertToThreeChannelMono(Image inImage = Image(Width: 0, Height: 0, Pitch: 0, Type: Int8, Depth: 1, Data: <>), Image outImage = Image(Width: 0, Height: 0, Pitch: 0, Type: Int8, Depth: 1, Data: <>))
+{
+	AverageChannels
+	(
+		inImage: inImage
+		inRoi: Nil
+		outImage: con_38f9703e_c19b_4107_bf74_615560d0419e
+	)
+
+	ConvertToMultichannel
+	(
+		inMonoImage: con_38f9703e_c19b_4107_bf74_615560d0419e
+		inRoi: Nil
+		inNewDepth: 3
+		outImage: outImage
+	)
+}
+
+public OutputRegion(Image inImage = Image(Width: 0, Height: 0, Pitch: 0, Type: Int8, Depth: 1, Data: <>), Region inRegion = Region(Width: 0, Height: 0, Data: <>), File inFile = "", Pixel* inColor)
+{
+	DrawRegionNicely
+	(
+		inImage: inImage
+		inRegion: inRegion
+		inColor: inColor
+		outImage: con_afee4c61_fdc9_4ecf_9c07_3e32eb579b25
+	)
+
+	SaveImage
+	(
+		inImage: con_afee4c61_fdc9_4ecf_9c07_3e32eb579b25
+		inImageFileFormat: Nil
+		inFile: inFile
+	)
+}
+
+public DrawRegionNicely(Image inImage = Image(Width: 0, Height: 0, Pitch: 0, Type: Int8, Depth: 1, Data: <>), Region inRegion = Region(Width: 0, Height: 0, Data: <>), Pixel* inColor, Image outImage = Image(Width: 0, Height: 0, Pitch: 0, Type: Int8, Depth: 1, Data: <>))
+{
+	RegionContours
+	(
+		inRegion: inRegion
+		inContourMode: PixelEdges
+		inRegionConnectivity: EightDirections
+		outContours: con_5743cc2c_0f15_4fdb_84b4_446a133f4e66
+	)
+
+	DrawPaths
+	(
+		inImage: inImage
+		inPaths: con_5743cc2c_0f15_4fdb_84b4_446a133f4e66
+		inColor: inColor
+		inPointShape: Nil
+		inDrawingMode: HighQuality
+		inThickness: 1.000000
+		inPointSize: 2.000000
+		inOpacity: 0.500000
+		inFilled: True
+		outImage: con_c7fcde70_b590_4313_a450_1ce1def16619
+	)
+
+	DrawPaths
+	(
+		inImage: con_c7fcde70_b590_4313_a450_1ce1def16619
+		inPaths: con_5743cc2c_0f15_4fdb_84b4_446a133f4e66
+		inColor: inColor
+		inPointShape: Nil
+		inDrawingMode: HighQuality
+		inThickness: 1.000000
+		inPointSize: 2.000000
+		inOpacity: 1.000000
+		inFilled: False
+		outImage: con_70a092c9_5b81_49b3_860c_b27a332ade45
+	)
+
+	CombineImages
+	(
+		inImage1: con_70a092c9_5b81_49b3_860c_b27a332ade45
+		inImage2: inImage
+		inRoi: Nil
+		inRegion: inRegion
+		outImage: outImage
+	)
+}
+
+public AutoThreshold(Image inImage = Image(Width: 0, Height: 0, Pitch: 0, Type: Int8, Depth: 1, Data: <>), ThresholdSelectionMethod inMethod = Clustering_Kittler, Region? outHigher, Region? outLowerOrEqual, Real? outThresholdValue)
+{
+	SelectThresholdValue
+	(
+		inImage: inImage
+		inRoi: Nil
+		inMethod: inMethod
+		outThresholdValue: outThresholdValue
+	)
+
+	ThresholdToRegion
+	(
+		inImage: inImage
+		inRoi: Nil
+		inMinValue: outThresholdValue
+		inMaxValue: Nil
+		outRegion: outHigher
+	)
+
+	RegionComplement
+	(
+		inRegion: outHigher
+		outRegion: outLowerOrEqual
+	)
+}
+
+public AutoThresholdComparison(Image inImage = Image(Width: 0, Height: 0, Pitch: 0, Type: Int8, Depth: 1, Data: <>), Pixel inColor = Pixel(X: 0.000000, Y: 0.000000, Z: 0.000000, W: 0.000000), ThresholdSelectionMethod inMethod1 = Clustering_Kittler, ThresholdSelectionMethod inMethod2 = Clustering_Kittler, ThresholdSelectionMethod inMethod3 = Clustering_Kittler, ThresholdSelectionMethod inMethod4 = Clustering_Kittler, Bool inBrightForeground = False, Image outImage = Image(Width: 0, Height: 0, Pitch: 0, Type: Int8, Depth: 1, Data: <>), Real? outThresholdValue1, Real? outThresholdValue2, Real? outThresholdValue3, Real? outThresholdValue4)
+{
+	ResizeImage_Relative
+	(
+		inImage: inImage
+		inHorizontalScale: 2.000000
+		inVerticalScale: 2.000000
+		inResizeMethod: NearestNeighbour
+		outImage: con_33cf0872_a265_4672_a204_77da2932ae40
+	)
+
+	AutoThreshold
+	(
+		inImage: inImage
+		inMethod: inMethod1
+		outHigher: con_ab4a27d4_5ee8_4a50_aed3_4bbb6731506e
+		outLowerOrEqual: con_53c88506_58db_446f_8b15_dbd0a3f1c4cb
+		outThresholdValue: outThresholdValue1
+	)
+
+	ChooseByPredicate<Region>
+	(
+		inObjectIfTrue: con_ab4a27d4_5ee8_4a50_aed3_4bbb6731506e
+		inObjectIfFalse: con_53c88506_58db_446f_8b15_dbd0a3f1c4cb
+		inCondition: inBrightForeground
+		outObject: con_586e88a0_289c_43c4_acba_d501a38d06cb
+	)
+
+	DrawRegionNicely
+	(
+		inImage: inImage
+		inRegion: con_586e88a0_289c_43c4_acba_d501a38d06cb
+		inColor: inColor
+		outImage: con_d64cb215_72ba_428c_acd6_6c4c04023dc1
+	)
+
+	DrawGridImage
+	(
+		inImage: con_33cf0872_a265_4672_a204_77da2932ae40
+		inGridImage: con_d64cb215_72ba_428c_acd6_6c4c04023dc1
+		inColumnIndex: 0
+		inRowIndex: 0
+		outImage: con_ab235459_d3dc_4b42_a9af_df8315229aad
+	)
+
+	AutoThreshold
+	(
+		inImage: inImage
+		inMethod: inMethod2
+		outHigher: con_157bb92f_4c61_45de_bc50_215ccab3a0e1
+		outLowerOrEqual: con_d882e49d_4d34_40a2_af10_b3562c485717
+		outThresholdValue: outThresholdValue2
+	)
+
+	ChooseByPredicate<Region>
+	(
+		inObjectIfTrue: con_157bb92f_4c61_45de_bc50_215ccab3a0e1
+		inObjectIfFalse: con_d882e49d_4d34_40a2_af10_b3562c485717
+		inCondition: inBrightForeground
+		outObject: con_193351ab_e67d_4044_8b03_f7a8274261fd
+	)
+
+	DrawRegionNicely
+	(
+		inImage: inImage
+		inRegion: con_193351ab_e67d_4044_8b03_f7a8274261fd
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 128.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		outImage: con_a67c16b6_0701_4988_9fb6_13041643dab6
+	)
+
+	DrawGridImage
+	(
+		inImage: con_ab235459_d3dc_4b42_a9af_df8315229aad
+		inGridImage: con_a67c16b6_0701_4988_9fb6_13041643dab6
+		inColumnIndex: 1
+		inRowIndex: 0
+		outImage: con_812a0200_620f_456d_89b9_7b31ad9119ee
+	)
+
+	AutoThreshold
+	(
+		inImage: inImage
+		inMethod: inMethod3
+		outHigher: con_f94bd6b2_9410_46cc_83df_9537dcb04cb0
+		outLowerOrEqual: con_f38e7587_ad7d_4074_a2a5_b4cb22b96e0c
+		outThresholdValue: outThresholdValue3
+	)
+
+	ChooseByPredicate<Region>
+	(
+		inObjectIfTrue: con_f94bd6b2_9410_46cc_83df_9537dcb04cb0
+		inObjectIfFalse: con_f38e7587_ad7d_4074_a2a5_b4cb22b96e0c
+		inCondition: inBrightForeground
+		outObject: con_1dd49d49_6b93_4e95_a376_234946a0e03c
+	)
+
+	DrawRegionNicely
+	(
+		inImage: inImage
+		inRegion: con_1dd49d49_6b93_4e95_a376_234946a0e03c
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 128.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		outImage: con_94c1c73d_0367_4a84_8718_48049fdb4aec
+	)
+
+	DrawGridImage
+	(
+		inImage: con_812a0200_620f_456d_89b9_7b31ad9119ee
+		inGridImage: con_94c1c73d_0367_4a84_8718_48049fdb4aec
+		inColumnIndex: 0
+		inRowIndex: 1
+		outImage: con_22ce890f_33ff_474d_87b6_f9c99386c9b4
+	)
+
+	AutoThreshold
+	(
+		inImage: inImage
+		inMethod: inMethod4
+		outHigher: con_65345304_8d6f_4e42_9e57_b64975a6a0e9
+		outLowerOrEqual: con_0a338570_1274_4be6_a06e_52804e3cce41
+		outThresholdValue: outThresholdValue4
+	)
+
+	ChooseByPredicate<Region>
+	(
+		inObjectIfTrue: con_65345304_8d6f_4e42_9e57_b64975a6a0e9
+		inObjectIfFalse: con_0a338570_1274_4be6_a06e_52804e3cce41
+		inCondition: inBrightForeground
+		outObject: con_ec5736f8_8461_4944_820a_07b123836fad
+	)
+
+	DrawRegionNicely
+	(
+		inImage: inImage
+		inRegion: con_ec5736f8_8461_4944_820a_07b123836fad
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 128.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		outImage: con_94331e21_f1ae_4d90_bbf0_82bc6b9e4002
+	)
+
+	DrawGridImage
+	(
+		inImage: con_22ce890f_33ff_474d_87b6_f9c99386c9b4
+		inGridImage: con_94331e21_f1ae_4d90_bbf0_82bc6b9e4002
+		inColumnIndex: 1
+		inRowIndex: 1
+		outImage: con_1fb27f9c_fd35_4f1e_a5fe_99739da0e1d1
+	)
+
+	MergeWithDefault<Image>
+	(
+		inConditionalObject: con_1fb27f9c_fd35_4f1e_a5fe_99739da0e1d1
+		inDefaultObject: con_33cf0872_a265_4672_a204_77da2932ae40
+		outObject: outImage
+	)
+}
+
+public ExportHistogram(Histogram inHistogram = Histogram(DomainBegin: 0.000000, DomainEnd: 0.000000, BinSize: 0.000000, Data: <>), File inFile = "")
+{
+	AccessHistogram
+	(
+		inHistogram: inHistogram
+		outBinSize: Nil
+		outDomainStart: Nil
+		outDomainLength: Nil
+		outBins: con_bc722e85_1863_4b63_9ae4_c6d968760519
+	)
+
+	IntegerToString
+	(
+		inInteger: con_bc722e85_1863_4b63_9ae4_c6d968760519
+		outString: con_85f83d2e_2359_4bce_a1aa_9be146c868af
+	)
+
+	ConcatenateStrings
+	(
+		inString1: con_85f83d2e_2359_4bce_a1aa_9be146c868af
+		inString2: ";"
+		outString: con_b886ff29_12dd_4891_bbd9_935615ab3d27
+	)
+
+	ConcatenateStrings_OfArray
+	(
+		inStringArray: con_b886ff29_12dd_4891_bbd9_935615ab3d27
+		outString: con_eafa8525_bb35_4c57_b4b8_9b65a44285fd
+	)
+
+	SaveString
+	(
+		inString: con_eafa8525_bb35_4c57_b4b8_9b65a44285fd
+		inFileAccessMode: CreateOrAppend
+		inFile: inFile
+	)
+}
+
+public ExportBrightnessData(Image inImage = Image(Width: 0, Height: 0, Pitch: 0, Type: Int8, Depth: 1, Data: <>), File inFile = "")
+{
+	ImagePixelValues
+	(
+		inImage: inImage
+		inRoi: Nil
+		outPixelValues: con_a29c8ea8_f951_4850_8ac4_40ba4a9c1a5f
+	)
+
+	RealToInteger
+	(
+		inReal: con_a29c8ea8_f951_4850_8ac4_40ba4a9c1a5f
+		outInteger: con_844c7ec1_5639_4bf3_8ebc_2ec89c6ea3fc
+	)
+
+	IntegerToString
+	(
+		inInteger: con_844c7ec1_5639_4bf3_8ebc_2ec89c6ea3fc
+		outString: con_aa5c73de_c2e3_4a7d_b950_7a055c6fabe2
+	)
+
+	ConcatenateStrings
+	(
+		inString1: con_aa5c73de_c2e3_4a7d_b950_7a055c6fabe2
+		inString2: ";"
+		outString: con_ec8d002a_ef3a_4841_ad0b_2765ebb61a98
+	)
+
+	ConcatenateStrings_OfArray
+	(
+		inStringArray: con_ec8d002a_ef3a_4841_ad0b_2765ebb61a98
+		outString: con_b8fa93f7_abbd_4086_b3ea_5d8653b0ee7f
+	)
+
+	SaveString
+	(
+		inString: con_b8fa93f7_abbd_4086_b3ea_5d8653b0ee7f
+		inFileAccessMode: CreateOrAppend
+		inFile: inFile
+	)
+}
+
+public StripExtensionFromFilename(String inString = "", String outSubstring = "")
+{
+	StringSize
+	(
+		inString: inString
+		outSize: con_af214c08_064a_49f9_aa5b_bcb0347e0e71
+	)
+
+	SubtractIntegers
+	(
+		inA: con_af214c08_064a_49f9_aa5b_bcb0347e0e71
+		inB: 4
+		outDifference: con_3362ee08_5bcc_45fa_ad84_7c5412f17a93
+	)
+
+	Substring
+	(
+		inString: inString
+		inStart: 0
+		inLength: con_3362ee08_5bcc_45fa_ad84_7c5412f17a93
+		outSubstring: outSubstring
+	)
+}
+
+public ExportTwoProfiles(Profile inProfile1 = Profile(Data: <>), Profile inProfile2 = Profile(Data: <>), File inFile = "")
+{
+	ProfileToRealArray
+	(
+		inProfile: inProfile1
+		outArray: con_8b71ecc7_61b4_4937_845f_73dfec0804b5
+	)
+
+	RealToString
+	(
+		inReal: con_8b71ecc7_61b4_4937_845f_73dfec0804b5
+		outString: con_4b8df8f7_ff87_41f7_b7e1_9e53cb3f3810
+	)
+
+	ProfileToRealArray
+	(
+		inProfile: inProfile2
+		outArray: con_0a251b93_c9aa_454c_85f3_d22e04d652ce
+	)
+
+	RealToString
+	(
+		inReal: con_0a251b93_c9aa_454c_85f3_d22e04d652ce
+		outString: con_3c1b40c1_6a4f_43e3_a470_9df3675ef396
+	)
+
+	ProfileIndices
+	(
+		inProfile: inProfile1
+		outIndices: con_1f5ccbd7_8cf7_4bf9_be4e_865e06e7671d
+	)
+
+	IntegerToString
+	(
+		inInteger: con_1f5ccbd7_8cf7_4bf9_be4e_865e06e7671d
+		outString: con_55d4e34e_2ebf_4acc_a4e5_4dc8d1187ed4
+	)
+
+	ConcatenateStrings
+	(
+		inString1: con_55d4e34e_2ebf_4acc_a4e5_4dc8d1187ed4
+		inString2: " "
+		outString: con_88dd9564_1aad_413d_94ef_0f13185f13f2
+	)
+
+	ConcatenateStrings
+	(
+		inString1: con_88dd9564_1aad_413d_94ef_0f13185f13f2
+		inString2: con_4b8df8f7_ff87_41f7_b7e1_9e53cb3f3810
+		outString: con_fb73e562_0fb5_4a90_824d_3133ad0f33df
+	)
+
+	ConcatenateStrings
+	(
+		inString1: con_fb73e562_0fb5_4a90_824d_3133ad0f33df
+		inString2: " "
+		outString: con_a4eb1023_eced_48f4_801c_3c8b3f6e682f
+	)
+
+	ConcatenateStrings
+	(
+		inString1: con_a4eb1023_eced_48f4_801c_3c8b3f6e682f
+		inString2: con_3c1b40c1_6a4f_43e3_a470_9df3675ef396
+		outString: con_c74820bd_ad2d_445c_bc99_8b60391c0a23
+	)
+
+	ConcatenateStrings
+	(
+		inString1: con_c74820bd_ad2d_445c_bc99_8b60391c0a23
+		inString2: ";"
+		outString: con_3ee10c18_02e3_4a22_bdf3_ac1d63e92b83
+	)
+
+	ConcatenateStrings_OfArray
+	(
+		inStringArray: con_3ee10c18_02e3_4a22_bdf3_ac1d63e92b83
+		outString: con_a062e4ae_298c_4e61_8aa0_d0731c48d2c9
+	)
+
+	SaveString
+	(
+		inString: con_a062e4ae_298c_4e61_8aa0_d0731c48d2c9
+		inFileAccessMode: CreateOrAppend
+		inFile: inFile
+	)
+}
+
+public AutoThreshold2(Image inImage, Bool inBrightForeground, Pixel inColor, ThresholdSelectionMethod inMethod, Image? outDrawnResult, Real? outThresholdValue, RealArray outImagePixelValues, Histogram outImageHistogram)
+{
+	SelectThresholdValue
+	(
+		inImage: inImage
+		inRoi: Nil
+		inMethod: inMethod
+		outThresholdValue: outThresholdValue
+		diagCandidates: Nil
+		diagComp1: Nil
+		diagComp2: Nil
+	)
+
+	ThresholdToRegion
+	(
+		inImage: inImage
+		inRoi: Nil
+		inMinValue: outThresholdValue
+		inMaxValue: Nil
+		outRegion: con_23386db5_7405_4186_bbac_7ddce39c917c
+	)
+
+	RegionComplement
+	(
+		inRegion: con_23386db5_7405_4186_bbac_7ddce39c917c
+		outRegion: con_05317787_45d2_4452_96a2_df32a6f45ed9
+	)
+
+	ChooseByPredicate<Region>
+	(
+		inObjectIfTrue: con_23386db5_7405_4186_bbac_7ddce39c917c
+		inObjectIfFalse: con_05317787_45d2_4452_96a2_df32a6f45ed9
+		inCondition: inBrightForeground
+		outObject: con_a510e567_dba6_477f_8ee4_01cffe7562bf
+	)
+
+	ConvertToThreeChannelMono
+	(
+		inImage: inImage
+		outImage: con_cf18d1e6_861e_454f_a188_32eca39b1b30
+	)
+
+	DrawRegionNicely
+	(
+		inImage: con_cf18d1e6_861e_454f_a188_32eca39b1b30
+		inRegion: con_a510e567_dba6_477f_8ee4_01cffe7562bf
+		inColor: inColor
+		outImage: outDrawnResult
+	)
+
+	ImagePixelValues
+	(
+		inImage: inImage
+		inRoi: Nil
+		outPixelValues: outImagePixelValues
+	)
+
+	ImageHistogram
+	(
+		inImage: inImage
+		inRoi: Nil
+		inChannelIndex: 0
+		inBinSize: 1.000000
+		inDomainBegin: 0.000000
+		inDomainEnd: 256.000000
+		outHistogram: outImageHistogram
+	)
+}
+
+public ImageCustomGradient(Image inImage, Matrix inMaskX, Matrix inMaskY, Image outGradientImage)
+{
+	AverageChannels
+	(
+		inImage: inImage
+		inRoi: Nil
+		outImage: con_89414271_3365_4c31_b9af_b27aa4610d62
+	)
+
+	ConvertPixelType
+	(
+		inImage: con_89414271_3365_4c31_b9af_b27aa4610d62
+		inRoi: Nil
+		inNewType: Real
+		outImage: con_a58abf8e_d2d9_4f0a_b88a_10f2d585f943
+	)
+
+	ConvolveImage
+	(
+		inImage: con_a58abf8e_d2d9_4f0a_b88a_10f2d585f943
+		inRoi: Nil
+		inMask: inMaskX
+		inNormalizeMaskValues: False
+		inMaskOrigin: Nil
+		outImage: con_2277f5ef_9fa0_4f1b_9328_d60279ba32ad
+	)
+
+	ConvolveImage
+	(
+		inImage: con_a58abf8e_d2d9_4f0a_b88a_10f2d585f943
+		inRoi: Nil
+		inMask: inMaskY
+		inNormalizeMaskValues: False
+		inMaskOrigin: Nil
+		outImage: con_78f43f6e_940d_41fd_97bc_e293f6b944cc
+	)
+
+	MergeChannels
+	(
+		inMonoImage1: con_2277f5ef_9fa0_4f1b_9328_d60279ba32ad
+		inMonoImage2: con_78f43f6e_940d_41fd_97bc_e293f6b944cc
+		inMonoImage3: Nil
+		inMonoImage4: Nil
+		outImage: outGradientImage
+	)
+}
+
+public VectorImageAmplitude(Image inImage, Image outImage)
+{
+	ConvertPixelType
+	(
+		inImage: inImage
+		inRoi: Nil
+		inNewType: Real
+		outImage: con_42a631cc_cd02_44fd_89b2_f15055adb640
+	)
+
+	SplitChannels
+	(
+		inImage: con_42a631cc_cd02_44fd_89b2_f15055adb640
+		outMonoImage1: con_31c443ed_2672_4527_b748_9a24a4886c5d
+		outMonoImage2: con_ef7add23_163d_423c_aa88_4a20a51908cf
+		outMonoImage3: Nil
+		outMonoImage4: Nil
+	)
+
+	SquareImage
+	(
+		inImage: con_31c443ed_2672_4527_b748_9a24a4886c5d
+		inRoi: Nil
+		outImage: con_a5e5bdd4_6c44_4b10_9061_dbe7eb0a410d
+	)
+
+	SquareImage
+	(
+		inImage: con_ef7add23_163d_423c_aa88_4a20a51908cf
+		inRoi: Nil
+		outImage: con_51e2ecc1_762d_4062_a3df_cdae805108b2
+	)
+
+	AddImages
+	(
+		inImage1: con_a5e5bdd4_6c44_4b10_9061_dbe7eb0a410d
+		inImage2: con_51e2ecc1_762d_4062_a3df_cdae805108b2
+		inRoi: Nil
+		inScale: 1.000000
+		outImage: con_eee60236_f680_44c3_bbe8_deeeffbd49e6
+	)
+
+	SquareRootImage
+	(
+		inImage: con_eee60236_f680_44c3_bbe8_deeeffbd49e6
+		inRoi: Nil
+		outImage: outImage
+	)
+}
+
+public GradientAmplitude_PartialDifference(Image inImage, Image outImage)
+{
+	//Bare Partial Difference
+	ImageCustomGradient
+	(
+		inImage: inImage
+		inMaskX: Matrix<PowerTools0.avdata>
+		inMaskY: Matrix<PowerTools1.avdata>
+		outGradientImage: con_b27d18ec_44fd_4147_8db0_fada11de3a3e
+	)
+
+	VectorImageAmplitude
+	(
+		inImage: con_b27d18ec_44fd_4147_8db0_fada11de3a3e
+		outImage: outImage
+	)
+}
+
+public GradientAmplitude_Prewitt(Image inImage, Image outImage)
+{
+	//Prewitt
+	ImageCustomGradient
+	(
+		inImage: inImage
+		inMaskX: Matrix<PowerTools2.avdata>
+		inMaskY: Matrix<PowerTools3.avdata>
+		outGradientImage: con_05369b76_756e_4794_afd3_94f4f8796056
+	)
+
+	DivideImage
+	(
+		inImage: con_05369b76_756e_4794_afd3_94f4f8796056
+		inRoi: Nil
+		inValue: 3.000000
+		outImage: con_da026285_d0af_4cbf_9749_4175d19e0d1e
+	)
+
+	VectorImageAmplitude
+	(
+		inImage: con_da026285_d0af_4cbf_9749_4175d19e0d1e
+		outImage: outImage
+	)
+}
+
+public GradientAmplitude_Sobel(Image inImage, Image outImage)
+{
+	//Sobel
+	ImageCustomGradient
+	(
+		inImage: inImage
+		inMaskX: Matrix<PowerTools4.avdata>
+		inMaskY: Matrix<PowerTools5.avdata>
+		outGradientImage: con_7ba4c3df_9443_4f3d_a9f7_e03152759597
+	)
+
+	DivideImage
+	(
+		inImage: con_7ba4c3df_9443_4f3d_a9f7_e03152759597
+		inRoi: Nil
+		inValue: 4.000000
+		outImage: con_fc760910_2c6e_45b3_9452_a40ce36fa99b
+	)
+
+	VectorImageAmplitude
+	(
+		inImage: con_fc760910_2c6e_45b3_9452_a40ce36fa99b
+		outImage: outImage
+	)
+}
+
+public GradientAmplitude_Sobel5x5(Image inImage, Image outImage)
+{
+	//Bare Partial Difference
+	ImageCustomGradient
+	(
+		inImage: inImage
+		inMaskX: Matrix<PowerTools6.avdata>
+		inMaskY: Matrix<PowerTools7.avdata>
+		outGradientImage: con_5d0b9dd6_5be9_4b9b_929a_2bbe4a53d0c3
+	)
+
+	VectorImageAmplitude
+	(
+		inImage: con_5d0b9dd6_5be9_4b9b_929a_2bbe4a53d0c3
+		outImage: outImage
+	)
+}
+
+public DrawPaths_Subpixel(Pixel* inColor, Image inImage, PathArray inPaths, Integer inScaleFactor, Real inThickness, Real inPointSize, Image outImage)
+{
+	ResizeImage_Relative
+	(
+		inImage: inImage
+		inHorizontalScale: inScaleFactor
+		inVerticalScale: inScaleFactor
+		inResizeMethod: NearestNeighbour
+		outImage: con_4d0c3801_fbf6_4765_a3f3_5a0f50ef503d
+	)
+
+	ResizePath_ByScaleFactor
+	(
+		inB: inScaleFactor
+		inPath: inPaths
+		outPath: con_e9e5c8d5_e63b_4e91_b6a8_e9eae039b064
+	)
+
+	DrawPaths
+	(
+		inImage: con_4d0c3801_fbf6_4765_a3f3_5a0f50ef503d
+		inPaths: con_e9e5c8d5_e63b_4e91_b6a8_e9eae039b064
+		inColor: inColor
+		inPointShape: Circle
+		inDrawingMode: HighQuality
+		inThickness: inThickness
+		inPointSize: inPointSize
+		inOpacity: 1.000000
+		inFilled: False
+		outImage: outImage
+	)
+}
+
+public ResizePath_ByScaleFactor(Integer inB, Path inPath, Path outPath)
+{
+	AccessPath
+	(
+		inPath: inPath
+		outPoints: con_171b8d94_aebb_4208_952e_774171badb14
+		outClosed: con_67137e68_9a3c_4695_a1cd_043919b16c5a
+	)
+
+	AccessPoint
+	(
+		inPoint: con_171b8d94_aebb_4208_952e_774171badb14
+		outX: con_eac8345d_6be1_4839_aff7_af497692c547
+		outY: con_2826c5c3_eaa8_445c_a57d_78b6fd824236
+	)
+
+	MultiplyReals
+	(
+		inA: con_eac8345d_6be1_4839_aff7_af497692c547
+		inB: inB
+		outProduct: con_fa9d929d_0a9b_4e7a_8b39_07bb97f8fcbd
+	)
+
+	MultiplyReals
+	(
+		inA: con_2826c5c3_eaa8_445c_a57d_78b6fd824236
+		inB: inB
+		outProduct: con_1142254c_34f7_4a18_8530_7b1aebeace2b
+	)
+
+	MakePoint
+	(
+		inX: con_fa9d929d_0a9b_4e7a_8b39_07bb97f8fcbd
+		inY: con_1142254c_34f7_4a18_8530_7b1aebeace2b
+		outPoint: con_566131c4_7628_446e_aebb_f39661984487
+	)
+
+	MakePath
+	(
+		inPoints: con_566131c4_7628_446e_aebb_f39661984487
+		inClosed: con_67137e68_9a3c_4695_a1cd_043919b16c5a
+		outPath: outPath
+	)
+}
+

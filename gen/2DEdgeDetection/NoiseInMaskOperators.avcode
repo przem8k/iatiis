@@ -1,0 +1,89 @@
+extern Real GradientThreshold = 80.000000
+
+public Main()
+{
+	LoadImage
+	(
+		inFile: "tooth.png"
+		outImage: con_2cf966b7_f389_465c_91a3_2aa04d40bf31
+		outAlphaChannel: Nil
+	)
+
+	SaveImage
+	(
+		inImage: con_2cf966b7_f389_465c_91a3_2aa04d40bf31
+		inImageFileFormat: Nil
+		inFile: "results/tooth.png"
+	)
+
+	AverageChannels
+	(
+		inImage: con_2cf966b7_f389_465c_91a3_2aa04d40bf31
+		inRoi: Nil
+		outImage: con_32b04ead_5bcf_4f47_92ea_996b24e09c00
+	)
+
+	GradientAmplitude_PartialDifference
+	(
+		inImage: con_32b04ead_5bcf_4f47_92ea_996b24e09c00
+		outImage: con_2be88cf8_ba05_478f_9259_b7f4e061e8b8
+	)
+
+	ConvertPixelType
+	(
+		inImage: con_2be88cf8_ba05_478f_9259_b7f4e061e8b8
+		inRoi: Nil
+		inNewType: UInt8
+		outImage: con_dfe7b161_464a_4577_8323_fb68f73b51c1
+	)
+
+	SaveImage
+	(
+		inImage: con_dfe7b161_464a_4577_8323_fb68f73b51c1
+		inImageFileFormat: Nil
+		inFile: "results/tooth_pd_amplitude.png"
+	)
+
+	GradientAmplitude_Prewitt
+	(
+		inImage: con_32b04ead_5bcf_4f47_92ea_996b24e09c00
+		outImage: con_155e0866_1f46_491d_b479_095a9c227e32
+	)
+
+	ConvertPixelType
+	(
+		inImage: con_155e0866_1f46_491d_b479_095a9c227e32
+		inRoi: Nil
+		inNewType: UInt8
+		outImage: con_b22b7f11_ca6d_4d44_8f25_8baa50632b69
+	)
+
+	SaveImage
+	(
+		inImage: con_b22b7f11_ca6d_4d44_8f25_8baa50632b69
+		inImageFileFormat: Nil
+		inFile: "results/tooth_prewitt_aplitude.png"
+	)
+
+	GradientAmplitude_Sobel
+	(
+		inImage: con_32b04ead_5bcf_4f47_92ea_996b24e09c00
+		outImage: con_381df6f8_3c13_44ab_9d6f_f1064e94adfa
+	)
+
+	ConvertPixelType
+	(
+		inImage: con_381df6f8_3c13_44ab_9d6f_f1064e94adfa
+		inRoi: Nil
+		inNewType: UInt8
+		outImage: con_6caa0598_87bc_4d72_b90d_d558791c4f3d
+	)
+
+	SaveImage
+	(
+		inImage: con_6caa0598_87bc_4d72_b90d_d558791c4f3d
+		inImageFileFormat: Nil
+		inFile: "results/tooth_sobel_aplitude.png"
+	)
+}
+

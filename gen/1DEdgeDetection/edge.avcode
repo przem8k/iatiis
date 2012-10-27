@@ -1,0 +1,80 @@
+public Main()
+{
+	LoadImage
+	(
+		inFile: "edge_plain.png"
+		outImage: con_e957b237_bb26_4f60_90af_72659957b371
+		outAlphaChannel: Nil
+	)
+
+	MakeSegment
+	(
+		inX1: 0.000000
+		inY1: 100.500000
+		inX2: 200.000000
+		inY2: 100.500000
+		outSegment: con_3c659583_74db_4130_afb2_51894de3a0cf
+	)
+
+	ScanSingleEdge
+	(
+		inImage: con_e957b237_bb26_4f60_90af_72659957b371
+		inScanPath: con_3c659583_74db_4130_afb2_51894de3a0cf
+		inScanWidth: 5
+		inInterpolationMethod: Bilinear
+		inSmoothingStdDev: 0.600000
+		inMinStrength: 5.000000
+		inTransition: DarkToBright
+		outEdgePoint: con_60b10269_f5fe_44e5_ab44_f32137413027
+		diagBrightnessProfile: Nil
+		diagResponseProfile: Nil
+	)
+
+	DrawSegments
+	(
+		inImage: con_e957b237_bb26_4f60_90af_72659957b371
+		inSegments: con_3c659583_74db_4130_afb2_51894de3a0cf
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 0.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		inDrawingMode: HighQuality
+		inMarkerType: Arrow
+		inThickness: 2.000000
+		inMarkerSize: 5.000000
+		inOpacity: 1.000000
+		outImage: con_4759e69d_7747_461c_bd97_2ee680be0b37
+	)
+
+	DrawPoints
+	(
+		inImage: con_4759e69d_7747_461c_bd97_2ee680be0b37
+		inPoints: con_60b10269_f5fe_44e5_ab44_f32137413027
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 255.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		inPointShape: Circle
+		inDrawingMode: HighQuality
+		inPointSize: 7.000000
+		inThickness: 1.000000
+		inOpacity: 1.000000
+		outImage: con_89052f1b_e3bb_4627_8b2d_df37935f46a3
+	)
+
+	SaveImage
+	(
+		inImage: con_89052f1b_e3bb_4627_8b2d_df37935f46a3
+		inImageFileFormat: Nil
+		inFile: "results/edge.png"
+	)
+}
+

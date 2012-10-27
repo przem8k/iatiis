@@ -1,0 +1,159 @@
+public Main()
+{
+	LoadImage
+	(
+		inFile: "images\\tooth.png"
+		outImage: con_51826cec_f2ab_43e2_a51c_3d938acdd509
+		outAlphaChannel: Nil
+	)
+
+	ThresholdByBrightness
+	(
+		inImage: con_51826cec_f2ab_43e2_a51c_3d938acdd509
+		inBrightForeground: True
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 128.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		outPixelValues: con_2ccc2f83_7651_4481_b42f_5d050434ff27
+		outDrawnResult: con_9bcba7f2_894b_45e2_a2db_33f424212348
+		outHistogram: Nil
+		outThresholdValue: con_55550620_0858_4332_bfc7_28a347d8081c
+	)
+
+	SaveString
+	(
+		inString: con_55550620_0858_4332_bfc7_28a347d8081c
+		inFileAccessMode: CreateOrErase
+		inFile: "results/tooth_average_threshold.txt"
+	)
+
+	SaveImage
+	(
+		inImage: con_9bcba7f2_894b_45e2_a2db_33f424212348
+		inImageFileFormat: Nil
+		inFile: "results/tooth_average_img.png"
+	)
+
+	ExportProfile
+	(
+		inProfile: con_2ccc2f83_7651_4481_b42f_5d050434ff27
+		inFilename: "results/tooth_average_pixels.values"
+	)
+
+	LoadImage
+	(
+		inFile: "images\\tooth_displaced.png"
+		outImage: con_7943b901_1c78_43f1_b8cf_c648d0e9a900
+		outAlphaChannel: Nil
+	)
+
+	ThresholdByBrightness
+	(
+		inImage: con_7943b901_1c78_43f1_b8cf_c648d0e9a900
+		inBrightForeground: True
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 128.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		outPixelValues: con_1551097a_fef0_4754_9ac3_fa6907d9bcfb
+		outDrawnResult: con_a0c39d17_d24c_428e_89cf_bdc1a4edd9de
+		outHistogram: Nil
+		outThresholdValue: con_52ba5d7d_9d35_4828_b805_523197992c57
+	)
+
+	SaveString
+	(
+		inString: con_52ba5d7d_9d35_4828_b805_523197992c57
+		inFileAccessMode: CreateOrErase
+		inFile: "results/displaced_average_threshold.txt"
+	)
+
+	SaveImage
+	(
+		inImage: con_a0c39d17_d24c_428e_89cf_bdc1a4edd9de
+		inImageFileFormat: Nil
+		inFile: "results/displaced_average_img.png"
+	)
+
+	ExportProfile
+	(
+		inProfile: con_1551097a_fef0_4754_9ac3_fa6907d9bcfb
+		inFilename: "results/displaced_average_pixels.values"
+	)
+}
+
+public ThresholdByBrightness(Image inImage, Bool inBrightForeground, Pixel inColor, RealArray outPixelValues, Image outDrawnResult, Histogram outHistogram, Real outThresholdValue)
+{
+	ImageAverage
+	(
+		inImage: inImage
+		inRoi: Nil
+		outAverageValue: outThresholdValue
+		outAverageColor: Nil
+	)
+
+	ThresholdToRegion
+	(
+		inImage: inImage
+		inRoi: Nil
+		inMinValue: outThresholdValue
+		inMaxValue: Nil
+		outRegion: con_886fdb93_4294_4c03_b295_0fcb590593da
+	)
+
+	RegionComplement
+	(
+		inRegion: con_886fdb93_4294_4c03_b295_0fcb590593da
+		outRegion: con_1d394df1_a6de_44aa_8c99_e268ac03015b
+	)
+
+	ChooseByPredicate<Region>
+	(
+		inObjectIfTrue: con_886fdb93_4294_4c03_b295_0fcb590593da
+		inObjectIfFalse: con_1d394df1_a6de_44aa_8c99_e268ac03015b
+		inCondition: inBrightForeground
+		outObject: con_6dc39c8e_0b0e_4be7_adeb_ad3b29be3fa3
+	)
+
+	ConvertToThreeChannelMono
+	(
+		inImage: inImage
+		outImage: con_9fc1f508_e15e_45bc_bb07_84dcf33ab18c
+	)
+
+	DrawRegionNicely
+	(
+		inImage: con_9fc1f508_e15e_45bc_bb07_84dcf33ab18c
+		inRegion: con_6dc39c8e_0b0e_4be7_adeb_ad3b29be3fa3
+		inColor: inColor
+		outImage: outDrawnResult
+	)
+
+	ImagePixelValues
+	(
+		inImage: inImage
+		inRoi: Nil
+		outPixelValues: outPixelValues
+	)
+
+	ImageHistogram
+	(
+		inImage: inImage
+		inRoi: Nil
+		inChannelIndex: 0
+		inBinSize: 1.000000
+		inDomainBegin: 0.000000
+		inDomainEnd: 256.000000
+		outHistogram: outHistogram
+	)
+}
+

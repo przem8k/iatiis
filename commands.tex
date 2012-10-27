@@ -1,0 +1,84 @@
+%
+% Filter
+%
+
+\newcommand{\filter}[2]{%
+	\href{http://www.adaptive-vision.com/en/technical_data/documentation/filters/#2/#1.html}%
+{\texttt{#1}}%
+}%
+
+%
+% Param
+%
+
+\newcommand{\param}[1]{%
+\textbf{#1}%
+}%
+
+\newcommand{\marginparam}[1]{%
+\marginpar{\tiny{\param{#1}}}%
+}%
+
+%
+% Exercise
+%
+
+\usepackage{changepage}
+\usepackage{framed}
+
+\definecolor{formalshade}{rgb}{0.95,0.95,1}
+
+\newenvironment{exercise}{%
+  \def\FrameCommand{%
+    \hspace{1pt}%
+    {\color{ChapBlue}\vrule width 2pt}%
+    {\color{formalshade}\vrule width 4pt}%
+    \colorbox{formalshade}%
+  }%
+  \MakeFramed{\advance\hsize-\width\FrameRestore}%
+  \noindent\hspace{-4.55pt}% disable indenting first paragraph
+  \begin{adjustwidth}{}{7pt}%
+  \vspace{2pt}\vspace{2pt}%
+}
+{%
+  \vspace{2pt}\end{adjustwidth}\endMakeFramed%
+}
+
+\newenvironment{refImpl}{%
+  \def\FrameCommand{%
+    \hspace{1pt}%
+    {\color{ChapBlue}\vrule width 2pt}%
+    {\color{formalshade}\vrule width 4pt}%
+    \colorbox{formalshade}%
+  }%
+  \MakeFramed{\advance\hsize-\width\FrameRestore}%
+  \noindent\hspace{-4.55pt}% disable indenting first paragraph
+  \begin{adjustwidth}{}{7pt}%
+  \vspace{2pt}\vspace{2pt}%
+}
+{%
+  \vspace{2pt}\end{adjustwidth}\endMakeFramed%
+}
+
+%
+% Valigned images in tables
+%
+
+\def\imagetop#1{\vtop{\null\hbox{#1}}}
+
+%
+% Refs
+%
+
+\newcommand{\reffig}[1]{\textbf{Figure \ref{fig:#1}}}
+
+\newcommand{\reftab}[1]{\textbf{Table \ref{tab:#1}}}
+
+\newcommand{\refchap}[1]{\textbf{\nameref{chap:#1}}}
+
+%
+% Vars
+%
+
+\newcommand{\studio}[0]{\textbf{Adaptive Vision Studio 2.5 }}
+

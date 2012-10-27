@@ -1,0 +1,7 @@
+<AdaptiveVisionProject Name="MemoryEfficiency" Version="2.4.1">
+  <Configuration />
+  <Files>
+    <Program Path="MemoryEfficiency.avcode" />
+    <View Path="MemoryEfficiency.avview" />
+  </Files>
+</AdaptiveVisionProject>

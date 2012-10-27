@@ -1,0 +1,169 @@
+public Main()
+{
+	LoadImage
+	(
+		inFile: "capsule.png"
+		outImage: con_95c9f7b9_f59c_4ae2_86d9_11d97cf268a0
+		outAlphaChannel: Nil
+	)
+
+	CropImage
+	(
+		inImage: con_95c9f7b9_f59c_4ae2_86d9_11d97cf268a0
+		inSelection:
+			Box
+			(
+				X: 8
+				Y: 15
+				Width: 690
+				Height: 435
+			)
+		outImage: con_4e22ca7d_b8c4_43aa_8be7_e2e0e46111e2
+	)
+
+	DetectEdges
+	(
+		inImage: con_4e22ca7d_b8c4_43aa_8be7_e2e0e46111e2
+		inRoi: Nil
+		inEdgeFilter: Lanser
+		inStdDevX: 1.000000
+		inStdDevY: 1.000000
+		inEdgeThreshold: 70.000000
+		inEdgeHysteresis: 40.000000
+		outEdges: con_effaca0d_66c9_491a_bce9_50028f34e384
+		diagGradientAmplitudeImage: Nil
+		diagEdgeRegion: Nil
+	)
+
+	SelectOuterPaths
+	(
+		inPaths: con_effaca0d_66c9_491a_bce9_50028f34e384
+		inCenterPoint:
+			Point2D
+			(
+				X: 348.198212
+				Y: 233.693695
+			)
+		inTolerance: 0.000000
+		outOuterPaths: con_038b2680_c2d4_4128_8152_bec7f4292c0f
+	)
+
+	JoinAdjacentPaths
+	(
+		inPaths: con_038b2680_c2d4_4128_8152_bec7f4292c0f
+		inMaxDistance: 10.000000
+		outPaths: con_c60affd8_dece_4d65_affc_819659299851
+	)
+
+	ClosePath
+	(
+		inPath: con_c60affd8_dece_4d65_affc_819659299851
+		outPath: con_9390a7ce_b9a8_4fd2_b072_fc2fd76dc985
+	)
+
+	DrawPaths
+	(
+		inImage: con_4e22ca7d_b8c4_43aa_8be7_e2e0e46111e2
+		inPaths: con_9390a7ce_b9a8_4fd2_b072_fc2fd76dc985
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 255.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		inPointShape: Nil
+		inDrawingMode: HighQuality
+		inThickness: 3.000000
+		inPointSize: 2.500000
+		inOpacity: 1.000000
+		inFilled: False
+		outImage: con_458b3b6f_55e8_4052_9b10_1eb44fd2c8b4
+	)
+
+	SaveImage
+	(
+		inImage: con_458b3b6f_55e8_4052_9b10_1eb44fd2c8b4
+		inImageFileFormat: Nil
+		inFile: "results/capsule_contour.png"
+	)
+
+	GetArrayElement<Path>
+	(
+		inArray: con_9390a7ce_b9a8_4fd2_b072_fc2fd76dc985
+		inIndex: 0
+		inReverse: False
+		outValue: con_0e70142c_1dd2_4fc1_bea1_80e63ab62192
+	)
+
+	SegmentPath
+	(
+		inPath: con_0e70142c_1dd2_4fc1_bea1_80e63ab62192
+		inSmoothingStdDev: 0.500000
+		inMaxDeviation: 2.000000
+		inSegmentationMode: SegmentsAndArcs
+		inMaxArcRadius: 50.000000
+		outStraight: con_8c2ee906_c219_47d1_b067_36ce9f64e188
+		outArciform: con_64722c73_2a5f_443a_9b7e_4da769511338
+		outSegments: con_7bedbdd4_ca91_4252_955c_fb0e33364c62
+		outArcs: con_e91036f5_a434_4b5d_9f3c_cbbe7471a0db
+	)
+
+	DrawPaths
+	(
+		inImage: con_4e22ca7d_b8c4_43aa_8be7_e2e0e46111e2
+		inPaths: con_8c2ee906_c219_47d1_b067_36ce9f64e188
+		inColor: Nil
+		inPointShape: Nil
+		inDrawingMode: HighQuality
+		inThickness: 3.000000
+		inPointSize: 2.500000
+		inOpacity: 1.000000
+		inFilled: False
+		outImage: con_8f35957d_4fc2_41b4_bb9a_03cdf42f1b4b
+	)
+
+	SaveImage
+	(
+		inImage: con_8f35957d_4fc2_41b4_bb9a_03cdf42f1b4b
+		inImageFileFormat: Nil
+		inFile: "results/capsule_straight.png"
+	)
+
+	DrawPaths
+	(
+		inImage: con_4e22ca7d_b8c4_43aa_8be7_e2e0e46111e2
+		inPaths: con_64722c73_2a5f_443a_9b7e_4da769511338
+		inColor: Nil
+		inPointShape: Nil
+		inDrawingMode: HighQuality
+		inThickness: 3.000000
+		inPointSize: 2.500000
+		inOpacity: 1.000000
+		inFilled: False
+		outImage: con_a42d56f8_b44e_4c5b_a250_b6b07064382f
+	)
+
+	SaveImage
+	(
+		inImage: con_a42d56f8_b44e_4c5b_a250_b6b07064382f
+		inImageFileFormat: Nil
+		inFile: "results/capsule_arciform.png"
+	)
+}
+
+public SegmentationWorker(Path inPath)
+{
+	FitCircleToPoints
+	(
+		inPoints:
+			Point2DArray
+			{
+			}
+		inFittingMethod: Algebraic_Kasa
+		inSuppressionMethod: Nil
+		outCircle: con_f25b17f8_a750_44b6_9f3d_cec283141241
+	)
+}
+

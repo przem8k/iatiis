@@ -1,0 +1,243 @@
+public Main()
+{
+
+	LoadImage
+	(
+		inFile: "fuses.png"
+		outImage: con_5942be72_2a63_4bbb_ae65_c7ca16104b99
+		outAlphaChannel: Nil
+	)
+
+
+	SaveImage
+	(
+		inImage: con_5942be72_2a63_4bbb_ae65_c7ca16104b99
+		inImageFileFormat: Nil
+		inFile: "results/fuses.png"
+	)
+
+
+	ThresholdToRegion
+	(
+		inImage: con_5942be72_2a63_4bbb_ae65_c7ca16104b99
+		inRoi: Nil
+		inMinValue: Nil
+		inMaxValue: 99.000000
+		outRegion: con_22b7c3e8_8af9_42bf_a381_cc1f3dd6c074
+	)
+
+
+	DilateRegion
+	(
+		inRegion: con_22b7c3e8_8af9_42bf_a381_cc1f3dd6c074
+		inKernel: Ellipse
+		inRadiusX: 5
+		inRadiusY: Nil
+		outRegion: con_27709325_ef6d_426e_881d_e39c916ede3e
+	)
+
+
+	DrawRegionNicely
+	(
+		inImage: con_5942be72_2a63_4bbb_ae65_c7ca16104b99
+		inRegion: con_27709325_ef6d_426e_881d_e39c916ede3e
+		inColor:
+			(
+				X: 255.000000
+				Y: 128.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		outImage: con_bb43bdec_530a_483b_8c28_77044c61df1f
+	)
+
+
+	SaveImage
+	(
+		inImage: con_bb43bdec_530a_483b_8c28_77044c61df1f
+		inImageFileFormat: Nil
+		inFile: "results\\fuses_dilated.png"
+	)
+
+
+	SplitRegionIntoBlobs
+	(
+		inRegion: con_27709325_ef6d_426e_881d_e39c916ede3e
+		inConnectivity: EightDirections
+		outBlobs: con_8a49c1ac_7a3e_4f52_bd1c_c5271014a095
+	)
+
+
+	RegionUnion_OfArray
+	(
+		inArray: con_8a49c1ac_7a3e_4f52_bd1c_c5271014a095
+		outRegion: con_92a7c234_f2f1_486c_8a9c_159ebd6d788f
+	)
+
+
+	DrawRegionNicely
+	(
+		inImage: con_5942be72_2a63_4bbb_ae65_c7ca16104b99
+		inRegion: con_92a7c234_f2f1_486c_8a9c_159ebd6d788f
+		inColor: Nil
+		outImage: con_0a30ad48_661b_43d5_8206_39b485454cd8
+	)
+
+
+	SaveImage
+	(
+		inImage: con_0a30ad48_661b_43d5_8206_39b485454cd8
+		inImageFileFormat: Nil
+		inFile: "results\\fuses_dilated_blobs.png"
+	)
+
+
+	RegionIntersection
+	(
+		inRegion1: con_8a49c1ac_7a3e_4f52_bd1c_c5271014a095
+		inRegion2: con_22b7c3e8_8af9_42bf_a381_cc1f3dd6c074
+		outRegion: con_6a3c41e4_7ea6_46f6_b80b_a7e8ac781c6b
+	)
+
+
+	RegionUnion_OfArray
+	(
+		inArray: con_6a3c41e4_7ea6_46f6_b80b_a7e8ac781c6b
+		outRegion: con_d5ae78d4_3e1e_45da_9097_a225ed1e698d
+	)
+
+
+	DrawRegionNicely
+	(
+		inImage: con_5942be72_2a63_4bbb_ae65_c7ca16104b99
+		inRegion: con_d5ae78d4_3e1e_45da_9097_a225ed1e698d
+		inColor: Nil
+		outImage: con_2159d2e1_3eb2_41f8_a18b_262b249c44c4
+	)
+
+
+	SaveImage
+	(
+		inImage: con_2159d2e1_3eb2_41f8_a18b_262b249c44c4
+		inImageFileFormat: Nil
+		inFile: "results\\fuses_components.png"
+	)
+
+
+	OpenRegion
+	(
+		inRegion: con_22b7c3e8_8af9_42bf_a381_cc1f3dd6c074
+		inKernel: Box
+		inRadiusX: 1
+		inRadiusY: Nil
+		outRegion: con_46acfd08_53b8_4ff7_80d6_24b59c802ec6
+	)
+
+
+	SplitRegionIntoBlobs
+	(
+		inRegion: con_46acfd08_53b8_4ff7_80d6_24b59c802ec6
+		inConnectivity: EightDirections
+		outBlobs: con_1cfda191_5def_4d10_996d_4642fd7a8d4a
+	)
+
+
+	DrawRegionNicely
+	(
+		inImage: con_5942be72_2a63_4bbb_ae65_c7ca16104b99
+		inRegion: con_46acfd08_53b8_4ff7_80d6_24b59c802ec6
+		inColor: Nil
+		outImage: con_773da01c_40f7_4a17_8578_f0991209e13c
+	)
+
+
+	SaveImage
+	(
+		inImage: con_773da01c_40f7_4a17_8578_f0991209e13c
+		inImageFileFormat: Nil
+		inFile: "results\\fuses_blobs.png"
+	)
+
+
+	DrawRegionNicely
+	(
+		inImage: con_5942be72_2a63_4bbb_ae65_c7ca16104b99
+		inRegion: con_46acfd08_53b8_4ff7_80d6_24b59c802ec6
+		inColor:
+			(
+				X: 255.000000
+				Y: 128.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		outImage: con_7e33e957_8ade_4071_92cf_9b8e424300ec
+	)
+
+
+	SaveImage
+	(
+		inImage: con_7e33e957_8ade_4071_92cf_9b8e424300ec
+		inImageFileFormat: Nil
+		inFile: "results\\fuses_region.png"
+	)
+
+
+	DrawRegions
+	(
+		inImage: con_5942be72_2a63_4bbb_ae65_c7ca16104b99
+		inRegions: con_1cfda191_5def_4d10_996d_4642fd7a8d4a
+		inColor: Nil
+		inOpacity: 1.000000
+		outImage: con_9745ee2c_49cc_4ed7_8271_1d0aebbb1d24
+	)
+
+
+	RegionArea
+	(
+		inRegion: con_1cfda191_5def_4d10_996d_4642fd7a8d4a
+		outArea: con_7ce77917_2e2a_4ed5_ad59_97cd2dd4db0a
+	)
+
+
+	ClassifyByRange<Region>
+	(
+		inArray: con_1cfda191_5def_4d10_996d_4642fd7a8d4a
+		inValues: con_7ce77917_2e2a_4ed5_ad59_97cd2dd4db0a
+		inMin: 4000.000000
+		inMax: Nil
+		outLower: con_03aff4b9_fef5_4d9d_9111_ca2731235c55
+		outInRange: Nil
+		outHigher: Nil
+	)
+
+
+	RegionUnion_OfArray
+	(
+		inArray: con_03aff4b9_fef5_4d9d_9111_ca2731235c55
+		outRegion: con_5fa23341_9b0e_46e1_8cb6_7c3a1afe0d0d
+	)
+
+
+	DrawRegionNicely
+	(
+		inImage: con_5942be72_2a63_4bbb_ae65_c7ca16104b99
+		inRegion: con_5fa23341_9b0e_46e1_8cb6_7c3a1afe0d0d
+		inColor:
+			(
+				X: 255.000000
+				Y: 0.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		outImage: con_1ab9b435_4ca0_4002_8fa9_75a377060331
+	)
+
+
+	SaveImage
+	(
+		inImage: con_1ab9b435_4ca0_4002_8fa9_75a377060331
+		inImageFileFormat: Nil
+		inFile: "results\\fuses_bad.png"
+	)
+}
+

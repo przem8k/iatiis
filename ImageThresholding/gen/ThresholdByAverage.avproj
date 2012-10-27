@@ -1,0 +1,8 @@
+<AdaptiveVisionProject Name="ThresholdByAverage" Version="2.4.1" StartUpProgramName="Main">
+  <Configuration />
+  <Files>
+    <Program Path="ThresholdByAverage.avcode" />
+    <View Path="ThresholdByAverage.avview" />
+    <Lib Path="C:\Users\dx\projects\AdaptiveVisionStudio\depot\mvg\gen\PowerTools.avlib" />
+  </Files>
+</AdaptiveVisionProject>

@@ -1,0 +1,27 @@
+\section{Path}
+
+\paragraph*{}
+\textbf{Path}, the fundamental data type of contour analysis, is a simple list of points defining two-dimensional curve consisting of straight segments; along with one additional, boolean information indicating if the list is \textbf{closed} or \textbf{open}, i.e., if the first point should be interpreted as connected with the last one.
+
+\paragraph*{}
+Both types of paths occur naturally as the results of \refchap{2DEdgeDetection}, as demonstrated in \reffig{PathTypes}. Paths may be also extracted from regions by computing region contours (always closed paths) or medial axis (both open and closed).
+
+\twoFigures
+{ContourAnalysis/img/ClosedPaths}
+{ContourAnalysis/img/OpenPaths}
+{Closed and open paths extracted in \refchap{2DEdgeDetection}.}
+{PathTypes}
+{\basicWidth}
+
+\subsection{Characteristic Points}
+
+\paragraph*{}
+Each non-degenerate path represents infinite number of points on the segments between its defining points. To avoid confusion we will consequently refer to the defining points of a path as its \textbf{characteristic points}.
+
+\subsection{Polygons}
+
+\paragraph*{}
+Let us note that our definition of path is quite general - we allow the path to have duplicate points and self-intersections. This is reasonable because a lot of important path operators (e.g. the segmentation routines which we are going to discuss soon) and features (e.g. path length) are well-defined for such paths and require no additional restrictions.
+
+\paragraph*{}
+One exception is extraction of features defined in the context of two-dimensional shapes enclosed by a path, i.e. sub-pixel precise polygons. Such operators make sense only when the path divides the space into exactly two parts - interior and exterior, and thus has to be \textbf{closed} and \textbf{not self-intersecting}.

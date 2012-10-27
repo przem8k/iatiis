@@ -1,0 +1,8 @@
+<AdaptiveVisionProject Name="Round" Version="2.5.0" StartUpProgramName="Main">
+  <Configuration />
+  <Files>
+    <Program Path="Round.avcode" />
+    <View Path="Round.avview" />
+    <Lib Path="C:\Users\dx\projects\AdaptiveVisionStudio\depot\mvg\gen\PowerTools.avlib" />
+  </Files>
+</AdaptiveVisionProject>

@@ -1,0 +1,8 @@
+<AdaptiveVisionProject Name="Entropy" Version="2.5.0" StartUpProgramName="Main">
+  <Configuration />
+  <Files>
+    <Program Path="Entropy.avcode" />
+    <View Path="Entropy.avview" />
+    <Lib Path="C:\Users\dx\projects\AdaptiveVisionStudio\depot\mvg\gen\PowerTools.avlib" />
+  </Files>
+</AdaptiveVisionProject>

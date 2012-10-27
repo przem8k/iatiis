@@ -1,0 +1,7 @@
+<AdaptiveVisionProject Name="positioning" Version="2.4.1">
+  <Configuration />
+  <Files>
+    <Program Path="positioning.avcode" />
+    <View Path="positioning.avview" />
+  </Files>
+</AdaptiveVisionProject>

@@ -1,0 +1,45 @@
+\newcommand{\thresholdFigure}[4]
+{
+\begin{figure}
+    \begin{subfigure}[b]{\basicWidth}
+		\includegraphics[width=\linewidth]{ImageThresholding/img/#1_img.png}
+    \end{subfigure}%
+    ~
+    \begin{subfigure}[b]{\basicWidth}
+		\begin{tikzpicture}
+		\begin{axis}[
+		ybar interval,
+		scaled y ticks = false,
+		xtick=\empty,
+		extra x ticks       = #2,
+		extra x tick style  = { grid = major },
+		yticklabels={,,},
+		scale only axis,
+		width=\linewidth,
+		height=0.68\linewidth,
+		enlargelimits=false
+		]
+
+		\addplot+[hist={data=y,bins=64}]
+		table[x=Index,y=Value] {ImageThresholding/img/#1_pixels.values};
+
+		\end{axis}
+		\end{tikzpicture}
+    \end{subfigure}
+    \caption{#3}
+    \label{fig:#4}
+\end{figure}
+}
+
+\chapter{Image Thresholding} 
+\label{chap:ImageThresholding}
+
+\epigraph{Truly to enjoy warmth, some small part of you must be cold, for there is no quality in this world that is not what it is merely by contrast. Nothing exists in itself.}
+{\textsc{Herman Melville}}
+
+\pagebreak
+
+\input{ImageThresholding/introduction}
+\input{ImageThresholding/global_thresholding}
+\input{ImageThresholding/threshold_selection}
+\input{ImageThresholding/dynamic_thresholding}

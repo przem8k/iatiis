@@ -1,0 +1,143 @@
+extern Integer ZoomFactor = 15
+
+public Main()
+{
+	LoadImage
+	(
+		inFile: "fuses.png"
+		outImage: con_86b2ac57_0a65_48a9_9ab2_a80582417724
+		outAlphaChannel: Nil
+	)
+
+	CropImage
+	(
+		inImage: con_86b2ac57_0a65_48a9_9ab2_a80582417724
+		inSelection:
+			Box
+			(
+				X: 179
+				Y: 187
+				Width: 21
+				Height: 16
+			)
+		outImage: con_452c83b3_bb29_4197_82ad_3e7e900754d6
+	)
+
+	ThresholdToRegion
+	(
+		inImage: con_452c83b3_bb29_4197_82ad_3e7e900754d6
+		inRoi: Nil
+		inMinValue: Nil
+		inMaxValue: 128.000000
+		outRegion: con_c0614a62_e8f8_4ae8_a951_15a58b1726b2
+	)
+
+	RegionContours
+	(
+		inRegion: con_c0614a62_e8f8_4ae8_a951_15a58b1726b2
+		inContourMode: PixelEdges
+		inRegionConnectivity: EightDirections
+		outContours: con_debc0a94_3a6c_4e90_92ef_3c4936054def
+	)
+
+	ResizeImage_Relative
+	(
+		inImage: con_452c83b3_bb29_4197_82ad_3e7e900754d6
+		inHorizontalScale: ZoomFactor
+		inVerticalScale: ZoomFactor
+		inResizeMethod: NearestNeighbour
+		outImage: con_868c1cd3_39ef_44c2_b639_1eb82abe7494
+	)
+
+	ZoomPath
+	(
+		inZoomFactor: ZoomFactor
+		inPath: con_debc0a94_3a6c_4e90_92ef_3c4936054def
+		outPath: con_a060a1bb_47e2_49c6_8da5_62262ad45be0
+	)
+
+	DrawPaths
+	(
+		inImage: con_868c1cd3_39ef_44c2_b639_1eb82abe7494
+		inPaths: con_a060a1bb_47e2_49c6_8da5_62262ad45be0
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 255.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		inPointShape: Nil
+		inDrawingMode: HighQuality
+		inThickness: 1.000000
+		inPointSize: 2.000000
+		inOpacity: 0.500000
+		inFilled: True
+		outImage: con_52ce46c9_9096_4918_b3cb_5b08035f4323
+	)
+
+	DrawPaths
+	(
+		inImage: con_52ce46c9_9096_4918_b3cb_5b08035f4323
+		inPaths: con_a060a1bb_47e2_49c6_8da5_62262ad45be0
+		inColor:
+			Pixel
+			(
+				X: 192.000000
+				Y: 0.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		inPointShape: Nil
+		inDrawingMode: HighQuality
+		inThickness: 3.000000
+		inPointSize: 3.000000
+		inOpacity: 1.000000
+		inFilled: False
+		outImage: con_e136f381_6b92_4434_a556_1646e4def0d9
+	)
+
+	DrawPaths
+	(
+		inImage: con_e136f381_6b92_4434_a556_1646e4def0d9
+		inPaths: con_a060a1bb_47e2_49c6_8da5_62262ad45be0
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 0.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		inPointShape: Circle
+		inDrawingMode: HighQuality
+		inThickness: 0.000000
+		inPointSize: 6.000000
+		inOpacity: 1.000000
+		inFilled: False
+		outImage: con_249a9680_6531_4f8f_8b2e_3fc11bd32d77
+	)
+
+	CropImage
+	(
+		inImage: con_249a9680_6531_4f8f_8b2e_3fc11bd32d77
+		inSelection:
+			Box
+			(
+				X: 0
+				Y: 15
+				Width: 300
+				Height: 225
+			)
+		outImage: con_85c58abe_ec74_44da_960a_02b0f233f001
+	)
+
+	SaveImage
+	(
+		inImage: con_85c58abe_ec74_44da_960a_02b0f233f001
+		inImageFileFormat: Nil
+		inFile: "../img/region_contours.png"
+	)
+}
+

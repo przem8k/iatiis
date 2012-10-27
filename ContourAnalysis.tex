@@ -1,0 +1,29 @@
+\newcommand{\smallPath}[1]
+{%
+\begin{tikzpicture}
+\begin{axis}[
+	xtick=\empty,
+	ytick=\empty,
+	scale only axis,
+	width=\linewidth,
+	height=0.5\linewidth,
+]
+\addplot table[x=X,y=Y] {#1};
+\end{axis}
+\end{tikzpicture}
+}
+
+
+\chapter{Contour Analysis}
+\label{chap:ContourAnalysis}
+
+\epigraph{Be precise. A lack of precision is dangerous when the margin of error is small.}
+{\textsc{Donald Rumsfeld}}
+
+\pagebreak
+
+\input{ContourAnalysis/introduction}
+\input{ContourAnalysis/path}
+\input{ContourAnalysis/segmentation}
+\input{ContourAnalysis/features}
+%\input{ContourAnalysis/examples}

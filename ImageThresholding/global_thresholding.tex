@@ -1,0 +1,31 @@
+\section{Global Thresholding}
+
+\paragraph*{}
+Basic thresholding operator simply selects the pixels of intensity within a predefined range. If we interpret the results as a binary image with black pixels denoting the background and white pixels denoting the foreground, the operation applied to an image $I$ computes the result $B$ as follows:
+
+\[
+B[i,j] = \left\{ 
+  \begin{array}{l l}
+    1 & \quad \text{if } minValue \leq I[i,j] \leq maxValue \\
+    0 & \quad \text{otherwise} \\
+  \end{array} \right.
+\]
+
+\paragraph*{}
+\reffig{GlobalThresholding} demonstrates example results of thresholding the same image with different range of foreground intensities.
+
+\twoFigures
+{ImageThresholding/img/fuses_high}
+{ImageThresholding/img/fuses_low}
+{Results of global thresholding with different threshold values - pixels identified as foreground marked in orange.}
+{GlobalThresholding}
+{\basicWidth}
+
+\paragraph*{}
+Global thresholding is \textit{global} in that it evaluates each pixel of the image using the same foreground intensity range. As such, it requires not only that the background is consistently darker (or brighter) than foreground, but also that the lightning is reasonably uniform throughout the entire image.
+
+\paragraph*{}
+The importance of uniform (in space) and constant (in time, when a series of images is analyzed) lightning for successful application of automatic visual inspection is paramount. Whenever bad lightning conditions distrupt work of a technique, we should try to amend the lightning first, and only if this is not possible we should move to adjusting the algorithm. 
+
+\paragraph*{}
+That being said, numerous methods were developed to allow successful thresholding despite the lightning imperfections.

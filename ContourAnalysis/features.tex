@@ -1,0 +1,172 @@
+%\section{Features}
+
+\section{Statistical Features}
+
+\subsection{Polygon Moments}
+
+\paragraph*{}
+In the \refchap{BlobAnalysis} chapter we have discussed region moments - generalized statistical features of region pixel coordinates. Equivalent formulas may be formulated for sub-pixel precise polygons - yet we will need to perform an integraton over the surface of the polygon rather than simple summation, as the number of points contained in non-degenerate polygon is infinite.
+
+\paragraph*{}
+In the following equations we assume $S$ to be a polygon defined by a closed, not self-intersecting path. The raw and central moments of $S$ are defined as:
+
+\begin{align*}
+	m_{p,q} &= \iint_{(x,y) \in S} x^p y^q dx dy \\
+	c_{p,q} &= \iint_{(x,y) \in S} (x-\overline{x})^p (y-\overline{y})^q dx dy
+\end{align*}
+
+and both may be normalized, i.e. divided by the area $a$ of $S$:
+
+\begin{align*}
+	m'_{p,q} &= \frac{1}{a} m_{p,q}\\
+	c'_{p,q} &= \frac{1}{a} c_{p,q}
+\end{align*}
+
+\subsection{Computation}
+
+\paragraph*{}
+As opposed to region moments, the formulas for shape moments do not give us a direct algorithm for computing any of them - in each case we are left with a double integration to perform.
+
+\paragraph*{}
+Luckily, Green theorem defines the relation between any double integral over simple polygon and line integral over its boundary, which allow to substitute double integral by a sum of line integrals, each of which will be evaluated over a segment of the boundary path. For the line integrals of low order, closed formulas may be obtained, as given\cite{Turkowski97} by Turkowski for first and second-order moments.
+
+\paragraph*{}
+For instance, this approach allows to obtain the following formula for zeroth moment of a shape defined by a closed, $n$-point path $S$:
+\[
+	m_{0,0} = \frac{1}{2} \sum_{p = 0}^{n-1} (S[p]_x \cdot S[p+1]_y  - S[p+1]_x \cdot S[p]_y)
+\]
+which is the well known formula for the area of polygon based on the cross product of vectors from $(0,0)$ to its consecutive vertices. 
+
+\paragraph*{}
+From the practical point of view it is important that the polygon moments can be computed precisely, deterministically in linear time (in terms of the number of their characteristic points).
+
+\subsection{Applications}
+
+\paragraph*{}
+As the order of moments (defined as a sum of the moment exponents, i.e. $p+q$ for $m_{p,q}$) increases, the shape-describing information carried by them gets harder for interpretation and conscious use. In the field of industrial inspection usage of moments is usually focused on the moments of order $0$, $1$ and $2$.
+
+\subsubsection{0th order}
+
+\paragraph*{}
+There is only one zeroth moment - $m_{0,0}$, which equals the \textbf{area} of the shape. Having both exponents equal to zero, this moment indeed ignores the values of both coordinates of the points contained by the polygon. Apart from direct applications, this moment is frequently evaluated to normalize (i.e. divide by the area) the other, higher-order shape moments.
+
+\subsubsection{1st order}
+
+\paragraph*{}
+First order moments are the first moments the normalization of which yields useful information. The moments $m'_{1,0}$ and $m'_{0,1}$ represent, accordingly, the average $x$ and $y$ point coordinate of the shape. Together they form the \textbf{mass center} of the shape -  if we imagine the shape as a flat, rigid body, then it would remain in balance when positioned over a point support in its mass center.
+
+\paragraph*{}
+The mass center allow us to define certain geometric features, such us the shape \textbf{radius}, which we will discuss in the next section.
+
+\subsubsection{2nd order} 
+
+\paragraph*{}
+Second order moments are the first moments that reflect the relation between $x$ and $y$ point coordinates of the shape, and as such, are particularly interesting. Extracting practical information about a shape from its second order moments is not trivial though - to do so we will return to the mechanic analogy of flat rigid body, which we have just introduced.
+
+\paragraph*{}
+Under such interpretation, the matrix of the second order central moments of the shape:
+\[
+I = \begin{bmatrix}
+c'_{2,0} & c'_{1,1}\\
+c'_{1,1} & c'_{0,2}
+\end{bmatrix}
+\]
+represents an important concept of mechanics - \textbf{tensor of inertia}, which determines the torque needed to rotate a shape around any axis going through its mass center (in a similar way that a mass of a body determines the force needed to give the body the desired acceleration). The torque $T$ needed to change the angular velocity of the body by $\omega$ may be calculated as follows:
+\[
+	T = I\omega
+\]
+
+\paragraph*{}
+Although $I$ determines the inertia for rotation around any axis going through the mass center, some of them are of particular interests - the principal axes $\omega'$, which yield stable rotation, i.e. preserve the direction of angular momentum. These axes represent the eigenvectors of $I$ and as such may be obtained directly from shape moments.
+
+\paragraph*{}
+\reffig{AxesOfInertia} demonstrates the principal axes of inertia of two example shapes.
+
+\twoFigures
+{BlobAnalysis/img/moments_capsule}
+{BlobAnalysis/img/moments_meter}
+{Principal axes of inertia (marked in red and yellow) of example shapes (marked in orange).}
+{AxesOfInertia}
+{\basicWidth}
+
+\paragraph*{}
+Interestingly, these axes may be also obtained using another, yet equivalent approach: as the axes of an ellipse having the same moments up to the second order as the shape being considered. An exhaustive description may be found in the textbook\cite[p.~73-75]{Haralick92} by Haralick and Shapiro.
+
+\paragraph*{}
+The principal axes allow to define at least two useful shape features:
+\begin{itemize}
+	\item \textbf{Orientation} - the direction of the major principal axis.
+	\item \textbf{Elongation} - the quotient of major principal axis length and minor principal axis length.
+\end{itemize}  
+
+\begin{refImpl}
+The following \studio filters extract the statistical features of a polygon: 
+\filter{ShapeArea}{ShapeFeatures}, 
+\filter{ShapeElongation}{ShapeFeatures}, 
+\filter{ShapeMassCenter}{ShapeFeatures}, 
+\filter{ShapeOrientation}{ShapeFeatures},
+\filter{ShapePrincipalAxes}{ShapeFeatures}. 
+\end{refImpl}
+
+\section{Geometrical Features}
+
+\subsection{Radius and Diameter}
+
+\paragraph*{}
+The principal axes of inertia which we have discussed recently provide approximate information about the dimensions of the shape. More strict, geometrical measures may be obtained as generalizations of basic features of circles: radius and diameter.
+
+\paragraph*{}
+\textbf{Radius} of a shape may be defined as the maximum distance between its mass center and any of its points. It is not hard to prove that such point has to be a characteristic point of the polygon, and therefore may be found in a straightforward search.
+
+\paragraph*{}
+\textbf{Diameter} of a shape may be defined as the maximum distance between any two points of the shape. Also in this case in may be shown that such points are always the characteristic points of the polygon and as such may be found in $O(n^2)$ time. This result may be improved to $O(n\log n)$ using the rotating calipers technique\cite{Toussaint83} on the convex hull of the polygon (see below).
+
+\paragraph*{}
+Both these features offer an alternative definition for the \textbf{orientation} of the polygon - the vector from the mass center of the shape to the most distant point (corresponding to shape radius) is especially interesting, as it yields result in full range ($0^{\circ}$, $360^{\circ}$), as opposed to the moment-based orientation or the orientation of the diameter, which are limited to the ($0^{\circ}$, $180^{\circ}$) range.
+
+\subsubsection{Convex Hull and Convexity}
+
+\paragraph*{}
+\textbf{Convex hull} is the smallest convex polygon that contains a set of points. Finding such polygon is a classic problem of computational geometry for which numerous efficient algorithms has been developed. Popular textbook by Cormen et al. covers\cite{Cormen01} some of them, probably the most popular one being the Graham algorithm, in which the points are sorted by angle and traversed storing the partial results on a stack.
+
+\paragraph*{}
+Slightly less frequently mentioned method\cite{Andrew79} by Andrew preserves the general idea of Graham algorithm yet uses lexicographic rather than angular sorting, which is simpler and less prone to errors (e.g. due to the imperfections of floating-point representation) and as such it is worth considering for practical applications.
+
+\paragraph*{}
+Once we know how to compute the convex hull of a path we may define a convexity factor of a shape as the quotient of the area of the shape and the area of its convex hull. The obtained numeric feature allows to estimate the magnitude of cavities and holes present in the objects being inspected.
+
+\subsubsection{Circle and Circularity}
+
+\paragraph*{}
+One trivial method to find the smallest circle containing a set of points is based on the observation, that such circle has to have some three of the given points on its boundary (or two in a special case when the points lie on the circle diameter) - otherwise we could shrink the circle and still cover all of the points. 
+
+\paragraph*{}
+We may therefore iterate over all triples of the given points, compute a unique circle passing through each of them and select the smallest feasible (i.e. covering all points) circle. Such solution would work in $\Theta(n^4)$ time, $n$ denoting the number of given points, which may result in significant computational burden even for relatively short paths.
+
+\paragraph*{}
+Much faster solution based on iterative improvement was proposed\cite{Welzl91} by Welzl - his randomized algorithm achieves linear expected running time and allow for concise, recursive implementation.
+
+\paragraph*{}
+We may define at least three reasonable numerical features that reflect the similarity between a given shape and a circle:
+\begin{enumerate}
+	\item Quotient between the area of the shape and the area of its bounding circle.
+	\item Quotient between the area of the shape and the area of a circle with the same radius.
+	\item Quotient between the area of the shape and the area of a circle with the same perimeter.
+\end{enumerate}
+All of these features assume values between $0$ and $1$, $1$ being achieved for perfect circles. The selection of particular method should be based on the nature of expected deviation of the shape from a perfect circle. For instance, the second method, being based on a radius of the shape, will be particularly responsive to \textbf{elongated} shapes, while perimeter-based feature will be sensitive to high \textbf{curvature} of the object boundary.
+
+\begin{refImpl}
+Some of the features being discussed in this section are well defined for all paths, including open and self-intersecting ones. These features are implemented in \studio by filters from the Path Features category:
+\filter{PathBoundingCircle}{PathFeatures}, 
+\filter{PathBoundingRectangle}{PathFeatures}, 
+\filter{PathLength}{PathFeatures} and
+\filter{RegionConvexHull}{PathFeatures}.
+
+\paragraph*{}
+The following \studio filters extract the features defined only for polygons: 
+\filter{ShapeContours}{ShapeFeatures}, 
+\filter{ShapeConvexity}{ShapeFeatures}, 
+\filter{ShapeCompactness}{ShapeFeatures}, 
+\filter{ShapeDiameter}{ShapeFeatures} and 
+\filter{ShapeRectangularity}{ShapeFeatures}.
+\end{refImpl}

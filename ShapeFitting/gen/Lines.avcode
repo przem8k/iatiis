@@ -1,0 +1,228 @@
+extern Integer ZoomFactor = 15
+
+public Main()
+{
+	LoadImage
+	(
+		inFile: "line_clean.png"
+		outImage: con_29a06916_4dc8_4ffa_8434_9c754b2b0356
+		outAlphaChannel: Nil
+	)
+
+	ScanSingleEdge_Batch
+	(
+		inImage: con_29a06916_4dc8_4ffa_8434_9c754b2b0356
+		inScanPaths: PathArray<Lines0.avdata>
+		inScanWidth: 5
+		inMinStrength: 5.000000
+		inTransition: BrightToDark
+		inSmoothingStdDev: 0.000000
+		outEdgePoints: con_a437d7a6_209e_4f77_bdce_7d04df7e3970
+	)
+
+	FitLineToPoints
+	(
+		inPoints: con_a437d7a6_209e_4f77_bdce_7d04df7e3970
+		inSuppressionMethod: Nil
+		outLine: con_c6407061_105b_42be_8493_1d6550dda475
+	)
+
+	PlotLineFittingResults
+	(
+		inImage: con_29a06916_4dc8_4ffa_8434_9c754b2b0356
+		inLine: con_c6407061_105b_42be_8493_1d6550dda475
+		inPoints: con_a437d7a6_209e_4f77_bdce_7d04df7e3970
+		outImage: con_6b5a90fb_e324_4320_a40f_3bf95814b138
+	)
+
+	SaveImage
+	(
+		inImage: con_6b5a90fb_e324_4320_a40f_3bf95814b138
+		inImageFileFormat: Nil
+		inFile: "../img/line_clean_fit.png"
+	)
+
+	LoadImage
+	(
+		inFile: "line_outliers.png"
+		outImage: con_802dab61_fe4c_4275_b020_d691cd39e467
+		outAlphaChannel: Nil
+	)
+
+	ScanSingleEdge_Batch
+	(
+		inImage: con_802dab61_fe4c_4275_b020_d691cd39e467
+		inScanPaths: PathArray<Lines1.avdata>
+		inScanWidth: 5
+		inMinStrength: 5.000000
+		inTransition: BrightToDark
+		inSmoothingStdDev: 0.000000
+		outEdgePoints: con_c7b48c2c_2df7_4e83_900a_23c207d2fed4
+	)
+
+	FitLineToPoints
+	(
+		inPoints: con_c7b48c2c_2df7_4e83_900a_23c207d2fed4
+		inSuppressionMethod: Nil
+		outLine: con_d9173da1_6aeb_4df0_b040_d5b7a3932530
+	)
+
+	PlotLineFittingResults
+	(
+		inImage: con_802dab61_fe4c_4275_b020_d691cd39e467
+		inLine: con_d9173da1_6aeb_4df0_b040_d5b7a3932530
+		inPoints: con_c7b48c2c_2df7_4e83_900a_23c207d2fed4
+		outImage: con_d3ade95d_fd52_405b_a790_834603725cec
+	)
+
+	SaveImage
+	(
+		inImage: con_d3ade95d_fd52_405b_a790_834603725cec
+		inImageFileFormat: Nil
+		inFile: "../img/line_outliers_fit.png"
+	)
+
+	LoadImage
+	(
+		inFile: "line_outliers.png"
+		outImage: con_b1bebfbe_a4a5_4400_a520_f3b33d191eeb
+		outAlphaChannel: Nil
+	)
+
+	ScanSingleEdge_Batch
+	(
+		inImage: con_b1bebfbe_a4a5_4400_a520_f3b33d191eeb
+		inScanPaths: PathArray<Lines2.avdata>
+		inScanWidth: 5
+		inMinStrength: 5.000000
+		inTransition: BrightToDark
+		inSmoothingStdDev: 0.000000
+		outEdgePoints: con_e2bd5f51_eeef_4116_babb_8792a3b3cbfd
+	)
+
+	FitLineToPoints
+	(
+		inPoints: con_e2bd5f51_eeef_4116_babb_8792a3b3cbfd
+		inSuppressionMethod: Huber
+		outLine: con_9dccf83f_1b2d_4346_9b71_fa5308bbd352
+	)
+
+	PlotLineFittingResults
+	(
+		inImage: con_b1bebfbe_a4a5_4400_a520_f3b33d191eeb
+		inLine: con_9dccf83f_1b2d_4346_9b71_fa5308bbd352
+		inPoints: con_e2bd5f51_eeef_4116_babb_8792a3b3cbfd
+		outImage: con_aaa6a025_193d_4af6_a422_60aee6825503
+	)
+
+	SaveImage
+	(
+		inImage: con_aaa6a025_193d_4af6_a422_60aee6825503
+		inImageFileFormat: Nil
+		inFile: "../img/line_outliers_fit_with_suppresion.png"
+	)
+}
+
+public ScanSingleEdge_Batch(Image inImage, PathArray inScanPaths, Integer inScanWidth, Real inMinStrength, Transition inTransition, Real inSmoothingStdDev, Point2DArray outEdgePoints)
+{
+	ScanSingleEdge
+	(
+		inImage: inImage
+		inScanPath: inScanPaths
+		inScanWidth: inScanWidth
+		inInterpolationMethod: Bilinear
+		inSmoothingStdDev: inSmoothingStdDev
+		inMinStrength: inMinStrength
+		inTransition: inTransition
+		outEdgePoint: con_fc98dbba_3e44_4410_a4c2_babc6b40f795
+		diagBrightnessProfile: Nil
+		diagResponseProfile: Nil
+		diagSamplingPoints: Nil
+	)
+
+	RemoveNilsFromArray<Point2D>
+	(
+		inArray: con_fc98dbba_3e44_4410_a4c2_babc6b40f795
+		outArray: outEdgePoints
+	)
+}
+
+public PlotLineFittingResults(Image inImage, Line2D inLine, Point2DArray inPoints, Image? outImage)
+{
+	ImageBox
+	(
+		inImage: inImage
+		outBox: con_1fe4f630_cd8f_45e5_9446_642b8fd6376a
+	)
+
+	LineBoxIntersection
+	(
+		inLine: inLine
+		inBox: con_1fe4f630_cd8f_45e5_9446_642b8fd6376a
+		outSegment: con_e9c5704b_3bb6_40eb_b2e0_a76430783abc
+	)
+
+	ResizeImage_Relative
+	(
+		inImage: inImage
+		inHorizontalScale: ZoomFactor
+		inVerticalScale: ZoomFactor
+		inResizeMethod: NearestNeighbour
+		outImage: con_800cddcf_9460_414f_9d0a_75c294e5285e
+	)
+
+	ZoomPoints
+	(
+		inPoint: inPoints
+		inZoomFactor: ZoomFactor
+		outPoint: con_ae816a9f_f086_41bc_b488_240218151188
+	)
+
+	ZoomSegment
+	(
+		inSegment: con_e9c5704b_3bb6_40eb_b2e0_a76430783abc
+		inZoomFactor: ZoomFactor
+		outSegment: con_b77bdc54_6065_480b_ac13_91bba4b4f10d
+	)
+
+	DrawSegments
+	(
+		inImage: con_800cddcf_9460_414f_9d0a_75c294e5285e
+		inSegments: con_b77bdc54_6065_480b_ac13_91bba4b4f10d
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 0.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		inDrawingMode: HighQuality
+		inMarkerType: None
+		inThickness: 4.000000
+		inMarkerSize: 5.000000
+		inOpacity: 1.000000
+		outImage: con_c6846bbe_16e3_49af_abf7_f6ec55c8a084
+	)
+
+	DrawPoints
+	(
+		inImage: con_c6846bbe_16e3_49af_abf7_f6ec55c8a084
+		inPoints: con_ae816a9f_f086_41bc_b488_240218151188
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 255.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		inPointShape: Circle
+		inDrawingMode: HighQuality
+		inPointSize: 10.000000
+		inThickness: 1.000000
+		inOpacity: 1.000000
+		outImage: outImage
+	)
+}
+

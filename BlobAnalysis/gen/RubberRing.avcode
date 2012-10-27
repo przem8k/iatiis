@@ -1,0 +1,11 @@
+public Main()
+{
+
+	LoadImage
+	(
+		inFile: "C:\\Users\\dx\\projects\\AdaptiveVisionStudio\\depot\\mvg\\gen\\BlobAnalysis\\rubber_ring.png"
+		outImage: con_0ccf1204_b25a_4da4_9cee_6d145a86881c
+		outAlphaChannel: Nil
+	)
+}
+

@@ -1,0 +1,84 @@
+% Figures - new commands
+
+\def \basicWidth {.475\textwidth} 
+
+\newcommand{\oneFigure}[4]{
+\begin{figure}[h!]
+\centering
+\includegraphics[width=#4]{#1}
+\caption{#2}
+\label{fig:#3}
+\end{figure}
+}
+
+\newcommand{\twoFigures}[5]{
+\begin{figure}[h!]
+\centering
+\hspace*{\fill}
+\includegraphics[width=#5]{#1}
+\hfill 
+\includegraphics[width=#5]{#2}
+\hspace*{\fill}
+\caption{#3}
+\label{fig:#4}
+\end{figure}
+}
+
+\newcommand{\fourFigures}[7]{
+\begin{figure}[h!]
+\centering
+    \begin{subfigure}[b]{#7}
+            \centering
+            \includegraphics[width=\linewidth]{#1}
+            \caption{}
+    \end{subfigure}%
+    ~
+    \begin{subfigure}[b]{#7}
+            \centering
+            \includegraphics[width=\linewidth]{#2}
+            \caption{}
+    \end{subfigure}
+
+    \begin{subfigure}[b]{#7}
+            \centering
+            \includegraphics[width=\linewidth]{#3}
+            \caption{}
+    \end{subfigure}%
+    ~
+    \begin{subfigure}[b]{#7}
+            \centering
+            \includegraphics[width=\linewidth]{#4}
+            \caption{}
+    \end{subfigure}
+    
+    \caption{#5}
+    \label{fig:#6}
+\end{figure}
+}
+
+\newcommand{\addProfileData}[1]
+{
+	\addplot table[x=Index,y=Value] {#1};
+}
+
+\newcommand{\profileFigure}[3]
+{
+	\begin{figure}[h!]
+	\begin{tikzpicture}
+	\begin{axis}[		
+		width=\textwidth,
+		height=0.4\textwidth,
+		no markers,
+		%xtick=\empty,
+		enlargelimits=false%
+	]%
+	#1
+	\end{axis}
+	\end{tikzpicture}
+	\caption{#2}
+	\label{fig:#3}
+	\end{figure}
+}
+
+
+

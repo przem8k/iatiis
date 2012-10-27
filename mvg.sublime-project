@@ -1,0 +1,9 @@
+{
+	"folders":
+	[
+		{
+			"path": ".",
+			"file_exclude_patterns": ["*.aux","*.log","*.maf","*.mtc*","*.out","*.toc"]
+		}
+	]
+}

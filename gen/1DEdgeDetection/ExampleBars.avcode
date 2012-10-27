@@ -1,0 +1,101 @@
+public Main()
+{
+	LoadImage
+	(
+		inFile: "bars.png"
+		outImage: con_77fae365_5d19_4813_b426_0374a97e345e
+		outAlphaChannel: Nil
+	)
+
+	SaveImage
+	(
+		inImage: con_77fae365_5d19_4813_b426_0374a97e345e
+		inImageFileFormat: Nil
+		inFile: "results/bars_input.png"
+	)
+
+	MakeSegment
+	(
+		inX1: 43.000000
+		inY1: 125.000000
+		inX2: 357.000000
+		inY2: 125.000000
+		outSegment: con_b6de3232_b4ee_44f8_8cdc_fe9ccda279d3
+	)
+
+	ScanMultipleStripes
+	(
+		inImage: con_77fae365_5d19_4813_b426_0374a97e345e
+		inScanPath: con_b6de3232_b4ee_44f8_8cdc_fe9ccda279d3
+		inScanWidth: 5
+		inInterpolationMethod: NearestNeighbour
+		inSmoothingStdDev: 0.600000
+		inMinStrength: 5.000000
+		inIntensity: Dark
+		inMinInnerDistance: 0.000000
+		inMinOuterDistance: 0.000000
+		outFirstStripePoints: con_8aef6ac6_faca_4b7c_bacf_96a0bdd49962
+		outSecondStripePoints: con_4eab4580_c3b2_47ae_a0af_dae5aa97380a
+		outInnerDistances: Nil
+		outOuterDistances: Nil
+		outDistances: Nil
+		diagBrightnessProfile: Nil
+		diagResponseProfile: Nil
+		diagSamplingPoints: Nil
+	)
+
+	SegmentBetweenPoints
+	(
+		inPoint1: con_8aef6ac6_faca_4b7c_bacf_96a0bdd49962
+		inPoint2: con_4eab4580_c3b2_47ae_a0af_dae5aa97380a
+		outSegment: con_fb614b00_e226_4a7c_ac6e_0349682609ba
+	)
+
+	DrawSegments
+	(
+		inImage: con_77fae365_5d19_4813_b426_0374a97e345e
+		inSegments: con_b6de3232_b4ee_44f8_8cdc_fe9ccda279d3
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 0.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		inDrawingMode: HighQuality
+		inMarkerType: Arrow
+		inThickness: 1.500000
+		inMarkerSize: 5.000000
+		inOpacity: 1.000000
+		outImage: con_a838017e_cd68_4740_bf1c_cb99fc61645a
+	)
+
+	DrawSegments
+	(
+		inImage: con_a838017e_cd68_4740_bf1c_cb99fc61645a
+		inSegments: con_fb614b00_e226_4a7c_ac6e_0349682609ba
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 255.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		inDrawingMode: HighQuality
+		inMarkerType: Circle
+		inThickness: 1.500000
+		inMarkerSize: 2.000000
+		inOpacity: 1.000000
+		outImage: con_368f0e0f_b5bc_4ffe_b575_c0dd7a8bb5c2
+	)
+
+	SaveImage
+	(
+		inImage: con_368f0e0f_b5bc_4ffe_b575_c0dd7a8bb5c2
+		inImageFileFormat: Nil
+		inFile: "results/bars_res.png"
+	)
+}
+

@@ -1,0 +1,183 @@
+public DrawRegionWithContours(Image inImage = Image(Width: 0, Height: 0, Pitch: 0, Type: Int8, Depth: 1, Data: <>), Region inRegion = Region(Width: 0, Height: 0, Data: <>), Pixel* inColor, Image outImage = Image(Width: 0, Height: 0, Pitch: 0, Type: Int8, Depth: 1, Data: <>))
+{
+	RegionContours
+	(
+		inRegion: inRegion
+		inContourMode: PixelEdges
+		inRegionConnectivity: EightDirections
+		outContours: con_5743cc2c_0f15_4fdb_84b4_446a133f4e66
+	)
+
+	DrawPaths
+	(
+		inImage: inImage
+		inPaths: con_5743cc2c_0f15_4fdb_84b4_446a133f4e66
+		inColor: inColor
+		inPointShape: Nil
+		inDrawingMode: HighQuality
+		inThickness: 1.000000
+		inPointSize: 2.000000
+		inOpacity: 0.500000
+		inFilled: True
+		outImage: con_c7fcde70_b590_4313_a450_1ce1def16619
+	)
+
+	DrawPaths
+	(
+		inImage: con_c7fcde70_b590_4313_a450_1ce1def16619
+		inPaths: con_5743cc2c_0f15_4fdb_84b4_446a133f4e66
+		inColor: inColor
+		inPointShape: Nil
+		inDrawingMode: HighQuality
+		inThickness: 1.000000
+		inPointSize: 2.000000
+		inOpacity: 1.000000
+		inFilled: False
+		outImage: con_70a092c9_5b81_49b3_860c_b27a332ade45
+	)
+
+	CombineImages
+	(
+		inImage1: con_70a092c9_5b81_49b3_860c_b27a332ade45
+		inImage2: inImage
+		inRoi: Nil
+		inRegion: inRegion
+		outImage: outImage
+	)
+}
+
+public ZoomPath(Integer inZoomFactor, Path inPath, Path outPath)
+{
+	AccessPath
+	(
+		inPath: inPath
+		outPoints: con_171b8d94_aebb_4208_952e_774171badb14
+		outClosed: con_67137e68_9a3c_4695_a1cd_043919b16c5a
+	)
+
+	ZoomPoints
+	(
+		inPoint: con_171b8d94_aebb_4208_952e_774171badb14
+		inZoomFactor: inZoomFactor
+		outPoint: con_69086a7c_44ee_43d7_a315_dc9668a37065
+	)
+
+	MakePath
+	(
+		inPoints: con_69086a7c_44ee_43d7_a315_dc9668a37065
+		inClosed: con_67137e68_9a3c_4695_a1cd_043919b16c5a
+		outPath: outPath
+	)
+}
+
+public ZoomPoints(Point2DArray inPoint, Integer inZoomFactor, Point2DArray outPoint)
+{
+	ZoomPoint
+	(
+		inPoint: inPoint
+		inZoomFactor: inZoomFactor
+		outPoint: outPoint
+	)
+}
+
+public ZoomPoint(Point2D inPoint, Integer inZoomFactor, Point2D outPoint)
+{
+	AccessPoint
+	(
+		inPoint: inPoint
+		outX: con_cbbb6e21_e1db_4b82_9070_8d430e0e19ae
+		outY: con_4be60595_d095_43c6_b2ef_d8c444161013
+	)
+
+	MultiplyReals
+	(
+		inA: con_cbbb6e21_e1db_4b82_9070_8d430e0e19ae
+		inB: inZoomFactor
+		outProduct: con_bc38e68e_4c69_446a_b8f1_aba509e57901
+	)
+
+	MultiplyReals
+	(
+		inA: con_4be60595_d095_43c6_b2ef_d8c444161013
+		inB: inZoomFactor
+		outProduct: con_914cd1d6_4404_41e3_b066_a0d52a61d8d6
+	)
+
+	MakePoint
+	(
+		inX: con_bc38e68e_4c69_446a_b8f1_aba509e57901
+		inY: con_914cd1d6_4404_41e3_b066_a0d52a61d8d6
+		outPoint: outPoint
+	)
+}
+
+public ZoomSegment(Segment2D inSegment, Integer inZoomFactor, Segment2D outSegment)
+{
+	SegmentEndpoints
+	(
+		inSegment: inSegment
+		outPoint1: con_87ba286a_2b4c_4b5e_9511_a24764846f85
+		outPoint2: con_b3859a57_e0ad_43eb_ad90_b237e555b68c
+	)
+
+	ZoomPoint
+	(
+		inPoint: con_87ba286a_2b4c_4b5e_9511_a24764846f85
+		inZoomFactor: inZoomFactor
+		outPoint: con_82f5c858_1a6a_43ee_b244_431afc5161c8
+	)
+
+	ZoomPoint
+	(
+		inPoint: con_b3859a57_e0ad_43eb_ad90_b237e555b68c
+		inZoomFactor: inZoomFactor
+		outPoint: con_ddbec650_2beb_4e59_bbba_e08e30402f29
+	)
+
+	SegmentBetweenPoints
+	(
+		inPoint1: con_82f5c858_1a6a_43ee_b244_431afc5161c8
+		inPoint2: con_ddbec650_2beb_4e59_bbba_e08e30402f29
+		outSegment: outSegment
+	)
+}
+
+public ZoomCircle(Integer inZoomFactor, Circle2D inCircle, Circle2D outCircle)
+{
+	AccessCircle
+	(
+		inCircle: inCircle
+		outX: Nil
+		outY: Nil
+		outRadius: con_bc8b8f4d_7d65_4b66_8598_0bfd6d1b8795
+	)
+
+	CircleCenter
+	(
+		inCircle: inCircle
+		outCenterPoint: con_351d5b7d_5125_49ea_b848_ed2f49d643ba
+	)
+
+	ZoomPoint
+	(
+		inPoint: con_351d5b7d_5125_49ea_b848_ed2f49d643ba
+		inZoomFactor: inZoomFactor
+		outPoint: con_0f6ea8e4_0e8f_4b65_928e_5109a5108768
+	)
+
+	MultiplyReals
+	(
+		inA: con_bc8b8f4d_7d65_4b66_8598_0bfd6d1b8795
+		inB: inZoomFactor
+		outProduct: con_9db04e98_29da_4d70_b342_99bfa16d120c
+	)
+
+	CreateCircle
+	(
+		inPoint: con_0f6ea8e4_0e8f_4b65_928e_5109a5108768
+		inPointAlignment: MiddleCenter
+		inRadius: con_9db04e98_29da_4d70_b342_99bfa16d120c
+		outCircle: outCircle
+	)
+}
+

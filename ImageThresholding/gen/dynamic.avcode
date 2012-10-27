@@ -1,0 +1,277 @@
+public Main()
+{
+
+	LoadImage
+	(
+		inFile: "images/barcode.png"
+		outImage: con_f366d0b4_4c4d_452c_9f9d_d8cbde71fa23
+		outAlphaChannel: Nil
+	)
+
+
+	ConvertToThreeChannelMono
+	(
+		inImage: con_f366d0b4_4c4d_452c_9f9d_d8cbde71fa23
+		outImage: con_a3d31cbe_bfea_42ea_a441_3c994a32cdb3
+	)
+
+
+	SaveImage
+	(
+		inImage: con_a3d31cbe_bfea_42ea_a441_3c994a32cdb3
+		inImageFileFormat: Nil
+		inFile: "results/barcode.png"
+	)
+
+
+	Low
+	(
+		inImage: con_f366d0b4_4c4d_452c_9f9d_d8cbde71fa23
+		inImage2: con_a3d31cbe_bfea_42ea_a441_3c994a32cdb3
+	)
+
+
+	High
+	(
+		inImage: con_f366d0b4_4c4d_452c_9f9d_d8cbde71fa23
+		inImage2: con_a3d31cbe_bfea_42ea_a441_3c994a32cdb3
+	)
+
+
+	Dynamic
+	(
+		inImage: con_f366d0b4_4c4d_452c_9f9d_d8cbde71fa23
+		inImage2: con_a3d31cbe_bfea_42ea_a441_3c994a32cdb3
+	)
+
+
+	CopyObject<Segment2D>
+	(
+		inObject:
+			Segment2D
+			(
+				X1: 58.783783
+				Y1: 118.243240
+				X2: 239.414413
+				Y2: 96.621628
+			)
+		outObject: con_b95c0fed_6ad0_4404_8444_c0786948f392
+	)
+
+
+	ConvertToThreeChannelMono
+	(
+		inImage: con_f366d0b4_4c4d_452c_9f9d_d8cbde71fa23
+		outImage: con_c4cb42f6_74bb_4e82_b758_5d8b6950b7d0
+	)
+
+
+	DrawSegments
+	(
+		inImage: con_c4cb42f6_74bb_4e82_b758_5d8b6950b7d0
+		inSegments: con_b95c0fed_6ad0_4404_8444_c0786948f392
+		inColor:
+			(
+				X: 255.000000
+				Y: 0.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		inDrawingMode: HighQuality
+		inMarkerType: Arrow
+		inThickness: 1.500000
+		inMarkerSize: 7.000000
+		inOpacity: 1.000000
+		outImage: con_c2d3da7c_3610_4234_9840_7c6f2191e849
+	)
+
+
+	SaveImage
+	(
+		inImage: con_c2d3da7c_3610_4234_9840_7c6f2191e849
+		inImageFileFormat: Nil
+		inFile: "results/barcode_scanline.png"
+	)
+
+
+	ImageProfile
+	(
+		inImage: con_f366d0b4_4c4d_452c_9f9d_d8cbde71fa23
+		inScanPath: con_b95c0fed_6ad0_4404_8444_c0786948f392
+		inScanWidth: 5
+		inInterpolationMethod: NearestNeighbour
+		inSmoothingStdDev: 0.600000
+		outProfile: con_7a42bb38_02c4_4101_b5f8_36de3e5cffb6
+		diagSamplingPoints: Nil
+	)
+
+
+	SmoothProfile_Mean
+	(
+		inProfile: con_7a42bb38_02c4_4101_b5f8_36de3e5cffb6
+		inKernelRadius: 5
+		inCyclic: False
+		outProfile: con_e58845a3_67b0_4b1d_83dd_3d7cc9766bc5
+	)
+
+
+	ExportTwoProfiles
+	(
+		inProfile1: con_7a42bb38_02c4_4101_b5f8_36de3e5cffb6
+		inProfile2: con_e58845a3_67b0_4b1d_83dd_3d7cc9766bc5
+		inFile: "results/dynamic.profiles"
+	)
+}
+
+public Dynamic(Image inImage = Image (
+	Width: 0
+	Height: 0
+	Pitch: 0
+	Type: Int8
+	Depth: 1
+	Data: Nil
+), Image inImage2 = Image (
+	Width: 0
+	Height: 0
+	Pitch: 0
+	Type: Int8
+	Depth: 1
+	Data: Nil
+))
+{
+
+	ThresholdToRegion_Dynamic
+	(
+		inImage: inImage
+		inRoi: Nil
+		inRadiusX: 5
+		inRadiusY: Nil
+		inMinRelativeValue: Nil
+		inMaxRelativeValue: -15.000000
+		outRegion: con_8e8f5212_0761_4eca_a8c4_ebe71994d669
+	)
+
+
+	DrawRegionNicely
+	(
+		inImage: inImage2
+		inRegion: con_8e8f5212_0761_4eca_a8c4_ebe71994d669
+		inColor:
+			(
+				X: 255.000000
+				Y: 128.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		outImage: con_e382436f_2d90_40be_afc9_0498f0b7a31d
+	)
+
+
+	SaveImage
+	(
+		inImage: con_e382436f_2d90_40be_afc9_0498f0b7a31d
+		inImageFileFormat: Nil
+		inFile: "results/barcode_dynamic.png"
+	)
+}
+
+public High(Image inImage = Image (
+	Width: 0
+	Height: 0
+	Pitch: 0
+	Type: Int8
+	Depth: 1
+	Data: Nil
+), Image inImage2 = Image (
+	Width: 0
+	Height: 0
+	Pitch: 0
+	Type: Int8
+	Depth: 1
+	Data: Nil
+))
+{
+
+	ThresholdToRegion
+	(
+		inImage: inImage
+		inRoi: Nil
+		inMinValue: Nil
+		inMaxValue: 204.000000
+		outRegion: con_23da5173_44b1_4111_a554_1a2a2501e017
+	)
+
+
+	DrawRegionNicely
+	(
+		inImage: inImage2
+		inRegion: con_23da5173_44b1_4111_a554_1a2a2501e017
+		inColor:
+			(
+				X: 255.000000
+				Y: 128.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		outImage: con_f3c725b7_389f_4cf9_a7cf_f8de696d7e5c
+	)
+
+
+	SaveImage
+	(
+		inImage: con_f3c725b7_389f_4cf9_a7cf_f8de696d7e5c
+		inImageFileFormat: Nil
+		inFile: "results/barcode_high.png"
+	)
+}
+
+public Low(Image inImage = Image (
+	Width: 0
+	Height: 0
+	Pitch: 0
+	Type: Int8
+	Depth: 1
+	Data: Nil
+), Image inImage2 = Image (
+	Width: 0
+	Height: 0
+	Pitch: 0
+	Type: Int8
+	Depth: 1
+	Data: Nil
+))
+{
+
+	ThresholdToRegion
+	(
+		inImage: inImage
+		inRoi: Nil
+		inMinValue: Nil
+		inMaxValue: 125.000000
+		outRegion: con_9f496a70_7d4b_406d_9748_21b7ac34f769
+	)
+
+
+	DrawRegionNicely
+	(
+		inImage: inImage2
+		inRegion: con_9f496a70_7d4b_406d_9748_21b7ac34f769
+		inColor:
+			(
+				X: 255.000000
+				Y: 128.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		outImage: con_d7b2c589_d6b5_4c6c_b15c_96ff4177ff8b
+	)
+
+
+	SaveImage
+	(
+		inImage: con_d7b2c589_d6b5_4c6c_b15c_96ff4177ff8b
+		inImageFileFormat: Nil
+		inFile: "results/barcode_low.png"
+	)
+}
+

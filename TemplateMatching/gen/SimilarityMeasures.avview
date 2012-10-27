@@ -1,0 +1,24 @@
+<documents>
+  <hsplit>
+    <vsplit>
+      <views width="0.4951" height="0.4971">
+        <view>
+          <output name="inImage1" macro="ImageSimilarityReport" />
+        </view>
+      </views>
+      <views width="0.4951" height="0.4971">
+        <view>
+          <output name="inImage2" macro="ImageSimilarityReport" />
+        </view>
+      </views>
+    </vsplit>
+    <vsplit>
+      <views width="0.4951" height="0.4959">
+        <view />
+      </views>
+      <views width="0.4951" height="0.4959">
+        <view />
+      </views>
+    </vsplit>
+  </hsplit>
+</documents>

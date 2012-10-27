@@ -1,0 +1,133 @@
+public Main()
+{
+	LoadImage
+	(
+		inFile: "head.png"
+		outImage: con_66fa04c7_e0bd_426a_91d5_bf761d3d8f06
+		outAlphaChannel: Nil
+	)
+
+	FitCircleToRidges
+	(
+		inImage: con_66fa04c7_e0bd_426a_91d5_bf761d3d8f06
+		inExpectedCircle:
+			Circle2D
+			(
+				X: 151.960800
+				Y: 114.068642
+				Radius: 64.526184
+			)
+		inMaxDeviation: 20.000000
+		inScanCount: 10
+		inScanWidth: 5
+		inInterpolationMethod: NearestNeighbour
+		inSmoothingStdDev: 1.000000
+		inRidgeWidth: 2
+		inMarginWidth: 5
+		inMinStrength: 10.000000
+		inRidgeIntensity: Dark
+		outCircle: con_25b71f8e_65b5_4a9a_b69d_7d29ad124fc9
+		outInnerCircle: Nil
+		outOuterCircle: Nil
+		outScanSegments: con_bc17eeaf_5fa9_4f56_8603_b2fcb0e35219
+		outRidgePoints: con_075893ba_fd97_4c96_a1cf_926a7fd21ffc
+	)
+
+	CircleCenter
+	(
+		inCircle: con_25b71f8e_65b5_4a9a_b69d_7d29ad124fc9
+		outCenterPoint: con_8bc9d896_6ea1_4ffb_9294_13f72e88c59f
+	)
+
+	PointToCircleDistance
+	(
+		inPoint: con_8bc9d896_6ea1_4ffb_9294_13f72e88c59f
+		inCircle: con_25b71f8e_65b5_4a9a_b69d_7d29ad124fc9
+		outDistance: Nil
+		outConnectingSegment: con_4cb1a547_4ba6_4b19_8c5e_e1eeec2aacf2
+	)
+
+	SegmentVector
+	(
+		inSegment: con_4cb1a547_4ba6_4b19_8c5e_e1eeec2aacf2
+		outVector: con_beb771ad_f19f_4a45_9217_ea390e766a89
+	)
+
+	RotateVector
+	(
+		inVector: con_beb771ad_f19f_4a45_9217_ea390e766a89
+		inAngle: 180.000000
+		inInverse: False
+		outVector: con_995156ba_54b5_4d1a_ae08_2a87a3a45325
+	)
+
+	TranslatePoint
+	(
+		inPoint: con_8bc9d896_6ea1_4ffb_9294_13f72e88c59f
+		inDelta: con_beb771ad_f19f_4a45_9217_ea390e766a89
+		inInverse: False
+		outPoint: con_0ba61c6e_50f9_460a_9ccc_c4e7c54e7d89
+	)
+
+	TranslatePoint
+	(
+		inPoint: con_8bc9d896_6ea1_4ffb_9294_13f72e88c59f
+		inDelta: con_995156ba_54b5_4d1a_ae08_2a87a3a45325
+		inInverse: False
+		outPoint: con_ba0a2dc8_4b47_4a98_a836_d23f0d478582
+	)
+
+	SegmentBetweenPoints
+	(
+		inPoint1: con_0ba61c6e_50f9_460a_9ccc_c4e7c54e7d89
+		inPoint2: con_ba0a2dc8_4b47_4a98_a836_d23f0d478582
+		outSegment: con_51494a38_f9fd_4af1_bcc6_66ce48ea9e87
+	)
+
+	DrawCircles
+	(
+		inImage: con_66fa04c7_e0bd_426a_91d5_bf761d3d8f06
+		inCircles: con_25b71f8e_65b5_4a9a_b69d_7d29ad124fc9
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 255.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		inDrawingMode: HighQuality
+		inThickness: 2.000000
+		inOpacity: 1.000000
+		inFilled: False
+		outImage: con_18105e86_4f11_4c05_adf1_b8861e8d7814
+	)
+
+	DrawSegments
+	(
+		inImage: con_18105e86_4f11_4c05_adf1_b8861e8d7814
+		inSegments: con_51494a38_f9fd_4af1_bcc6_66ce48ea9e87
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 128.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		inDrawingMode: HighQuality
+		inMarkerType: TwoArrows
+		inThickness: 1.500000
+		inMarkerSize: 8.000000
+		inOpacity: 1.000000
+		outImage: con_d6d6df94_4445_40dc_834a_4202af86cf0e
+	)
+
+	SaveImage
+	(
+		inImage: con_d6d6df94_4445_40dc_834a_4202af86cf0e
+		inImageFileFormat: Nil
+		inFile: "../img/measure_radius.png"
+	)
+}
+

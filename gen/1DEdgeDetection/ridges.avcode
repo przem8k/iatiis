@@ -1,0 +1,187 @@
+public Main()
+{
+	LoadImage
+	(
+		inFile: "C:\\Users\\dx\\projects\\AdaptiveVisionStudio\\depot\\mvg\\gen\\1DEdgeDetection\\response.png"
+		outImage: con_702979c8_8e32_40d4_90dc_fa219ec1cf60
+		outAlphaChannel: Nil
+	)
+
+	SaveImage
+	(
+		inImage: con_702979c8_8e32_40d4_90dc_fa219ec1cf60
+		inImageFileFormat: Nil
+		inFile: "results/ridges.png"
+	)
+
+	NegateImage
+	(
+		inImage: con_702979c8_8e32_40d4_90dc_fa219ec1cf60
+		inRoi: Nil
+		outImage: con_9269adfe_e5c5_49bd_967c_3cb4791eb410
+	)
+
+	DownsampleImage
+	(
+		inImage: con_702979c8_8e32_40d4_90dc_fa219ec1cf60
+		inScaleStep: 0
+		outImage: con_a3447d81_9d27_4fff_a2e4_17503afb3ff9
+	)
+
+	ScanSegment
+	(
+		inImage: con_a3447d81_9d27_4fff_a2e4_17503afb3ff9
+		outSegment: con_4a0d7934_e9e1_4cb8_acb4_c1f292b1bb4d
+	)
+
+	ImageProfile
+	(
+		inImage: con_a3447d81_9d27_4fff_a2e4_17503afb3ff9
+		inScanPath: con_4a0d7934_e9e1_4cb8_acb4_c1f292b1bb4d
+		inScanWidth: 30
+		inInterpolationMethod: NearestNeighbour
+		inSmoothingStdDev: 0.600000
+		outProfile: con_3deaa838_04de_44ec_b785_4f14a0f6200d
+		diagSamplingPoints: Nil
+	)
+
+	ExportProfile
+	(
+		inProfile: con_3deaa838_04de_44ec_b785_4f14a0f6200d
+		inFilename: "results/ridges_profile.values"
+	)
+
+	ProfileConvolution
+	(
+		inProfile: con_3deaa838_04de_44ec_b785_4f14a0f6200d
+		inMask:
+			RealArray
+			{
+				-1.000000
+				2.000000
+				-1.000000
+			}
+		inNormalizeMaskValues: False
+		inMaskOrigin: Nil
+		outProfile: con_ce31c65f_3345_44d1_9835_7c6847c2a8da
+	)
+
+	ExportProfile
+	(
+		inProfile: con_ce31c65f_3345_44d1_9835_7c6847c2a8da
+		inFilename: "results/ridges_naive_operator.values"
+	)
+
+	RidgeOperator
+	(
+		inProfile: con_3deaa838_04de_44ec_b785_4f14a0f6200d
+		inCyclic: False
+		inRidgeIntensity: Dark
+		inRidgeWidth: 3
+		inMarginWidth: 3
+		outResponseProfile: con_d3225588_4840_4d42_a7be_2e12bf1166bc
+		outShift: Nil
+	)
+
+	ExportProfile
+	(
+		inProfile: con_d3225588_4840_4d42_a7be_2e12bf1166bc
+		inFilename: "results/ridges_proper_operator.values"
+	)
+
+	ScanMultipleRidges
+	(
+		inImage: con_a3447d81_9d27_4fff_a2e4_17503afb3ff9
+		inScanPath: con_4a0d7934_e9e1_4cb8_acb4_c1f292b1bb4d
+		inScanWidth: 30
+		inInterpolationMethod: NearestNeighbour
+		inSmoothingStdDev: 0.600000
+		inRidgeWidth: 3
+		inMarginWidth: 3
+		inMinStrength: 15.000000
+		inIntensity: Dark
+		inMinDistance: 0.000000
+		outRidgePoints: con_c1bbc4e7_9131_42c8_bbf0_68596b6fbe85
+		outDistances: Nil
+		diagBrightnessProfile: con_b952a780_fc05_45c1_97a4_b7b7bc3fc7a3
+		diagResponseProfile: con_233a9cfe_14f6_4f2d_ab80_f8d347f1a556
+		diagSamplingPoints: Nil
+	)
+
+	MergeWithDefault<Point2DArray>
+	(
+		inConditionalObject: con_c1bbc4e7_9131_42c8_bbf0_68596b6fbe85
+		inDefaultObject:
+			Point2DArray
+			{
+			}
+		outObject: con_3cd93595_42b1_483b_b806_6d028ac910ba
+	)
+
+	ScanSegment
+	(
+		inImage: con_702979c8_8e32_40d4_90dc_fa219ec1cf60
+		outSegment: con_41eb99aa_9f94_44af_9ec3_8840ec6bf399
+	)
+
+	ConditionalToArray<Segment2D>
+	(
+		inConditionalObject: con_41eb99aa_9f94_44af_9ec3_8840ec6bf399
+		outArray: con_81c75fd0_93c1_4fb0_a95a_074f255d47e7
+	)
+
+	DrawSegments
+	(
+		inImage: con_702979c8_8e32_40d4_90dc_fa219ec1cf60
+		inSegments: con_81c75fd0_93c1_4fb0_a95a_074f255d47e7
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 0.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		inDrawingMode: HighQuality
+		inMarkerType: Arrow
+		inThickness: 3.000000
+		inMarkerSize: 10.000000
+		inOpacity: 1.000000
+		outImage: con_30f70124_1fcf_41f7_a17a_e02e1017d0a2
+	)
+
+	SaveImage
+	(
+		inImage: con_30f70124_1fcf_41f7_a17a_e02e1017d0a2
+		inImageFileFormat: Nil
+		inFile: "results/ridges_scan.png"
+	)
+
+	DrawPoints
+	(
+		inImage: con_702979c8_8e32_40d4_90dc_fa219ec1cf60
+		inPoints: con_3cd93595_42b1_483b_b806_6d028ac910ba
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 255.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		inPointShape: Circle
+		inDrawingMode: HighQuality
+		inPointSize: 1.000000
+		inThickness: 10.000000
+		inOpacity: 1.000000
+		outImage: con_4c668a6c_2e5d_497e_abcd_f89aaeb89e80
+	)
+
+	SaveImage
+	(
+		inImage: con_4c668a6c_2e5d_497e_abcd_f89aaeb89e80
+		inImageFileFormat: Nil
+		inFile: "results/ridges_result.png"
+	)
+}
+

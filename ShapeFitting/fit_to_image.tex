@@ -1,0 +1,33 @@
+\section{Fitting Approximate Primitives to Images}
+
+\paragraph*{}
+Utilizing the shape fitting techniques in the context of image analysis requires extraction of the points that the primitives will be fitted to. Typically such extraction is done by means of \refchap{1DEdgeDetection} or \refchap{2DEdgeDetection}, which allow to fit the shapes to step edges and ridges present in the image.
+
+\paragraph*{}
+The methods of \refchap{1DEdgeDetection} allow to build particularly useful technique for fitting approximately positioned primitives to their actual occurences. The idea is to take a rough estimation of the primitive location and construct a set of scan lines going across the approximate primitive. By performing one-dimensional edge or ridge detection along each scan line, we obtain a set of points that, hopefully, represent the actual position of the primitive being located.
+
+\paragraph*{}
+In \reffig{FitSegmentToEdges} a segment is fitted to the edge of an object, while \reffig{FitCircleToRidges} demonstrates an example of fitting a circle to a circular ridge.
+
+\twoFigures
+{ShapeFitting/img/SegmentToEdges_Scans}
+{ShapeFitting/img/SegmentToEdges_Result}
+{Shape fitting applied to fit a segment to an edge.}
+{FitSegmentToEdges}
+{\basicWidth}
+
+\twoFigures
+{ShapeFitting/img/CircleToRiges_Scans}
+{ShapeFitting/img/CircleToRiges_Result}
+{Shape fitting applied to fit a circle to a ridge.}
+{FitCircleToRidges}
+{\basicWidth}
+
+\begin{refImpl}
+\studio provides a pair of filters for each type of primitive, one filter of a pair fitting the primitive to image edges, the other - to image ridges:
+\begin{itemize}
+	\item \filter{FitArcToEdges}{ShapeFitting}, \filter{FitArcToRidges}{ShapeFitting}
+	\item \filter{FitCircleToEdges}{ShapeFitting}, \filter{FitCircleToRidges}{ShapeFitting}
+	\item \filter{FitSegmentToEdges}{ShapeFitting}, \filter{FitSegmentToRidges}{ShapeFitting}
+\end{itemize}
+\end{refImpl}

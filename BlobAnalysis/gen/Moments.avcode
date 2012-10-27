@@ -1,0 +1,160 @@
+public Main()
+{
+	LoadImage
+	(
+		inFile: "C:\\Users\\dx\\projects\\AdaptiveVisionStudio\\depot\\mvg\\gen\\BlobAnalysis\\capsule_1.png"
+		outImage: con_44516595_2af1_4c02_8f31_1de893ac581b
+		outAlphaChannel: Nil
+	)
+
+	ThresholdToRegion
+	(
+		inImage: con_44516595_2af1_4c02_8f31_1de893ac581b
+		inRoi: Nil
+		inMinValue: Nil
+		inMaxValue: 79.000000
+		outRegion: con_346ff89c_3c5f_4c4d_95f3_abf429bfc8fc
+	)
+
+	CloseRegion
+	(
+		inRegion: con_346ff89c_3c5f_4c4d_95f3_abf429bfc8fc
+		inKernel: Ellipse
+		inRadiusX: 177
+		inRadiusY: Nil
+		outRegion: con_6320530e_1fe8_480a_b74c_f8461b5d4c1e
+	)
+
+	DrawRegionNicely_WithAxis
+	(
+		inImage: con_44516595_2af1_4c02_8f31_1de893ac581b
+		inRegion: con_6320530e_1fe8_480a_b74c_f8461b5d4c1e
+		outImage: con_4e0ca893_3bfc_47b3_95ae_5270f2bf16bc
+	)
+
+	SaveImage
+	(
+		inImage: con_4e0ca893_3bfc_47b3_95ae_5270f2bf16bc
+		inImageFileFormat: Nil
+		inFile: "results/moments_capsule.png"
+	)
+
+	LoadImage
+	(
+		inFile: "fullmeter.png"
+		outImage: con_720fc788_82ef_4270_9877_cf8426a47b84
+		outAlphaChannel: Nil
+	)
+
+	CropImage
+	(
+		inImage: con_720fc788_82ef_4270_9877_cf8426a47b84
+		inSelection:
+			Box
+			(
+				X: 62
+				Y: 264
+				Width: 350
+				Height: 240
+			)
+		outImage: con_6c27bb1c_4d15_462c_a099_478a5817126e
+	)
+
+	ResizeImage
+	(
+		inImage: con_6c27bb1c_4d15_462c_a099_478a5817126e
+		inNewWidth: 700
+		inNewHeight: 480
+		inResizeMethod: Bilinear
+		outImage: con_a9ca8a90_c94e_4997_b0a4_3233fdd4573d
+	)
+
+	ThresholdToRegion
+	(
+		inImage: con_a9ca8a90_c94e_4997_b0a4_3233fdd4573d
+		inRoi: Region<Moments0.avdata>
+		inMinValue: Nil
+		inMaxValue: 79.000000
+		outRegion: con_2917dd9c_7322_4c77_b261_02eac9f2cc26
+	)
+
+	DrawRegionNicely_WithAxis
+	(
+		inImage: con_a9ca8a90_c94e_4997_b0a4_3233fdd4573d
+		inRegion: con_2917dd9c_7322_4c77_b261_02eac9f2cc26
+		outImage: con_9943f9d9_84a0_471a_8b06_8ee527a6ba32
+	)
+
+	SaveImage
+	(
+		inImage: con_9943f9d9_84a0_471a_8b06_8ee527a6ba32
+		inImageFileFormat: Nil
+		inFile: "results/moments_meter.png"
+	)
+}
+
+public DrawRegionNicely_WithAxis(Image inImage, Region inRegion, Image outImage)
+{
+	DrawRegionNicely
+	(
+		inImage: inImage
+		inRegion: inRegion
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 128.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		outImage: con_407447ca_03a9_4600_9ca1_8905f9f03a86
+	)
+
+	RegionEllipticAxis
+	(
+		inRegion: inRegion
+		outMajorAxis: con_cc88f7f2_cd2d_4be8_b819_a66dc4df8d02
+		outMinorAxis: con_3922fd01_5413_4b14_9d36_7cbe7309a6ab
+	)
+
+	DrawSegments
+	(
+		inImage: con_407447ca_03a9_4600_9ca1_8905f9f03a86
+		inSegments: con_cc88f7f2_cd2d_4be8_b819_a66dc4df8d02
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 0.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		inDrawingMode: HighQuality
+		inMarkerType: Circle
+		inThickness: 4.000000
+		inMarkerSize: 7.000000
+		inOpacity: 1.000000
+		outImage: con_835e0d86_f2ce_422a_85ed_2d2ea3e0b500
+	)
+
+	DrawSegments
+	(
+		inImage: con_835e0d86_f2ce_422a_85ed_2d2ea3e0b500
+		inSegments: con_3922fd01_5413_4b14_9d36_7cbe7309a6ab
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 255.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		inDrawingMode: HighQuality
+		inMarkerType: Circle
+		inThickness: 4.000000
+		inMarkerSize: 7.000000
+		inOpacity: 1.000000
+		outImage: outImage
+	)
+}
+

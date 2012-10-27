@@ -1,0 +1,67 @@
+\newcommand{\coverPage}[6]
+{
+	\begin{titlingpage}
+	\begin{center}
+
+
+	% Upper part of the page
+	%\includegraphics[width=0.15\textwidth]{./logo}\\[1cm]    
+
+	\textsc{\LARGE #1}\\[1.5cm]
+
+	\textsc{\Large #2}\\[0.5cm]
+
+
+	% Title
+
+	{ \huge \bfseries #3}\\[0.4cm]
+
+
+	% Author and supervisor
+	\begin{minipage}{0.4\textwidth}
+	\begin{flushleft} \large
+	\vspace{15cm}
+	\emph{#4:}\\
+	Przemys\l aw Pietrzkiewicz
+	\end{flushleft}
+	\end{minipage}
+	\begin{minipage}{0.4\textwidth}
+	\begin{flushright} \large
+	\vspace{15cm}
+	\emph{#5:} \\
+	Dr~Andrzej \L ukaszewski
+	\end{flushright}
+	\end{minipage}
+
+	\vfill
+
+	% Bottom of the page
+	{\large #6}
+
+	\end{center}
+	\end{titlingpage}
+
+
+
+	\thispagestyle{empty}
+	\newpage	
+
+}
+
+\coverPage
+{Uniwersytet Wroc\l awski}
+{Praca magisterska}
+{Techniki analizy obrazu dla potrzeb system\'ow inspekcji przemys\l owej}
+{Autor}
+{Promotor}
+{3 X 2012}
+
+\newpage
+
+\coverPage
+{University of Wroc\l aw}
+{Master Thesis}
+{Image Analysis Techniques for Industrial Inspection Systems}
+{Author}
+{Supervisor}
+{October 3, 2012}

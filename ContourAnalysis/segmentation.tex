@@ -1,0 +1,95 @@
+\section{Segmentation}
+
+\paragraph*{}
+It is often the case that the we are interested in a specific section of the obtained object contour, e.g. if we want to measure the angle between two specific straight segments of the object boundary. Segmentation techniques extract the sections of a path that represent simple geometric primitives such as straight segments or circular arcs.
+
+\paragraph*{}
+The task of path segmentation may be also formulated in terms of path approximation - if we approximate a path with a simple polygon, we can split it into sections corresponding to individual segments of the resulting polygon, thus obtaining segmentation into straight segments.
+
+\paragraph*{}
+The algorithm that will be our basis for developing the path segmentation methods was introduced as an algorithm for path polygonal approximation.
+
+\subsection{Ramer Algorithm}
+
+\paragraph*{}
+Ramer proposed\cite{Ramer72} simple and effective algorithm for approximating a path with polygon with a given precision. The algorithm is parametrized with a value $d$, denoting maximal distance from the original curve to the resulting polygon.
+
+\paragraph*{}
+Ramer algorithm constructs the approximating polygon from the points of the original path, i.e. vertices of the resulting polygon are a subset of the original path points. The algorithm commences by approximating the whole path with a single segment: for open paths it is a segment between the path endpoints, for closed paths we may select the endpoints $a$ and $b$ of path diameter and process two open sections of the path ($a$ to $b$, $b$ to $a$) separately.
+
+\paragraph*{}
+The algorithm proceeds recursively. At each recursive call the algorithm considers a section of the original path already approximated with a single segment $S$ and finds the point $P$ of the path section that is most distant to $S$. If the distance between $P$ and $S$ is smaller or equal to $d$, then the recursive call returns $S$ as a feasible approximation for the path section. Otherwise the path is split at $P$ and the algorithm is run recursively at each of two created sections.
+
+\paragraph*{}
+\reffig{RamerOnTooth} demonstrates the partial results of Ramer algorithm at four levels of recursion, the last image demonstrating the final outcome.
+
+\fourFigures
+{ContourAnalysis/img/ramer_tooth_after_0}
+{ContourAnalysis/img/ramer_tooth_after_1}
+{ContourAnalysis/img/ramer_tooth_after_2}
+{ContourAnalysis/img/ramer_tooth_after_3}
+{Ramer algorithm run on example path with $d = 1px$.}
+{RamerOnTooth}
+{\basicWidth}
+
+\paragraph*{}
+Ramer algorithm may be also used as a mean of lossy compression, although such application is rarely seen in practice, as the object contours are usually quite space-efficient, at least when compared to the size of the original images.
+
+\subsection{Straight Segments}
+
+\paragraph*{}
+Ramer algorithm may be directly applied to segment a path into straight sections. Once we have obtained the polygonal approximation, we need to split the path at the vertices of the polygon to produce an array of path sections, each of which will correspond to a segment that approximates it with the precision we have decided on.
+
+\paragraph*{}
+Results of this approach are demonstrated in \reffig{SegmentationBasedOnRamer}.
+
+\twoFigures
+{ContourAnalysis/img/ramer_tooth_after_3}
+{ContourAnalysis/img/ramer_tooth_segmentation}
+{Segmentation of example path into straight segments based on the output of Ramer algorithm.}
+{SegmentationBasedOnRamer}
+{\basicWidth}
+
+\subsection{Circular Arcs}
+
+\paragraph*{}
+Another common type of feature that may be identified in object contours are circular arcs. A number of approach may be used to look for arciform sections directly - one idea would be to analyze turn angles at consecutive characteristic points looking for runs of roughly constant curvature, as would be expected of circular arc. Unfortunately, this approach does not perform well for big arcs - it is often the case that the turn angles at individual characteristic points are very weak and are easily affected by noise.
+
+\paragraph*{}
+Another approach would be to adapt the Ramer algorithm to use arcs rather than straight segments. The modification is not straightforward, as two endpoints of a path section do not define a unique arc (as they did in case of segments), so we would need to fit an arc to each section by means of \refchap{ShapeFitting}. While this does not pose a big problem, we may note that the contours being inspected rarely consist solely of circular arcs\footnote{Full circles are a common case, but these represent a single primitive and thus do not need to be segmented.}; usually they are a combination of of straight and arciform sections.
+
+\paragraph*{}
+To obtain a technique that would segment a path into sections of both types, we may start with the classic Ramer-based segmentation into straight sections and process its results, joining together short parts that would be well approximated by an arc.
+
+\paragraph*{}
+One approach for such post-processing would be to fit an arc to each pair of consecutive sections of Ramer-segmented path and compute the maximum distance between the path and the arc, as well as the path and its current approximation\footnote{Two straight segments or an arc in case of a part that is a result of such joining itself.}. If the maximum distance to the arc is lower, we may conclude that the arc is better approximation for the consecutive segments and join these together. This routine would be continued until convergence and in the end we would classify the sections that resulted in such joining as arciform and the others as straight.
+
+\paragraph*{}
+Two problems may be encountered when this method is applied:
+
+\begin{itemize}
+	\item When the arc fit to a pair of consecutive straight sections has especially big radius and small length, so that it is close to a segment, the resulting improvement of the approximation is tiny and classification of the part as an arciform section may be confusing.
+	\item Once two straight sections are joined, the resulting arc approximation may be so accurate that it will preclude further joining of the resulting section - a perfectly arciform path initially segmented into numerous straight parts has little chances of being fully joined.
+\end{itemize}
+
+\paragraph*{}
+First issue may be addressed by limiting the radii of the arcs being fitted to a predefined threshold (which will be a parameter of the algorithm) - if the resulting arc is to big we simply do not join the sections we are considering. This simple solution is perfectly feasible as long as the arcs we intend to extract have reasonably high relation of length to radius.
+
+\paragraph*{}
+A natural solution to the second problem is indiscriminate joining of the consecutive sections whenever the maximum distance between the path section and the fitted arc is within the maximum distance we used for the initial Ramer segmentation.
+
+\paragraph*{}
+\reffig{SegmentationStraightAndArciform} demonstrated an example application of Ramer segmentation with post-processing with the amendments described above.
+
+\fourFigures
+{ContourAnalysis/img/round_contour}
+{ContourAnalysis/img/round_initial}
+{ContourAnalysis/img/round_straight}
+{ContourAnalysis/img/round_arciform}
+{Initial segmentation of example contour(a) into straight segments(b) and results of post-processing: straight(c) and arciform(d) path segments.}
+{SegmentationStraightAndArciform}
+{\basicWidth}
+
+\begin{refImpl}
+\studio filter ReducePath implements the \filter{Ramer}{PathGlobalTransforms} algorithm, while \filter{SegmentPath}{PathGlobalTransforms} implements the segmentation technique built upon it as described above.
+\end{refImpl}

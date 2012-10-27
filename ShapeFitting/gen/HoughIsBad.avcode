@@ -1,0 +1,85 @@
+public Main()
+{
+	LoadImage
+	(
+		inFile: "head.png"
+		outImage: con_75fa2f78_f9d2_4851_a2a7_7acdb5136cd4
+		outAlphaChannel: Nil
+	)
+
+	DetectCircles
+	(
+		inImage: con_75fa2f78_f9d2_4851_a2a7_7acdb5136cd4
+		inRoi: Region<HoughIsBad0.avdata>
+		inRadius: 64.000000
+		inMaxOverlap: 1.000000
+		inMinScore: 20.000000
+		inEdgeThreshold: 10.000000
+		outCircles: con_8830ce15_4b97_4ec3_8420_a8e9a653c1e1
+		outScores: Nil
+		diagGradientAmplitudeImage: Nil
+		diagScoreImage: Nil
+	)
+
+	GetArrayElement<Circle2D>
+	(
+		inArray: con_8830ce15_4b97_4ec3_8420_a8e9a653c1e1
+		inIndex: 0
+		inReverse: False
+		outValue: con_a7845c6f_88b1_424c_bc4e_36d0a8bb9fd1
+	)
+
+	DrawCircles
+	(
+		inImage: con_75fa2f78_f9d2_4851_a2a7_7acdb5136cd4
+		inCircles: con_a7845c6f_88b1_424c_bc4e_36d0a8bb9fd1
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 0.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		inDrawingMode: HighQuality
+		inThickness: 2.000000
+		inOpacity: 1.000000
+		inFilled: False
+		outImage: con_7735064e_8feb_4bc5_ad13_cfedf07ce7e0
+	)
+
+	GetArrayElement<Circle2D>
+	(
+		inArray: con_8830ce15_4b97_4ec3_8420_a8e9a653c1e1
+		inIndex: 1
+		inReverse: False
+		outValue: con_51970600_2cb5_4763_bc75_2e8653ce905a
+	)
+
+	DrawCircles
+	(
+		inImage: con_7735064e_8feb_4bc5_ad13_cfedf07ce7e0
+		inCircles: con_51970600_2cb5_4763_bc75_2e8653ce905a
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 255.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		inDrawingMode: HighQuality
+		inThickness: 2.000000
+		inOpacity: 1.000000
+		inFilled: False
+		outImage: con_43c121b8_8e2e_464b_ab40_935f444236f6
+	)
+
+	SaveImage
+	(
+		inImage: con_43c121b8_8e2e_464b_ab40_935f444236f6
+		inImageFileFormat: Nil
+		inFile: "../img/HoughWithFixedRadius.png"
+	)
+}
+

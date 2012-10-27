@@ -1,0 +1,77 @@
+public Main()
+{
+	LoadImage
+	(
+		inFile: "edges_object.png"
+		outImage: con_b5702dc0_7d21_419b_a418_910b4b928427
+		outAlphaChannel: Nil
+	)
+
+	ScanSegment
+	(
+		inImage: con_b5702dc0_7d21_419b_a418_910b4b928427
+		outSegment: con_64c12003_650b_430e_b651_c502d13370af
+	)
+
+	ImageProfile
+	(
+		inImage: con_b5702dc0_7d21_419b_a418_910b4b928427
+		inScanPath: con_64c12003_650b_430e_b651_c502d13370af
+		inScanWidth: 5
+		inInterpolationMethod: Bilinear
+		inSmoothingStdDev: 0.000000
+		outProfile: con_0d1b54d9_9c86_4a69_9601_a0101d21009c
+		diagSamplingPoints: Nil
+	)
+
+	ExportProfile
+	(
+		inProfile: con_0d1b54d9_9c86_4a69_9601_a0101d21009c
+		inFilename: "results/edge_profile.values"
+	)
+
+	SmoothProfile_Gauss
+	(
+		inProfile: con_0d1b54d9_9c86_4a69_9601_a0101d21009c
+		inStdDev: 2.750000
+		inKernelRelativeSize: 3.000000
+		inCyclic: False
+		outProfile: con_a68707ad_c766_4e98_b4d1_1109d40929bc
+	)
+
+	ExportProfile
+	(
+		inProfile: con_a68707ad_c766_4e98_b4d1_1109d40929bc
+		inFilename: "results/edge_profile_low_smoothing.values"
+	)
+
+	SmoothProfile_Gauss
+	(
+		inProfile: con_0d1b54d9_9c86_4a69_9601_a0101d21009c
+		inStdDev: 7.000000
+		inKernelRelativeSize: 3.000000
+		inCyclic: False
+		outProfile: con_8efc2c32_4b6c_4bd2_95c8_a48238223b55
+	)
+
+	ExportProfile
+	(
+		inProfile: con_8efc2c32_4b6c_4bd2_95c8_a48238223b55
+		inFilename: "results/edge_profile_high_smoothing.values"
+	)
+
+	DifferentiateProfile
+	(
+		inProfile: con_a68707ad_c766_4e98_b4d1_1109d40929bc
+		inCyclic: False
+		inDifferentationMethod: Forward
+		outDerivative: con_82c918af_6b40_44e3_a9ba_6bc7f10c2ef3
+	)
+
+	ExportProfile
+	(
+		inProfile: con_82c918af_6b40_44e3_a9ba_6bc7f10c2ef3
+		inFilename: "results/edge_profile_low_smoothing_derivative.values"
+	)
+}
+

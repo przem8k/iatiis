@@ -1,0 +1,322 @@
+extern Real GradientVectorScale = 0.150000
+extern Integer ImageEnlargeScale = 25
+
+public Main()
+{
+	LoadImage
+	(
+		inFile: "tooth.png"
+		outImage: con_6b568ac0_e0a1_474e_b64c_c378639f755d
+		outAlphaChannel: Nil
+	)
+
+	CropImage
+	(
+		inImage: con_6b568ac0_e0a1_474e_b64c_c378639f755d
+		inSelection:
+			Box
+			(
+				X: 22
+				Y: 58
+				Width: 19
+				Height: 13
+			)
+		outImage: con_4e78d279_e726_4af6_809b_8183fadcb6bb
+	)
+
+	ImageCustomGradient
+	(
+		inImage: con_4e78d279_e726_4af6_809b_8183fadcb6bb
+		inMaskX: Matrix<GradientVectors0.avdata>
+		inMaskY: Matrix<GradientVectors1.avdata>
+		outGradientImage: con_07445844_de1b_42ad_8d1e_a5ddc9ea2aea
+	)
+
+	VectorImageAmplitude
+	(
+		inImage: con_07445844_de1b_42ad_8d1e_a5ddc9ea2aea
+		outImage: con_827eda8a_041b_40e8_a08d_0506efcf4bd0
+	)
+
+	VectorField
+	(
+		inImage: con_4e78d279_e726_4af6_809b_8183fadcb6bb
+		inGradientImage: con_07445844_de1b_42ad_8d1e_a5ddc9ea2aea
+		inImageResizeScale: ImageEnlargeScale
+		outImage: con_511a7ef3_8610_41a1_b2c6_ad8903ea0173
+	)
+
+	SaveImage
+	(
+		inImage: con_511a7ef3_8610_41a1_b2c6_ad8903ea0173
+		inImageFileFormat: Nil
+		inFile: "results/GradientVectors.png"
+	)
+
+	CropImage
+	(
+		inImage: con_6b568ac0_e0a1_474e_b64c_c378639f755d
+		inSelection:
+			Box
+			(
+				X: 21
+				Y: 57
+				Width: 21
+				Height: 15
+			)
+		outImage: con_714bc1c4_06a5_4bec_8baa_2a28acf2d5c2
+	)
+
+	//Sobel
+	ImageCustomGradient
+	(
+		inImage: con_714bc1c4_06a5_4bec_8baa_2a28acf2d5c2
+		inMaskX: Matrix<GradientVectors2.avdata>
+		inMaskY: Matrix<GradientVectors3.avdata>
+		outGradientImage: con_0a93cfd1_e101_45b9_a60b_5acded8708b9
+	)
+
+	CropImage
+	(
+		inImage: con_0a93cfd1_e101_45b9_a60b_5acded8708b9
+		inSelection:
+			Box
+			(
+				X: 1
+				Y: 1
+				Width: 19
+				Height: 13
+			)
+		outImage: con_d79b948f_80c3_45fc_9af2_9b37df9fea6f
+	)
+
+	DivideImage
+	(
+		inImage: con_d79b948f_80c3_45fc_9af2_9b37df9fea6f
+		inRoi: Nil
+		inValue: 4.000000
+		outImage: con_5d770d76_63b0_4d6f_aee2_f3c3112922ab
+	)
+
+	VectorImageAmplitude
+	(
+		inImage: con_5d770d76_63b0_4d6f_aee2_f3c3112922ab
+		outImage: con_cb832a81_7630_40dc_849d_89c3dd6430f3
+	)
+
+	VectorField
+	(
+		inImage: con_4e78d279_e726_4af6_809b_8183fadcb6bb
+		inGradientImage: con_5d770d76_63b0_4d6f_aee2_f3c3112922ab
+		inImageResizeScale: ImageEnlargeScale
+		outImage: con_9870f79f_ce7b_41a3_9aa9_047646b978e7
+	)
+
+	DifferenceImage
+	(
+		inImage1: con_827eda8a_041b_40e8_a08d_0506efcf4bd0
+		inImage2: con_cb832a81_7630_40dc_849d_89c3dd6430f3
+		inRoi: Nil
+		outImage: con_318bcf9d_2cbe_4f71_87fe_d4c0b96b5b6c
+	)
+}
+
+public GradientVector(Real inAngle, Real inLength, Point2D inPixelCenter, Segment2D outGradientSegment)
+{
+	MultiplyReals
+	(
+		inA: inLength
+		inB: GradientVectorScale
+		outProduct: con_2d98a2ec_cdc3_4d8a_9f26_3fcc94bbe798
+	)
+
+	CreateVector
+	(
+		inLength: con_2d98a2ec_cdc3_4d8a_9f26_3fcc94bbe798
+		inDirection: inAngle
+		outVector: con_e640d49e_505e_483b_8845_06cefc35e05e
+	)
+
+	TranslatePoint
+	(
+		inPoint: inPixelCenter
+		inDelta: con_e640d49e_505e_483b_8845_06cefc35e05e
+		inInverse: False
+		outPoint: con_f339be9e_51c7_44fa_b554_844b78b174af
+	)
+
+	SegmentBetweenPoints
+	(
+		inPoint1: inPixelCenter
+		inPoint2: con_f339be9e_51c7_44fa_b554_844b78b174af
+		outSegment: outGradientSegment
+	)
+}
+
+public VectorFieldImpl(Image inImage, Image inGradientImage, Integer inImageResizeScale, Segment2DArray outVectorField, RealArray outLengths)
+{
+	VectorImageAmplitude
+	(
+		inImage: inGradientImage
+		outImage: con_b1acb97f_7448_4144_9358_57ddbbd40156
+	)
+
+	VisualiseGradientDirections
+	(
+		inGradientImage: inGradientImage
+		inMinVectorLength: 50.000000
+		outAngleImage: con_7100da29_00c9_4a52_a1d6_170e268193e7
+		outRgbImage: Nil
+	)
+
+	AccessImage
+	(
+		inImage: inImage
+		outWidth: con_867da17c_c272_422f_8ea4_e0880e86f9bc
+		outHeight: con_84aa4607_61d0_4585_a12d_5b50333294eb
+		outDepth: Nil
+	)
+
+	EnumerateIntegerPairs
+	(
+		inStart1: 0
+		inCount1: con_867da17c_c272_422f_8ea4_e0880e86f9bc
+		inStep1: 1
+		inStart2: 0
+		inCount2: con_84aa4607_61d0_4585_a12d_5b50333294eb
+		inStep2: 1
+		outValue1: con_d4152f27_f200_4bd2_bc9e_5881505ef1f3
+		outValue2: con_2851d871_d2fd_4007_afc2_69a936344d72
+	)
+
+	AddReals
+	(
+		inA: con_d4152f27_f200_4bd2_bc9e_5881505ef1f3
+		inB: 0.500000
+		outSum: con_17f93276_db11_4a5c_b19f_c9a2a3b8ed32
+	)
+
+	MultiplyReals
+	(
+		inA: con_17f93276_db11_4a5c_b19f_c9a2a3b8ed32
+		inB: inImageResizeScale
+		outProduct: con_f628dcab_1aa8_4720_ad23_0fe54a3a68c6
+	)
+
+	AddReals
+	(
+		inA: con_2851d871_d2fd_4007_afc2_69a936344d72
+		inB: 0.500000
+		outSum: con_f03030bb_fdf8_4f26_b86a_06c94ce374b7
+	)
+
+	MultiplyReals
+	(
+		inA: con_f03030bb_fdf8_4f26_b86a_06c94ce374b7
+		inB: inImageResizeScale
+		outProduct: con_3c646afb_1fb9_47f8_a8c1_4688caf3683f
+	)
+
+	MakePoint
+	(
+		inX: con_f628dcab_1aa8_4720_ad23_0fe54a3a68c6
+		inY: con_3c646afb_1fb9_47f8_a8c1_4688caf3683f
+		outPoint: con_95b23679_61a7_4700_b7b3_bdee9ee154a2
+	)
+
+	MakeLocation
+	(
+		inX: con_d4152f27_f200_4bd2_bc9e_5881505ef1f3
+		inY: con_2851d871_d2fd_4007_afc2_69a936344d72
+		outLocation: con_c7520e1b_a991_45d6_95d1_a19e4048adfb
+	)
+
+	GetImagePixel
+	(
+		inImage: con_b1acb97f_7448_4144_9358_57ddbbd40156
+		inLocation: con_c7520e1b_a991_45d6_95d1_a19e4048adfb
+		outPixel: Nil
+		outValue: con_f0b1d34a_cae9_4354_9ba1_4d733b44882e
+	)
+
+	GetImagePixel
+	(
+		inImage: con_7100da29_00c9_4a52_a1d6_170e268193e7
+		inLocation: con_c7520e1b_a991_45d6_95d1_a19e4048adfb
+		outPixel: Nil
+		outValue: con_90f9a9c2_0553_445f_bf3b_656f91c0f3c8
+	)
+
+	GradientVector
+	(
+		inAngle: con_90f9a9c2_0553_445f_bf3b_656f91c0f3c8
+		inLength: con_f0b1d34a_cae9_4354_9ba1_4d733b44882e
+		inPixelCenter: con_95b23679_61a7_4700_b7b3_bdee9ee154a2
+		outGradientSegment: con_d736f608_ce14_45b5_b86c_e2e8f976737b
+	)
+
+	AccumulateArray<Segment2D>
+	(
+		inValue: con_d736f608_ce14_45b5_b86c_e2e8f976737b
+		outArray: outVectorField
+	)
+
+	AccumulateArray<Real>
+	(
+		inValue: con_f0b1d34a_cae9_4354_9ba1_4d733b44882e
+		outArray: outLengths
+	)
+}
+
+public VectorField(Image inImage, Image inGradientImage, Integer inImageResizeScale, Image outImage)
+{
+	VectorFieldImpl
+	(
+		inImage: inImage
+		inGradientImage: inGradientImage
+		inImageResizeScale: inImageResizeScale
+		outVectorField: con_723c7512_2759_4f57_899e_ec5c7071dbde
+		outLengths: con_85694a8d_422d_4912_b489_b3d66a13c76e
+	)
+
+	ClassifyByRange<Segment2D>
+	(
+		inArray: con_723c7512_2759_4f57_899e_ec5c7071dbde
+		inValues: con_85694a8d_422d_4912_b489_b3d66a13c76e
+		inMin: Nil
+		inMax: Nil
+		outLower: Nil
+		outInRange: con_4336e9eb_b19d_44eb_bb68_7bf8080d7510
+		outHigher: Nil
+	)
+
+	ResizeImage_Relative
+	(
+		inImage: inImage
+		inHorizontalScale: inImageResizeScale
+		inVerticalScale: inImageResizeScale
+		inResizeMethod: NearestNeighbour
+		outImage: con_b44a5311_4f09_4b58_bd15_d90e7e2d91bb
+	)
+
+	DrawSegments
+	(
+		inImage: con_b44a5311_4f09_4b58_bd15_d90e7e2d91bb
+		inSegments: con_4336e9eb_b19d_44eb_bb68_7bf8080d7510
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 0.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		inDrawingMode: HighQuality
+		inMarkerType: Arrow
+		inThickness: 1.500000
+		inMarkerSize: 5.000000
+		inOpacity: 1.000000
+		outImage: outImage
+	)
+}
+

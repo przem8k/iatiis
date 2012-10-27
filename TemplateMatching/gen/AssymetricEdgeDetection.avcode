@@ -1,0 +1,171 @@
+public Main()
+{
+	LoadImage
+	(
+		inFile: "board_template.png"
+		outImage: con_f42beaf2_1403_43ee_8441_0b425c0a4b0f
+		outAlphaChannel: Nil
+	)
+
+	CropImage
+	(
+		inImage: con_f42beaf2_1403_43ee_8441_0b425c0a4b0f
+		inSelection:
+			Box
+			(
+				X: 1
+				Y: 1
+				Width: 51
+				Height: 47
+			)
+		outImage: con_00ad4ab8_9178_40cb_865c_e3f7cb01dcde
+	)
+
+	SaveImage
+	(
+		inImage: con_00ad4ab8_9178_40cb_865c_e3f7cb01dcde
+		inImageFileFormat: Nil
+		inFile: "../img/AssymetricEdges_template.png"
+	)
+
+	EdgeRegion
+	(
+		inImage: con_f42beaf2_1403_43ee_8441_0b425c0a4b0f
+		inRoi: Nil
+		inEdgeFilter: Canny
+		inStdDevX: 0.000000
+		inStdDevY: 0.000000
+		inEdgeThreshold: 60.000000
+		inEdgeHysteresis: 40.000000
+		outEdgeRegion: con_6125fdd1_549f_4d6e_9743_100c3c1ae9e1
+		diagGradientAmplitudeImage: Nil
+	)
+
+	GradientImage_Mask
+	(
+		inImage: con_f42beaf2_1403_43ee_8441_0b425c0a4b0f
+		inRoi: Nil
+		inOperator: Sobel
+		outGradientImage: con_595619bc_91e6_4e38_8fd6_57c90e11a9bf
+	)
+
+	VisualiseGradientDirections
+	(
+		inGradientImage: con_595619bc_91e6_4e38_8fd6_57c90e11a9bf
+		inMinVectorLength: 0.000000
+		outAngleImage: Nil
+		outRgbImage: con_637fc764_7dc6_41bd_bd54_66035e0177df
+	)
+
+	EmptyImage
+	(
+		inWidth: 53
+		inHeight: 49
+		inColor:
+			Pixel
+			(
+				X: 0.000000
+				Y: 0.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		inChannels: 3
+		outImage: con_56174ff6_1e7a_48ef_ae4f_1f41e3426fd9
+	)
+
+	CombineImages
+	(
+		inImage1: con_637fc764_7dc6_41bd_bd54_66035e0177df
+		inImage2: con_56174ff6_1e7a_48ef_ae4f_1f41e3426fd9
+		inRoi: Nil
+		inRegion: con_6125fdd1_549f_4d6e_9743_100c3c1ae9e1
+		outImage: con_33b52d1e_36c0_45c0_bbf1_3368b1384f0d
+	)
+
+	CropImage
+	(
+		inImage: con_33b52d1e_36c0_45c0_bbf1_3368b1384f0d
+		inSelection:
+			Box
+			(
+				X: 1
+				Y: 1
+				Width: 51
+				Height: 47
+			)
+		outImage: con_7fe48b66_0c2e_4ca0_ba10_2743ef3c5b27
+	)
+
+	SaveImage
+	(
+		inImage: con_7fe48b66_0c2e_4ca0_ba10_2743ef3c5b27
+		inImageFileFormat: Nil
+		inFile: "../img/AssymetricEdges_template_edges.png"
+	)
+
+	LoadImage
+	(
+		inFile: "board_tcomp_another.png"
+		outImage: con_ba1d2df1_caef_4d91_9dd1_022383da1580
+		outAlphaChannel: Nil
+	)
+
+	CropImage
+	(
+		inImage: con_ba1d2df1_caef_4d91_9dd1_022383da1580
+		inSelection:
+			Box
+			(
+				X: 1
+				Y: 1
+				Width: 51
+				Height: 47
+			)
+		outImage: con_2b5d8f7b_2a16_4fd9_9cf9_6d75e41cda57
+	)
+
+	SaveImage
+	(
+		inImage: con_2b5d8f7b_2a16_4fd9_9cf9_6d75e41cda57
+		inImageFileFormat: Nil
+		inFile: "../img/AssymetricEdges_search.png"
+	)
+
+	GradientImage_Mask
+	(
+		inImage: con_ba1d2df1_caef_4d91_9dd1_022383da1580
+		inRoi: Nil
+		inOperator: Sobel
+		outGradientImage: con_50e6580a_7863_4255_891f_532bf89171a8
+	)
+
+	VisualiseGradientDirections
+	(
+		inGradientImage: con_50e6580a_7863_4255_891f_532bf89171a8
+		inMinVectorLength: 0.000000
+		outAngleImage: Nil
+		outRgbImage: con_100bc019_afde_4cee_ab3f_d336b021270d
+	)
+
+	CropImage
+	(
+		inImage: con_100bc019_afde_4cee_ab3f_d336b021270d
+		inSelection:
+			Box
+			(
+				X: 1
+				Y: 1
+				Width: 51
+				Height: 47
+			)
+		outImage: con_bca6265f_1683_49af_a42b_fdab65bceea1
+	)
+
+	SaveImage
+	(
+		inImage: con_bca6265f_1683_49af_a42b_fdab65bceea1
+		inImageFileFormat: Nil
+		inFile: "../img/AssymetricEdges_search_gradient.png"
+	)
+}
+

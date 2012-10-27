@@ -1,0 +1,123 @@
+public Main()
+{
+	LoadImage
+	(
+		inFile: "black_blade.png"
+		outImage: con_5121e3a2_e31c_452e_a5ec_b94b4bcce04e
+		outAlphaChannel: Nil
+	)
+
+	SaveImage
+	(
+		inImage: con_5121e3a2_e31c_452e_a5ec_b94b4bcce04e
+		inImageFileFormat: Nil
+		inFile: "results/blade_input.png"
+	)
+
+	ThresholdToRegion
+	(
+		inImage: con_5121e3a2_e31c_452e_a5ec_b94b4bcce04e
+		inRoi: Nil
+		inMinValue: Nil
+		inMaxValue: 128.000000
+		outRegion: con_7279b70a_14c9_4ed6_9ccd_b0b66858dd75
+	)
+
+	DrawRegionNicely
+	(
+		inImage: con_5121e3a2_e31c_452e_a5ec_b94b4bcce04e
+		inRegion: con_7279b70a_14c9_4ed6_9ccd_b0b66858dd75
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 128.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		outImage: con_e8abebc7_5d68_4b9f_8441_2b5344da3ec5
+	)
+
+	SaveImage
+	(
+		inImage: con_e8abebc7_5d68_4b9f_8441_2b5344da3ec5
+		inImageFileFormat: Nil
+		inFile: "results/blade_region.png"
+	)
+
+	OpenRegion
+	(
+		inRegion: con_7279b70a_14c9_4ed6_9ccd_b0b66858dd75
+		inKernel: Ellipse
+		inRadiusX: 50
+		inRadiusY: Nil
+		outRegion: con_c60391a3_3c72_416d_9995_ea4d8c6ca02e
+	)
+
+	DrawRegionNicely
+	(
+		inImage: con_5121e3a2_e31c_452e_a5ec_b94b4bcce04e
+		inRegion: con_c60391a3_3c72_416d_9995_ea4d8c6ca02e
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 128.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		outImage: con_86aa1af6_5bb7_4f71_905d_c017367e283b
+	)
+
+	SaveImage
+	(
+		inImage: con_86aa1af6_5bb7_4f71_905d_c017367e283b
+		inImageFileFormat: Nil
+		inFile: "results/blade_opened.png"
+	)
+
+	RegionDifference
+	(
+		inRegion1: con_7279b70a_14c9_4ed6_9ccd_b0b66858dd75
+		inRegion2: con_c60391a3_3c72_416d_9995_ea4d8c6ca02e
+		outRegion: con_068da741_7915_4a7a_a441_ed970b3cfa9b
+	)
+
+	DrawRegionNicely
+	(
+		inImage: con_5121e3a2_e31c_452e_a5ec_b94b4bcce04e
+		inRegion: con_068da741_7915_4a7a_a441_ed970b3cfa9b
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 128.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		outImage: con_6e51d0a4_7ee8_40b6_b622_6a69d03bda5f
+	)
+
+	SaveImage
+	(
+		inImage: con_6e51d0a4_7ee8_40b6_b622_6a69d03bda5f
+		inImageFileFormat: Nil
+		inFile: "results/blade_complement.png"
+	)
+
+	DrawRegionNicely
+	(
+		inImage: con_5121e3a2_e31c_452e_a5ec_b94b4bcce04e
+		inRegion: con_068da741_7915_4a7a_a441_ed970b3cfa9b
+		inColor: Nil
+		outImage: con_8a6b350a_5297_4fa3_bc65_b9c237b716fe
+	)
+
+	SaveImage
+	(
+		inImage: con_8a6b350a_5297_4fa3_bc65_b9c237b716fe
+		inImageFileFormat: Nil
+		inFile: "results/blade_blobs.png"
+	)
+}
+

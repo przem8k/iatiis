@@ -1,0 +1,345 @@
+public Main()
+{
+	LoadImage
+	(
+		inFile: "board.png"
+		outImage: con_208cc088_c23e_472d_a028_eb8b35ea1d09
+		outAlphaChannel: Nil
+	)
+
+	SaveImage
+	(
+		inImage: con_208cc088_c23e_472d_a028_eb8b35ea1d09
+		inImageFileFormat: Nil
+		inFile: "../img/board.png"
+	)
+
+	CropImage
+	(
+		inImage: con_208cc088_c23e_472d_a028_eb8b35ea1d09
+		inSelection:
+			Box
+			(
+				X: 271
+				Y: 226
+				Width: 53
+				Height: 49
+			)
+		outImage: con_fad69504_4939_4f44_9f24_5122da6d3e0e
+	)
+
+	SaveImage
+	(
+		inImage: con_fad69504_4939_4f44_9f24_5122da6d3e0e
+		inImageFileFormat: Nil
+		inFile: "../img/board_template.png"
+	)
+
+	CorrelationSearch
+	(
+		inImage: con_208cc088_c23e_472d_a028_eb8b35ea1d09
+		inPatternImage: con_fad69504_4939_4f44_9f24_5122da6d3e0e
+		inMinValue: 0.750000
+		outCorrelationMaximaImage: con_6b26f43d_4024_43a4_b618_27133f48dc66
+		outResultsImage: con_19e5360d_d83f_45d4_9763_6f6d4679536d
+		outTemplateCorrelationImage: con_5c82bda4_2e0e_4b7a_b7aa_1d4fce65e9be
+	)
+
+	SaveImage
+	(
+		inImage: con_6b26f43d_4024_43a4_b618_27133f48dc66
+		inImageFileFormat: Nil
+		inFile: "../img/board_correlation_maxima.png"
+	)
+
+	SaveImage
+	(
+		inImage: con_19e5360d_d83f_45d4_9763_6f6d4679536d
+		inImageFileFormat: Nil
+		inFile: "../img/board_correlation_results.png"
+	)
+
+	SaveImage
+	(
+		inImage: con_5c82bda4_2e0e_4b7a_b7aa_1d4fce65e9be
+		inImageFileFormat: Nil
+		inFile: "../img/board_correlation_image.png"
+	)
+
+	ImagePyramid
+	(
+		inImage: con_208cc088_c23e_472d_a028_eb8b35ea1d09
+		outPyramid0: con_29c4e925_4f2c_4a65_9335_57444be635f0
+		outPyramid1: con_3e9090d5_b1c6_4476_a278_ab10238acdc5
+		outPyramid2: con_8929e4a2_20d6_45d8_ade1_4fe6bd31bb7c
+		outPyramid3: con_406bd26e_152c_4513_a0aa_4651611d51b0
+	)
+
+	SaveImagePyramid
+	(
+		inPyramid0: con_29c4e925_4f2c_4a65_9335_57444be635f0
+		inPyramid1: con_3e9090d5_b1c6_4476_a278_ab10238acdc5
+		inPyramid2: con_8929e4a2_20d6_45d8_ade1_4fe6bd31bb7c
+		inPyramid3: con_406bd26e_152c_4513_a0aa_4651611d51b0
+		inFilePrefix: "../img/board_pyramid"
+	)
+
+	ImagePyramid
+	(
+		inImage: con_fad69504_4939_4f44_9f24_5122da6d3e0e
+		outPyramid0: con_85828c75_8054_4874_aaa1_81234cce177f
+		outPyramid1: con_50090a9d_6e73_46a7_9da9_b709b09b57a8
+		outPyramid2: con_2aed76ac_c6e2_410a_85dc_55da027373ed
+		outPyramid3: con_f95ab5ad_b2ec_4bc2_ae1a_0cde328f860a
+	)
+
+	SaveImagePyramid
+	(
+		inPyramid0: con_85828c75_8054_4874_aaa1_81234cce177f
+		inPyramid1: con_50090a9d_6e73_46a7_9da9_b709b09b57a8
+		inPyramid2: con_2aed76ac_c6e2_410a_85dc_55da027373ed
+		inPyramid3: con_f95ab5ad_b2ec_4bc2_ae1a_0cde328f860a
+		inFilePrefix: "../img/board_template_pyramid"
+	)
+
+	CorrelationSearch
+	(
+		inImage: con_3e9090d5_b1c6_4476_a278_ab10238acdc5
+		inPatternImage: con_50090a9d_6e73_46a7_9da9_b709b09b57a8
+		inMinValue: 0.750000
+		outCorrelationMaximaImage: Nil
+		outResultsImage: Nil
+		outTemplateCorrelationImage: con_2ba59c12_79b7_4778_9534_29ad83a7a3a4
+	)
+
+	CorrelationSearch
+	(
+		inImage: con_8929e4a2_20d6_45d8_ade1_4fe6bd31bb7c
+		inPatternImage: con_2aed76ac_c6e2_410a_85dc_55da027373ed
+		inMinValue: 0.750000
+		outCorrelationMaximaImage: Nil
+		outResultsImage: Nil
+		outTemplateCorrelationImage: con_086646e0_1df6_48a8_baba_7a85a7acc388
+	)
+
+	CorrelationSearch
+	(
+		inImage: con_406bd26e_152c_4513_a0aa_4651611d51b0
+		inPatternImage: con_f95ab5ad_b2ec_4bc2_ae1a_0cde328f860a
+		inMinValue: 0.750000
+		outCorrelationMaximaImage: Nil
+		outResultsImage: Nil
+		outTemplateCorrelationImage: con_f16e0c25_e622_4507_8593_a64114c0fcd4
+	)
+
+	SaveImagePyramid
+	(
+		inPyramid0: con_5c82bda4_2e0e_4b7a_b7aa_1d4fce65e9be
+		inPyramid1: con_2ba59c12_79b7_4778_9534_29ad83a7a3a4
+		inPyramid2: con_086646e0_1df6_48a8_baba_7a85a7acc388
+		inPyramid3: con_f16e0c25_e622_4507_8593_a64114c0fcd4
+		inFilePrefix: "../img/board_correlation_pyramid"
+	)
+}
+
+public CorrelationSearch(Image inImage, Image inPatternImage, Real inMinValue, Image outCorrelationMaximaImage, Image outResultsImage, Image outTemplateCorrelationImage)
+{
+	ImageCorrelationImage
+	(
+		inImage: inImage
+		inPatternImage: inPatternImage
+		inRoi: Nil
+		inPatternRoi: Nil
+		inCorrelationMeasure: NormalizedCrossCorrelation
+		outImage: con_0edac4bc_5b0b_4b64_83af_ba4ce0197daf
+	)
+
+	NormalizeImage
+	(
+		inImage: con_0edac4bc_5b0b_4b64_83af_ba4ce0197daf
+		inRoi: Nil
+		inNewMinimum: 0.000000
+		inNewMaximum: 255.000000
+		outImage: con_5c2b6250_7969_490f_95c1_e4df18ba219b
+		outA: Nil
+		outB: Nil
+	)
+
+	ImageLocalMaxima
+	(
+		inImage: con_0edac4bc_5b0b_4b64_83af_ba4ce0197daf
+		inRoi: Nil
+		inConsiderPlateaus: True
+		inMinValue: inMinValue
+		outMaximaRegions: Nil
+		outMaximaPoints: con_ae78603a_158f_45a4_8253_f5bc201cae3c
+		outMaximaValues: Nil
+	)
+
+	ConvertPixelType
+	(
+		inImage: con_5c2b6250_7969_490f_95c1_e4df18ba219b
+		inRoi: Nil
+		inNewType: UInt8
+		outImage: con_2954110d_984c_4363_9269_5f474915e222
+	)
+
+	ConvertToThreeChannelMono
+	(
+		inImage: con_2954110d_984c_4363_9269_5f474915e222
+		outImage: outTemplateCorrelationImage
+	)
+
+	CreateCircle
+	(
+		inPoint: con_ae78603a_158f_45a4_8253_f5bc201cae3c
+		inPointAlignment: MiddleCenter
+		inRadius: 10.000000
+		outCircle: con_a878e9c1_bf77_4112_ac5f_852dd4340abc
+	)
+
+	DrawCircles
+	(
+		inImage: outTemplateCorrelationImage
+		inCircles: con_a878e9c1_bf77_4112_ac5f_852dd4340abc
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 255.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		inDrawingMode: HighQuality
+		inThickness: 3.000000
+		inOpacity: 1.000000
+		inFilled: False
+		outImage: outCorrelationMaximaImage
+	)
+
+	AccessImage
+	(
+		inImage: inPatternImage
+		outWidth: con_47ab7464_6c1f_4fbf_b92b_83278a14a872
+		outHeight: con_65949816_8ac2_4525_9550_9f535ecb0486
+		outDepth: Nil
+	)
+
+	CreateBox
+	(
+		inLocation: con_ae78603a_158f_45a4_8253_f5bc201cae3c
+		inLocationAlignment: MiddleCentral
+		inWidth: con_47ab7464_6c1f_4fbf_b92b_83278a14a872
+		inHeight: con_65949816_8ac2_4525_9550_9f535ecb0486
+		outBox: con_a959746d_2be4_4e3d_8747_721262057d6e
+	)
+
+	DrawBoxes
+	(
+		inImage: inImage
+		inBoxes: con_a959746d_2be4_4e3d_8747_721262057d6e
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 255.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		inThickness: 3
+		inOpacity: 1.000000
+		inFilled: False
+		outImage: outResultsImage
+	)
+}
+
+public ImagePyramid(Image inImage, Image outPyramid0, Image outPyramid1, Image outPyramid2, Image outPyramid3)
+{
+	DownsampleImage
+	(
+		inImage: inImage
+		inScaleStep: 0
+		outImage: outPyramid0
+	)
+
+	DownsampleImage
+	(
+		inImage: inImage
+		inScaleStep: 1
+		outImage: outPyramid1
+	)
+
+	DownsampleImage
+	(
+		inImage: inImage
+		inScaleStep: 2
+		outImage: outPyramid2
+	)
+
+	DownsampleImage
+	(
+		inImage: inImage
+		inScaleStep: 3
+		outImage: outPyramid3
+	)
+}
+
+public SaveImagePyramid(Image inPyramid0, Image inPyramid1, Image inPyramid2, Image inPyramid3, String inFilePrefix)
+{
+	ConcatenateStrings
+	(
+		inString1: inFilePrefix
+		inString2: "_0.png"
+		outString: con_1f703ab7_b509_4424_a999_76d0ef89a33b
+	)
+
+	SaveImage
+	(
+		inImage: inPyramid0
+		inImageFileFormat: Nil
+		inFile: con_1f703ab7_b509_4424_a999_76d0ef89a33b
+	)
+
+	ConcatenateStrings
+	(
+		inString1: inFilePrefix
+		inString2: "_1.png"
+		outString: con_5c18cb47_c80b_42b5_90f5_e91abd55ba38
+	)
+
+	SaveImage
+	(
+		inImage: inPyramid1
+		inImageFileFormat: Nil
+		inFile: con_5c18cb47_c80b_42b5_90f5_e91abd55ba38
+	)
+
+	ConcatenateStrings
+	(
+		inString1: inFilePrefix
+		inString2: "_2.png"
+		outString: con_a0135959_bd39_4acb_aec4_010ae5f2c19d
+	)
+
+	SaveImage
+	(
+		inImage: inPyramid2
+		inImageFileFormat: Nil
+		inFile: con_a0135959_bd39_4acb_aec4_010ae5f2c19d
+	)
+
+	ConcatenateStrings
+	(
+		inString1: inFilePrefix
+		inString2: "_3.png"
+		outString: con_675ebfc8_cf8e_4a13_9752_88780d1a3d26
+	)
+
+	SaveImage
+	(
+		inImage: inPyramid3
+		inImageFileFormat: Nil
+		inFile: con_675ebfc8_cf8e_4a13_9752_88780d1a3d26
+	)
+}
+

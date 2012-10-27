@@ -1,0 +1,23 @@
+<documents>
+  <hsplit>
+    <vsplit>
+      <views width="0.9984" height="0.4973">
+        <view>
+          <output name="con_0d47a547_c8da_4026_97a9_4f27b39747e7" />
+        </view>
+      </views>
+    </vsplit>
+    <vsplit>
+      <views width="0.9984" height="0.4962">
+        <view>
+          <output name="con_3e46af56_1c80_46cb_b3e2_d6a6b043c772" />
+        </view>
+      </views>
+    </vsplit>
+  </hsplit>
+  <window top="49" left="174" width="1081" height="645">
+    <view>
+      <output name="con_d420aeb3_8f40_4881_bf8c_43dfa2bd72ab" />
+    </view>
+  </window>
+</documents>

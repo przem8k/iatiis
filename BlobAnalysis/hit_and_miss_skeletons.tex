@@ -1,0 +1,165 @@
+\section{Hit-and-Miss and Skeletons [under construction]}
+
+\paragraph*{}
+In the previous section we have seen a set of morphological operators, all of which accept a single binary kernel which is used to probe and transform the given region. In this section we will introduce an operation that effectively uses two disjoint kernels to probe the region being processed and explore new possibilities opened by such extension.
+
+\subsection{Hit-and-Miss}
+
+\paragraph*{}
+Hit-and-Miss (also called \textit{Hit-or-Miss}) is essentially a Template Matching operator built upon morphological processing. Here the template to be matched is modeled using two disjoint kernels. First kernel, called \textit{Hit Kernel} or \textit{Foreground Kernel} represents the pixels that have to belong to the region at each position while the second kernel (\textit{Miss Kernel}, \textit{Background Kernel}) represents the pixels that must not belong to the region (i.e. must belong to its background).
+
+\paragraph*{}
+For brevity we depict each pair of kernels (or each \textit{composite} kernel) on a single picture, using blue color for Hit Kernel and red color for Miss Kernel, as demonstrated in \reftab{CompositeKernel}.
+
+\gridDimensions{5}{5}
+
+\newarray\compositeKernel
+\readarray{compositeKernel}{%
+0 & 0 & 0 & 0 & 0 &%
+0 & 3 & 3 & 3 & 0 &%
+0 & 3 & 2 & 3 & 0 &%
+0 & 3 & 3 & 3 & 0 &%
+0 & 0 & 0 & 0 & 0}
+
+
+\begin{table}[h!]
+\centering
+\tabular{c c c}
+
+\gridDimensions{5}{5}\begin{tikzpicture}[scale=0.40]\drawslabs{compositeKernel}\end{tikzpicture}
+
+\endtabular
+\caption{Composite kernel for Hit-or-Miss transform matching isolated region pixels.}
+\label{tab:CompositeKernel}
+\end{table}
+
+\paragraph*{}
+Hit-and-Miss operator aligns such kernel at each location within the region dimensions and includes this position in the result only if both foreground and background configuration is correctly matched:
+
+\[
+\begin{array}{l}
+HitAndMiss(R,K_{Hit},K_{Miss}) =  \{ [p_x,p_y] | \\
+\quad Translate(K_{Hit}, [p_x,p_y]) \subseteq R \bigwedge 
+ Translate(K_{Miss}, [p_x,p_y]) \subseteq R^{\complement} \} 
+
+\end{array}
+\]
+
+
+\newarray\hitAndMissInput
+\readarray{hitAndMissInput}{%
+0 & 0 & 0 & 0 & 0 & 0 & 0 &%
+0 & 1 & 1 & 0 & 0 & 1 & 0 &%
+0 & 0 & 1 & 1 & 0 & 0 & 0 &%
+0 & 1 & 0 & 1 & 1 & 1 & 0 &%
+0 & 0 & 0 & 0 & 0 & 0 & 0}
+
+\newarray\hitAndMissKernel
+\readarray{hitAndMissKernel}{%
+0 & 0 & 0 & 0 & 0 &%
+0 & 0 & 3 & 0 & 0 &%
+0 & 3 & 2 & 3 & 0 &%
+0 & 0 & 3 & 0 & 0 &%
+0 & 0 & 0 & 0 & 0}
+
+\newarray\hitAndMissResult
+\readarray{hitAndMissResult}{%
+0 & 0 & 0 & 0 & 0 & 0 & 0 &%
+0 & 0 & 0 & 0 & 0 & 1 & 0 &%
+0 & 0 & 0 & 0 & 0 & 0 & 0 &%
+0 & 1 & 0 & 0 & 0 & 0 & 0 &%
+0 & 0 & 0 & 0 & 0 & 0 & 0}
+
+\begin{table}[h]
+\centering
+\tabular{c c c}
+
+\gridDimensions{7}{5}\begin{tikzpicture}[scale=0.40]\drawslabs{hitAndMissInput}\end{tikzpicture} &
+\gridDimensions{5}{5}\begin{tikzpicture}[scale=0.40]\drawslabs{hitAndMissKernel}\end{tikzpicture} &
+\gridDimensions{7}{5}\begin{tikzpicture}[scale=0.40]\drawslabs{hitAndMissResult}\end{tikzpicture} 
+
+\\
+
+$R$ &
+$K = (K_{Hit}, K_{Miss})$ &
+$HitAndMiss(R, K)$
+
+\endtabular
+\caption{Hit-and-Miss operator finds isolated region pixels.}
+\label{tab:HitAndMiss}
+\end{table}
+
+\paragraph*{}
+If we recall that erosion essentially selects locations where given kernel fits the region pixels we may define Hit-and-Miss as intersection of two erosions:
+
+\[
+	HitAndMiss(R, K_{Hit}, K_{Miss}) = Erode(R, K_{Hit}) \cap Erode(R^{\complement}, K_{Miss})
+\]
+
+\paragraph*{}
+Alternatively, we may use an erosion to determine the set of locations where the foreground condition is met, and a dilation to determine the set of locations where the background condition is violated, yielding definition:
+
+\[
+	HitAndMiss(R, K_{Hit}, K_{Miss}) = Erode(R, K_{Hit}) \setminus Dilate(R, K_{Miss})
+\]
+
+\paragraph*{}
+Hit-and-Miss operator is often applied repeatedly using a set of kernels, e.g. representing rotations of the pattern that is to be identified. \reftab{RegionEndpoints} demonstrates how Hit-and-Miss operator may be applied to find foreground endpoints in a region. Here each of four rotations of the composite kernel is matched individually and their union constitutes the final outcome.
+
+\newarray\regionEndpointsInput
+\readarray{regionEndpointsInput}{%
+0 & 0 & 0 & 0 & 0 & 0 & 0 &%
+0 & 1 & 1 & 1 & 1 & 1 & 0 &%
+0 & 0 & 0 & 0 & 0 & 1 & 0 &%
+0 & 1 & 0 & 0 & 1 & 1 & 0 &%
+0 & 0 & 0 & 0 & 0 & 0 & 0}
+
+\newarray\regionEndpointsKernel
+\readarray{regionEndpointsKernel}{%
+0 & 0 & 0 & 0 & 0 &%
+0 & 0 & 0 & 0 & 0 &%
+0 & 3 & 2 & 3 & 0 &%
+0 & 0 & 3 & 0 & 0 &%
+0 & 0 & 0 & 0 & 0}
+
+\newarray\regionEndpointsResult
+\readarray{regionEndpointsResult}{%
+0 & 0 & 0 & 0 & 0 & 0 & 0 &%
+0 & 1 & 0 & 0 & 0 & 0 & 0 &%
+0 & 0 & 0 & 0 & 0 & 0 & 0 &%
+0 & 1 & 0 & 0 & 1 & 0 & 0 &%
+0 & 0 & 0 & 0 & 0 & 0 & 0}
+
+\begin{table}[h]
+\centering
+\tabular{c c l}
+
+\gridDimensions{7}{5}\begin{tikzpicture}[scale=0.40]\drawslabs{regionEndpointsInput}\end{tikzpicture} &
+\gridDimensions{5}{5}\begin{tikzpicture}[scale=0.40]\drawslabs{regionEndpointsKernel}\end{tikzpicture} &
+\gridDimensions{7}{5}\begin{tikzpicture}[scale=0.40]\drawslabs{regionEndpointsResult}\end{tikzpicture} 
+
+\\
+
+$R$ &
+$K_{0} = (K_{Hit}, K_{Miss})$ &
+$HitAndMiss(R, K_{0})$
+
+\\
+& & $\cup HitAndMiss(R, K_{90})$
+\\ 
+& & $\cup HitAndMiss(R, K_{180})$
+\\ 
+& & $\cup HitAndMiss(R, K_{270})$
+\endtabular
+\caption{Foreground endpoints located using Hit-and-Miss operator.}
+\label{tab:RegionEndpoints}
+\end{table}
+
+\subsection{Thinning}
+
+\paragraph*{}
+
+
+\subsection{Thickening}
+
+\subsection{Skeletons}

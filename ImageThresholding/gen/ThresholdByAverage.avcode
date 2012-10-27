@@ -1,0 +1,95 @@
+public Main()
+{
+
+	LoadImage
+	(
+		inFile: "C:\\Users\\dx\\projects\\AdaptiveVisionStudio\\depot\\mvg\\gen\\ImageThresholding\\images\\tooth.png"
+		outImage: con_f366d0b4_4c4d_452c_9f9d_d8cbde71fa23
+		outAlphaChannel: Nil
+	)
+
+
+	ThresholdByAverage
+	(
+		inImage: con_f366d0b4_4c4d_452c_9f9d_d8cbde71fa23
+		outImage: con_29357cd6_a4c9_4d27_9762_363545415f80
+		outAverageValue: con_bdd5a359_1400_427e_8dc5_0ed608956c2d
+	)
+
+
+	SaveImage
+	(
+		inImage: con_29357cd6_a4c9_4d27_9762_363545415f80
+		inImageFileFormat: Nil
+		inFile: "results/tooth_thresholded.png"
+	)
+
+
+	LoadImage
+	(
+		inFile: "C:\\Users\\dx\\projects\\AdaptiveVisionStudio\\depot\\mvg\\gen\\ImageThresholding\\images\\tooth_displaced.png"
+		outImage: con_954cd192_d0a5_4069_b54e_e93cc9109b1e
+		outAlphaChannel: Nil
+	)
+
+
+	ThresholdByAverage
+	(
+		inImage: con_954cd192_d0a5_4069_b54e_e93cc9109b1e
+		outImage: con_dbbbec6e_6302_41d1_822e_b55886fbfe5b
+		outAverageValue: con_d66978ae_08b9_43b3_b577_8970f3e8851b
+	)
+
+
+	SaveImage
+	(
+		inImage: con_dbbbec6e_6302_41d1_822e_b55886fbfe5b
+		inImageFileFormat: Nil
+		inFile: "results/tooth_displaced_thresholded.png"
+	)
+}
+
+public ThresholdByAverage(Image inImage, Image outImage, Real outAverageValue)
+{
+
+	ConvertToThreeChannelMono
+	(
+		inImage: inImage
+		outImage: con_94674dd4_d394_42a4_8a7f_cf8f67835e33
+	)
+
+
+	ImageAverage
+	(
+		inImage: inImage
+		inRoi: Nil
+		outAverageValue: outAverageValue
+		outAverageColor: Nil
+	)
+
+
+	ThresholdToRegion
+	(
+		inImage: con_94674dd4_d394_42a4_8a7f_cf8f67835e33
+		inRoi: Nil
+		inMinValue: outAverageValue
+		inMaxValue: Nil
+		outRegion: con_7f4f6927_1c9a_459d_a7d2_2d1b0c7bc2ec
+	)
+
+
+	DrawRegionNicely
+	(
+		inImage: inImage
+		inRegion: con_7f4f6927_1c9a_459d_a7d2_2d1b0c7bc2ec
+		inColor:
+			(
+				X: 255.000000
+				Y: 128.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		outImage: outImage
+	)
+}
+

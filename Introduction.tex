@@ -1,0 +1,40 @@
+\chapter*{Introduction}
+\addcontentsline{toc}{chapter}{Introduction}
+
+\epigraph{No profit grows where is no pleasure ta'en; in brief, sir, study what you most affect.}
+{\textsc{William Shakespeare}}
+
+
+\pagebreak
+
+
+\paragraph*{}
+The aim of this work is to discuss a selection of the most popular \textbf{image analysis} techniques in the context of \textbf{industrial inspection} applications. We will explain the mechanics of each method and demonstrate their applicability (or lack of such applicability) in the industrial setting using real industrial images.
+
+\section*{Scope}
+
+\paragraph*{}
+When selecting the specific set of methods to be discussed in the work, we have decided to focus on methods that meet the following criteria:
+\begin{itemize}
+	\item \textbf{Direct relation with image analysis} - we will cover the methods that either directly extract information from images, or are designed specifically for further processing of such information.
+	\item \textbf{General-purpose character} - we will discuss the methods that may be employed to address a range of needs, as opposed to methods for decoding information represented in any particular format, such as barcode recognition.
+\end{itemize}
+
+\paragraph*{}
+Our discussion will commence with two chapters covering extraction and analysis of pixel-precise image objects (\refchap{ImageThresholding}, \refchap{BlobAnalysis}). Later we will cover sub-pixel precise measurements (\refchap{1DEdgeDetection}) and extraction and analysis of sub-pixel precise contours (\refchap{2DEdgeDetection}, \refchap{ContourAnalysis}). We will conclude the survey with two techniques for locating geometric primitives (\refchap{ShapeFitting}) and custom pre-defined image templates (\refchap{TemplateMatching}).
+
+\section*{Reference Implementation}
+
+\paragraph*{}
+All of the methods were evaluated using \studio and all of the results included in the work come from this software. The specific operators implementing the methods discussed in each section are indicated in Reference Implementation boxes, such as the following:
+
+\begin{refImpl} 
+\studio filter \filter{LenaImage}{ImageBasics} produces the well known image of Lena Soderberg.
+\end{refImpl}
+
+\paragraph*{}
+Free editions of the software include full library of the operators and are available at \href{http://www.adaptive-vision.com}{www.adaptive-vision.com}.
+
+\section*{Conventions}
+
+When naming variables, we use lowercase identifiers such as $a$, $delta$ to denote real and integer numbers, and uppercase identifiers such as $R$, $Image$ to denote instances of complex types such as euclidean points, segments, regions or images.

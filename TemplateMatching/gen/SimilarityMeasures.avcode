@@ -1,0 +1,145 @@
+public Main()
+{
+	LoadImage
+	(
+		inFile: "board_template.png"
+		outImage: con_1747089a_8393_4990_879f_5278f7e997e0
+		outAlphaChannel: Nil
+	)
+
+	MakeAndSaveImageSimilarityReport
+	(
+		inImage2Name: "board_tcomp_another"
+		inImage1: con_1747089a_8393_4990_879f_5278f7e997e0
+	)
+
+	MakeAndSaveImageSimilarityReport
+	(
+		inImage2Name: "board_tcomp_detail"
+		inImage1: con_1747089a_8393_4990_879f_5278f7e997e0
+	)
+
+	MakeAndSaveImageSimilarityReport
+	(
+		inImage2Name: "board_tcomp_empty"
+		inImage1: con_1747089a_8393_4990_879f_5278f7e997e0
+	)
+
+	MakeAndSaveImageSimilarityReport
+	(
+		inImage2Name: "board_tcomp_linear"
+		inImage1: con_1747089a_8393_4990_879f_5278f7e997e0
+	)
+}
+
+public ImageSimilarityReport(Image inImage1, Image inImage2, String outReport)
+{
+	ImageDifference
+	(
+		inImage: inImage1
+		inPatternImage: inImage2
+		inRoi: Nil
+		inDistanceMeasure: MeanError
+		outDifference: con_8f797cfc_9892_4024_b64b_1457e30c8704
+	)
+
+	ImageDifference
+	(
+		inImage: inImage1
+		inPatternImage: inImage2
+		inRoi: Nil
+		inDistanceMeasure: MeanSquaredError
+		outDifference: con_7b2ebbd4_2cce_4778_9c69_8d6cdb51fc6c
+	)
+
+	ImageCorrelation
+	(
+		inImage: inImage1
+		inPatternImage: inImage2
+		inRoi: Nil
+		inCorrelationMeasure: CrossCorrelation
+		outCorrelation: con_ee0b0c69_1802_4bdb_b4a8_722cd2e92ffe
+	)
+
+	ImageCorrelation
+	(
+		inImage: inImage1
+		inPatternImage: inImage2
+		inRoi: Nil
+		inCorrelationMeasure: NormalizedCrossCorrelation
+		outCorrelation: con_f8a90144_83fd_41e2_be75_f98399c2cb6d
+	)
+
+	CreateShortArray<String>
+	(
+		inValue1: con_8f797cfc_9892_4024_b64b_1457e30c8704
+		inValue2: con_7b2ebbd4_2cce_4778_9c69_8d6cdb51fc6c
+		inValue3: con_ee0b0c69_1802_4bdb_b4a8_722cd2e92ffe
+		inValue4: con_f8a90144_83fd_41e2_be75_f98399c2cb6d
+		inValue5: Nil
+		inValue6: Nil
+		inValue7: Nil
+		inValue8: Nil
+		outArray: con_e6315f59_6e4d_4c9e_9d0c_8f6be8b84f83
+	)
+
+	CreateFormattedString
+	(
+		inFormat: "ME: %, MSE: %, CC: %, NCC: %"
+		inData: con_e6315f59_6e4d_4c9e_9d0c_8f6be8b84f83
+		outFormattedString: outReport
+	)
+}
+
+public MakeAndSaveImageSimilarityReport(String inImage2Name, Image inImage1)
+{
+	ConcatenateStrings
+	(
+		inString1: inImage2Name
+		inString2: ".png"
+		outString: con_9c82dc4b_4934_48ce_b8a6_b8e8b8d502b9
+	)
+
+	LoadImage
+	(
+		inFile: con_9c82dc4b_4934_48ce_b8a6_b8e8b8d502b9
+		outImage: con_508bb11f_8a42_4104_a504_61a24b8cbf42
+		outAlphaChannel: Nil
+	)
+
+	ImageSimilarityReport
+	(
+		inImage1: inImage1
+		inImage2: con_508bb11f_8a42_4104_a504_61a24b8cbf42
+		outReport: con_b7da81ee_9091_4cf9_9d90_e8d32079f40d
+	)
+
+	CreateFormattedString
+	(
+		inFormat: "../img/%_report.txt"
+		inData: inImage2Name
+		outFormattedString: con_8164f247_3af0_4ebc_bba5_2313f135b9e7
+	)
+
+	SaveString
+	(
+		inString: con_b7da81ee_9091_4cf9_9d90_e8d32079f40d
+		inFileAccessMode: CreateOrErase
+		inFile: con_8164f247_3af0_4ebc_bba5_2313f135b9e7
+	)
+
+	CreateFormattedString
+	(
+		inFormat: "../img/%.png"
+		inData: inImage2Name
+		outFormattedString: con_dad2a4a6_485f_4f43_9aa3_4d362751a4b0
+	)
+
+	SaveImage
+	(
+		inImage: con_508bb11f_8a42_4104_a504_61a24b8cbf42
+		inImageFileFormat: Nil
+		inFile: con_dad2a4a6_485f_4f43_9aa3_4d362751a4b0
+	)
+}
+

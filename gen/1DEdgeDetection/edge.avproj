@@ -1,0 +1,7 @@
+<AdaptiveVisionProject Name="edge" Version="2.5.0" StartUpProgramName="Main">
+  <Configuration />
+  <Files>
+    <Program Path="edge.avcode" />
+    <View Path="edge.avview" />
+  </Files>
+</AdaptiveVisionProject>

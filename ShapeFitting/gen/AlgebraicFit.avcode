@@ -1,0 +1,233 @@
+extern Integer ZoomFactor = 7
+
+public Main()
+{
+	LoadImage
+	(
+		inFile: "head.png"
+		outImage: con_6034ab4b_2422_42d4_942d_6ec9a5ddde92
+		outAlphaChannel: Nil
+	)
+
+	CropImage
+	(
+		inImage: con_6034ab4b_2422_42d4_942d_6ec9a5ddde92
+		inSelection:
+			Box
+			(
+				X: 173
+				Y: 53
+				Width: 40
+				Height: 30
+			)
+		outImage: con_24c36f3d_51e9_44f5_bd77_ca83cf519351
+	)
+
+	CopyObject<Point2DArray>
+	(
+		inObject:
+			Point2DArray
+			{
+				Point2D
+				(
+					X: 19.074848
+					Y: 11.096283
+				)
+				Point2D
+				(
+					X: 32.336647
+					Y: 20.593309
+				)
+				Point2D
+				(
+					X: 28.520649
+					Y: 20.175121
+				)
+				Point2D
+				(
+					X: 23.972818
+					Y: 10.818087
+				)
+				Point2D
+				(
+					X: 28.259281
+					Y: 15.418190
+				)
+				Point2D
+				(
+					X: 17.647675
+					Y: 7.629377
+				)
+				Point2D
+				(
+					X: 24.652374
+					Y: 15.731834
+				)
+				Point2D
+				(
+					X: 15.504443
+					Y: 7.733925
+				)
+				Point2D
+				(
+					X: 14.877156
+					Y: 3.604286
+				)
+				Point2D
+				(
+					X: 10.172503
+					Y: 4.754313
+				)
+				Point2D
+				(
+					X: 32.545738
+					Y: 25.297962
+				)
+				Point2D
+				(
+					X: 36.779930
+					Y: 26.029797
+				)
+			}
+		outObject: con_941a6b6b_be1b_4b85_adc0_f35a9523f5de
+	)
+
+	FitCircleToPoints
+	(
+		inPoints: con_941a6b6b_be1b_4b85_adc0_f35a9523f5de
+		inFittingMethod: Algebraic_Kasa
+		inSuppressionMethod: Nil
+		outCircle: con_0f6ccc16_9dd8_4ef7_8816_abee3a226fef
+	)
+
+	FitCircleToPoints
+	(
+		inPoints: con_941a6b6b_be1b_4b85_adc0_f35a9523f5de
+		inFittingMethod: Algebraic_Taubin
+		inSuppressionMethod: Nil
+		outCircle: con_890eb3e3_263b_449f_ab53_dffccb17bbf2
+	)
+
+	ResizeImage_Relative
+	(
+		inImage: con_24c36f3d_51e9_44f5_bd77_ca83cf519351
+		inHorizontalScale: ZoomFactor
+		inVerticalScale: ZoomFactor
+		inResizeMethod: NearestNeighbour
+		outImage: con_b2236498_95cf_48cf_8e86_261b706d80c8
+	)
+
+	ZoomPoints
+	(
+		inPoint: con_941a6b6b_be1b_4b85_adc0_f35a9523f5de
+		inZoomFactor: ZoomFactor
+		outPoint: con_0149a0df_cfd6_4b2b_89f6_a64263b174b6
+	)
+
+	ZoomCircle
+	(
+		inZoomFactor: ZoomFactor
+		inCircle: con_0f6ccc16_9dd8_4ef7_8816_abee3a226fef
+		outCircle: con_ad3f59d9_c694_40d1_bcb3_8e8c489953ee
+	)
+
+	ZoomCircle
+	(
+		inZoomFactor: ZoomFactor
+		inCircle: con_890eb3e3_263b_449f_ab53_dffccb17bbf2
+		outCircle: con_f4d882ab_01ae_467d_9d58_c41c186eb875
+	)
+
+	DrawCircles
+	(
+		inImage: con_b2236498_95cf_48cf_8e86_261b706d80c8
+		inCircles: con_ad3f59d9_c694_40d1_bcb3_8e8c489953ee
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 0.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		inDrawingMode: HighQuality
+		inThickness: 2.000000
+		inOpacity: 1.000000
+		inFilled: False
+		outImage: con_d6923469_6173_4aa0_9833_83cdb882fdeb
+	)
+
+	DrawPoints
+	(
+		inImage: con_d6923469_6173_4aa0_9833_83cdb882fdeb
+		inPoints: con_0149a0df_cfd6_4b2b_89f6_a64263b174b6
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 255.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		inPointShape: Circle
+		inDrawingMode: HighQuality
+		inPointSize: 5.000000
+		inThickness: 1.000000
+		inOpacity: 1.000000
+		outImage: con_3e682820_0c62_4d79_8ad5_24686f3983e9
+	)
+
+	SaveImage
+	(
+		inImage: con_3e682820_0c62_4d79_8ad5_24686f3983e9
+		inImageFileFormat: Nil
+		inFile: "../img/AlgebraicFit_Kasa.png"
+	)
+
+	DrawCircles
+	(
+		inImage: con_b2236498_95cf_48cf_8e86_261b706d80c8
+		inCircles: con_f4d882ab_01ae_467d_9d58_c41c186eb875
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 0.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		inDrawingMode: HighQuality
+		inThickness: 2.000000
+		inOpacity: 1.000000
+		inFilled: False
+		outImage: con_9c6b0674_afea_4505_876f_ac29da1a3ae8
+	)
+
+	DrawPoints
+	(
+		inImage: con_9c6b0674_afea_4505_876f_ac29da1a3ae8
+		inPoints: con_0149a0df_cfd6_4b2b_89f6_a64263b174b6
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 255.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		inPointShape: Circle
+		inDrawingMode: HighQuality
+		inPointSize: 5.000000
+		inThickness: 1.000000
+		inOpacity: 1.000000
+		outImage: con_c6c1f7fc_6819_43e0_bf01_f571edab881a
+	)
+
+	SaveImage
+	(
+		inImage: con_c6c1f7fc_6819_43e0_bf01_f571edab881a
+		inImageFileFormat: Nil
+		inFile: "../img/AlgebraicFit_Taubin.png"
+	)
+}
+

@@ -1,0 +1,13 @@
+<documents>
+  <hsplit>
+    <views width="0.9969" height="0.6516">
+      <view>
+        <output name="outInputImage" macro="ProcessCapsuleImage" />
+        <output name="con_3d6d8f43_49e7_4e17_bff7_321a6d08b235" macro="ProcessCapsuleImage" />
+      </view>
+    </views>
+    <views width="0.9969" height="0.3415">
+      <view />
+    </views>
+  </hsplit>
+</documents>

@@ -1,0 +1,8 @@
+<AdaptiveVisionProject Name="dynamic" Version="2.4.1" StartUpProgramName="Main">
+  <Configuration />
+  <Files>
+    <Program Path="dynamic.avcode" />
+    <View Path="dynamic.avview" />
+    <Lib Path="C:\Users\dx\projects\AdaptiveVisionStudio\depot\mvg\gen\PowerTools.avlib" />
+  </Files>
+</AdaptiveVisionProject>

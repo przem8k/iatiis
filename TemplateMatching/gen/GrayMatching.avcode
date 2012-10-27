@@ -1,0 +1,74 @@
+public Main()
+{
+	LoadImage
+	(
+		inFile: "C:\\Users\\dx\\projects\\AdaptiveVisionStudio\\depot\\mvg\\TemplateMatching\\gen\\board_template.png"
+		outImage: con_d654e5e2_fc81_4677_b6e3_54b49b5d1c7d
+		outAlphaChannel: Nil
+	)
+
+	CreateGrayModel
+	(
+		inImage: con_d654e5e2_fc81_4677_b6e3_54b49b5d1c7d
+		inTemplateRegion: Nil
+		inPyramidHeight: 2
+		inMinAngle: -100.000000
+		inMaxAngle: 10.000000
+		inAnglePrecision: 0.500000
+		inPointOfReference: Nil
+		outModelPosition: Nil
+		outGrayModel: con_2c2e830b_61b1_42ab_949c_93cbb6225b7f
+		diagPatternPyramid: con_7e234890_c9e4_44d5_ac74_25a2a6605df5
+	)
+
+	LoadImage
+	(
+		inFile: "C:\\Users\\dx\\projects\\AdaptiveVisionStudio\\depot\\mvg\\TemplateMatching\\gen\\board.png"
+		outImage: con_6331295b_877a_48eb_bba5_d525bc27423a
+		outAlphaChannel: Nil
+	)
+
+	MatchGrayModel_NCC
+	(
+		inImage: con_6331295b_877a_48eb_bba5_d525bc27423a
+		inSearchRegion: Nil
+		inGrayModel: con_2c2e830b_61b1_42ab_949c_93cbb6225b7f
+		inMaxPyramidLevel: Nil
+		inMinScore: 0.750000
+		inMinDistance: 10.000000
+		outMatches: con_04e60143_0be6_470e_9f21_c5eb3aa04ee3
+		outPoints: Nil
+		outAngles: Nil
+		outScores: Nil
+		diagImagePyramid: Nil
+		diagMatchPyramid: Nil
+	)
+
+	DrawPositions
+	(
+		inImage: con_6331295b_877a_48eb_bba5_d525bc27423a
+		inPositions: con_04e60143_0be6_470e_9f21_c5eb3aa04ee3
+		inColor:
+			Pixel
+			(
+				X: 255.000000
+				Y: 255.000000
+				Z: 0.000000
+				W: 0.000000
+			)
+		inDrawingMode: HighQuality
+		inPointSize: 2.500000
+		inThickness: 3.000000
+		inOpacity: 1.000000
+		inFilled: False
+		outImage: con_6e2292be_272c_43db_a3b7_29facc110b89
+	)
+
+	SaveImage
+	(
+		inImage: con_6e2292be_272c_43db_a3b7_29facc110b89
+		inImageFileFormat: Nil
+		inFile: "../img/board_graymatching_results.png"
+	)
+}
+

@@ -1,0 +1,104 @@
+\section{Step Edges}
+
+\paragraph*{}
+Once the brightness profile is extracted and smoothed, we can proceed to detection of its features. First type of features that we will inspect is \textbf{step edge}. Step edges occur between two areas of different intensity and are represented as an abrupt intensity change in the 1D profile.
+
+\subsection{Edge Operator}
+
+\paragraph*{}
+Finding the step edges in a profile requires an edge operator - an operator that produces high output for locations representing sharp change of brightness and low output for the signal plateaus. One such operator is \textbf{derivative} of a function - elementary concept of calculus. This is also the operator suggested by Canny in already mentioned work \cite{Canny86}. But how do we actually compute the derivative? 
+
+\paragraph*{}
+In case of a continuous signal its derivative is well defined. As both image and (consequently) its brightness profile are discreet, we are left with partial differences - discreet approximations of the signal first derivative.
+
+\paragraph*{}
+The simplest way to compute the partial difference of a discreet signal $S$ is to subtract each value from its successor, i.e.:
+\[
+	D[i] = S[i+1]-S[i]
+\]  
+This operator, called \textbf{Forward Difference}, has a slight drawback - the resulting approximation $D[i]$ actually corresponds to the domain value in between $i+1$ and $i$ (i.e to $i+\frac{1}{2}$). To achieve \textit{stable} approximation of the first derivative we can compute the value $D'[i]$ as a mean of $D[i]$ and $D[i-1]$ (\textbf{Central Difference}):
+\begin{eqnarray*}
+D'[i] & = & \frac{1}{2}(D[i]+D[i-1]) \\
+	& = & \frac{1}{2}(S[i+1]-S[i]+S[i]-S[i-1]) \\
+	& = & \frac{1}{2}(S[i+1]-S[i-1])
+\end{eqnarray*}
+
+\paragraph*{}
+Both equations are feasible for our application, however we need to remember about the $\frac{1}{2}px$ shift introduced by Forward Difference operator and translate the edge points accordingly on the very end. 
+\reffig{FiniteDifference} demonstrates an example finite difference profile.
+
+\profileFigure
+{
+	\addProfileData{img/1DEdgeDetection/edge_profile_low_smoothing.values}
+	\addProfileData{img/1DEdgeDetection/edge_profile_low_smoothing_derivative.values}
+}
+{Forward difference of an example profile.}
+{FiniteDifference}
+
+
+\subsection{Edge Points}
+\paragraph*{}
+Once we have computed the derivative we can identify the edge points of the original profile. There are two criteria that a profile value has to meet to be considered an edge point:
+\begin{enumerate}
+	\item Significant magnitude, i.e. magnitude larger than some predefined threshold.
+	\item Locally maximal magnitude.
+\end{enumerate}
+
+\paragraph*{}
+Both conditions are necessary - first ensures that only significant brightness changes are identified as edge points, second (called Non-Maximum Suppression) ensures that a significant but stretched edge yields only one edge point.
+
+\paragraph*{}
+The value of the minimum magnitude threshold in each case should be adjusted after inspection of derivative profile of sample data. Example depicted in \reffig{FiniteDifference} exhibits four significant peaks of the derivative profile varying in magnitude from 11 to 13, while the magnitude of its other extrema is lower than 3. In such case a value in the middle of range $(4, 10)$ would be a prudent choice of minimum magnitude threshold.
+
+\paragraph*{}
+Profile locations meeting the magnitude criteria directly translate to edge points in the original image. An example set of extracted edge points is demonstrated in \reffig{EdgesResult}.
+
+\oneFigure
+{img/1DEdgeDetection/edges_results}
+{Result of \textbf{1D Edge Detection} - a list of edge points along the scan path.}
+{EdgesResult}
+{\basicWidth}
+
+\subsubsection{Sub-pixel precision}
+
+\paragraph*{}
+Even though both the image being inspected and the extracted brightness profile are discreet with pixel-precision, we can compute the local extrema of the derivative profile with sub-pixel precision thus achieving sub-pixel precision of the entire method.
+
+\paragraph*{}
+Given a local extremum of a profile $P$ at location $i$ we can fit a parabola through three consecutive profile values: $P[i-1]$, $P[i]$, $P[i+1]$ and use the x-coordinate of its peak as the location of the extremum.
+
+\subsubsection{Edge polarity filtering}
+\paragraph*{}
+It is often useful to filter the extracted edge points depending on the transition they represent - that is, depending on whether the intensity changes from bright to dark, or from bright to dark.
+
+\twoFigures
+{img/1DEdgeDetection/edges_transition_bright_to_dark}
+{img/1DEdgeDetection/edges_transition_dark_to_bright}
+{\param{inTransition} = BrightToDark, \param{inTransition} = DarkToBright}
+{EdgeTransitionPicky}
+{\basicWidth}
+
+\subsection{Post-processing}
+
+\paragraph*{}
+Once we have extracted the list of relevant edge points in the image we are nearly done. Depending on the use scenario, it may be useful to perform additional filtering of the extracted points on the very end of computation. Three methods of post-processing are particularly useful.
+
+\subsubsection{All Edges}
+\paragraph*{}
+One trivial post-processing method is to simply return all of the extracted step edges, that is - not to perform any post-processing at all. That would be the default method to follow whenever we want to detect the number of edges present in the image.
+
+\subsubsection{N Edges}
+\paragraph*{}
+Another option would be to select a fixed number of strongest edge points. If we know the number of edges in advance, this method allows us to disregard the adjustment of minimum magnitude threshold - we can simply set it to zero and expect that the actual edges will still be correctly located. 
+
+\paragraph*{}
+That being said, it is often useful to adjust minimum magnitude threshold anyway, so that in case of an error such as the object not being present in the image, the computation will explicitly fail instead of returning irrelevant weak edges. 
+
+\begin{refImpl}
+Step edge detection algorithms are implemented in three \studio filters. All of them share common extraction logic, differing only in post-processing method applied to select the final outcome.
+\begin{itemize}
+	\item \filter{ScanMultipleEdges}{1DEdgeDetection} - returns all of the extracted edgess.
+	\item \filter{ScanExactlyNEdges}{1DEdgeDetection} - selects the most prominent set of edges of given cardinality.
+	\item \filter{ScanSingleEdge}{1DEdgeDetection} - wrapper over previous filter which selects the single most prominent edge.
+\end{itemize} 
+\end{refImpl}

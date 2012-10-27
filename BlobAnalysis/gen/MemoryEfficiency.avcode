@@ -1,0 +1,210 @@
+public Main()
+{
+
+	LoadImage
+	(
+		inFile: "capsule_1.png"
+		outImage: con_8a51d3e1_ff60_4594_b476_0e5598e5a164
+		outAlphaChannel: Nil
+	)
+
+
+	ThresholdToRegion
+	(
+		inImage: con_8a51d3e1_ff60_4594_b476_0e5598e5a164
+		inRoi: Nil
+		inMinValue: Nil
+		inMaxValue: 74.000000
+		outRegion: con_6ece0e71_d1f9_489f_b5c2_c95bf180741f
+	)
+
+
+	CloseRegion
+	(
+		inRegion: con_6ece0e71_d1f9_489f_b5c2_c95bf180741f
+		inKernel: Ellipse
+		inRadiusX: 151
+		inRadiusY: Nil
+		outRegion: con_a350a726_3bfa_4fb0_b74a_e17605f16c49
+	)
+
+
+	CropRegion
+	(
+		inRegion: con_a350a726_3bfa_4fb0_b74a_e17605f16c49
+		inSelection: Box
+		(
+			X: 94
+			Y: 33
+			Width: 500
+			Height: 400
+		)
+		outRegion: con_4a30482d_1afb_47d2_881e_71825723810a
+	)
+
+
+	ResizeRegion_Relative
+	(
+		inRegion: con_4a30482d_1afb_47d2_881e_71825723810a
+		inHorizontalScale: 0.500000
+		inVerticalScale: 0.500000
+		outRegion: con_b6bd237b_3d19_48b2_ae63_164b2b0b6067
+	)
+
+
+	CropRegion
+	(
+		inRegion: con_6ece0e71_d1f9_489f_b5c2_c95bf180741f
+		inSelection: Box
+		(
+			X: 94
+			Y: 33
+			Width: 500
+			Height: 400
+		)
+		outRegion: con_73061d76_5872_4c9e_b761_2d315f2f11e6
+	)
+
+
+	ResizeRegion_Relative
+	(
+		inRegion: con_73061d76_5872_4c9e_b761_2d315f2f11e6
+		inHorizontalScale: 0.500000
+		inVerticalScale: 0.500000
+		outRegion: con_601d3958_007d_4924_a18e_1f882306d456
+	)
+
+
+	OutputRegion
+	(
+		inRegion: Region
+		(
+			Width: 0
+			Height: 0
+			Data: EmptyBlob
+		)
+		inFile: "results\\memory_0_"
+	)
+
+
+	OutputRegion
+	(
+		inRegion: con_601d3958_007d_4924_a18e_1f882306d456
+		inFile: "results\\memory_2_"
+	)
+
+
+	OutputRegion
+	(
+		inRegion: con_b6bd237b_3d19_48b2_ae63_164b2b0b6067
+		inFile: "results\\memory_1_"
+	)
+
+
+	LoadImage
+	(
+		inFile: "noise.png"
+		outImage: con_4bfe9f30_0700_4018_9ce4_35ead784c3e2
+		outAlphaChannel: Nil
+	)
+
+
+	ThresholdToRegion
+	(
+		inImage: con_4bfe9f30_0700_4018_9ce4_35ead784c3e2
+		inRoi: Nil
+		inMinValue: 253.000000
+		inMaxValue: Nil
+		outRegion: con_a80d9b1f_9614_429c_b5c7_fd835d45b761
+	)
+
+
+	OutputRegion
+	(
+		inRegion: con_a80d9b1f_9614_429c_b5c7_fd835d45b761
+		inFile: "results\\memory_3_"
+	)
+}
+
+public OutputRegion(Region inRegion, File inFile)
+{
+
+	SetRegionDimensions
+	(
+		inRegion: inRegion
+		inWidth: 250
+		inHeight: 200
+		outRegion: con_87ba5038_d711_4425_a61a_b16b3449a5ba
+	)
+
+
+	EmptyImage
+	(
+		inWidth: 250
+		inHeight: 200
+		inColor: Pixel
+		(
+			X: 0.000000
+			Y: 0.000000
+			Z: 0.000000
+			W: 0.000000
+		)
+		inChannels: 3
+		outImage: con_57978b93_94e0_4907_93d4_5c678c50d7cb
+	)
+
+
+	DrawRegions
+	(
+		inImage: con_57978b93_94e0_4907_93d4_5c678c50d7cb
+		inRegions: con_87ba5038_d711_4425_a61a_b16b3449a5ba
+		inColor: Pixel
+		(
+			X: 255.000000
+			Y: 255.000000
+			Z: 255.000000
+			W: 0.000000
+		)
+		inOpacity: 1.000000
+		outImage: con_1c48e805_2d50_4d8a_8d9a_3d5d1cbe1c4b
+	)
+
+
+	RegionNumberOfRuns
+	(
+		inRegion: inRegion
+		outRunCount: con_b9c1c38e_fff8_47b1_bc02_7fae4015853e
+	)
+
+
+	IntegerToString
+	(
+		inInteger: con_b9c1c38e_fff8_47b1_bc02_7fae4015853e
+		outString: con_a8f0842c_3fff_48d7_aaf4_ad983e7cbde4
+	)
+
+
+	ConcatenateStrings
+	(
+		inString1: inFile
+		inString2: con_a8f0842c_3fff_48d7_aaf4_ad983e7cbde4
+		outString: con_aa296662_a2ad_4fd3_9b0e_d3a2683e6a42
+	)
+
+
+	ConcatenateStrings
+	(
+		inString1: con_aa296662_a2ad_4fd3_9b0e_d3a2683e6a42
+		inString2: ".png"
+		outString: con_4be5a7a5_e4b7_49f1_8061_bf15d1ece277
+	)
+
+
+	SaveImage
+	(
+		inImage: con_1c48e805_2d50_4d8a_8d9a_3d5d1cbe1c4b
+		inImageFileFormat: Nil
+		inFile: con_4be5a7a5_e4b7_49f1_8061_bf15d1ece277
+	)
+}
+
