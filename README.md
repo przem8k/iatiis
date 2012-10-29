@@ -41,4 +41,4 @@ We recommend using a purely text-editor such as Sublime Text to do the actual ed
 
 ### Commiting changes ###
 
-Members of the Adaptive Vision team are welcome to contact me to get write access to the repository. The others are welcome to submit pull requests.
+Members of the Adaptive Vision team are welcome to contact [pietrzkiewicz](http://github.com/pietrzkiewicz) to get write access to the repository, having previously obtained a Github account. The others are welcome to submit pull requests.
