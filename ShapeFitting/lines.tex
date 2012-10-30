@@ -4,7 +4,7 @@
 The problem of fitting lines to data frequently occurs in the field of statistics, where it is called \textit{linear regression}. In this context the aim of the fitting is to find a line in the form $y = ax + b$ that optimally models the relation between the (controlled, error-free) variable $x$ and (possibly affected by errors) $y$, given a set of data samples $(x_i, y_i)$. 
 
 \paragraph*{}
-The popular slope-intercept representation of lines works well for statistical regression, where the $x_i$ of data samples are unique, but causes problems in the general case, as the vertical lines can not be represented in this form and nearly-vertical lines require extremely high magnitude of the slope parameter, jeopardizing the numeric stability of the computation. We will therefore use the general equation of the line:
+The popular slope-intercept representation of lines works well for statistical regression, where the $x_i$ of data samples are unique, but causes problems in the general case, as the vertical lines can not be represented in this form and nearly-vertical lines require extremely high magnitude of the slope parameter, jeopardizing the numeric stability of the computation. We will therefore use the general equation of a line:
 \[
 	\{(x,y): ax + by + c = 0\}
 \]
@@ -34,7 +34,7 @@ over all lines $(a,b,c)$ that meet the criterion $\sqrt{a^2 + b^2} = 1$.
 \subsection{Moment-based Solution}
 
 \paragraph*{}
-Interestingly, it turns out that we have already discussed almost identical problem, although stated rather covertly. Minimization of the squared distances from a point set to a line is, under physical terminology, nothing else that finding the axis of minimal inertia of the point set; as its moment of inertia equals sum of squared distanced from each point to the axis of rotation.
+Interestingly, it turns out that we have already discussed almost identical problem, although stated rather covertly. Minimization of the squared distances from a point set to a line is, under physical terminology, nothing else that finding the axis of minimal inertia of the point set; as its moment of inertia equals the sum of squared distanced from each point to the axis of rotation.
 
 \paragraph*{}
 As we have already indicated in the \refchap{ContourAnalysis} chapter, such axis may be computed as the eigenvalue of the inertia tensor of the rigid body:
@@ -46,7 +46,7 @@ c'_{1,1} & c'_{0,2}
 \]
 
 \paragraph*{}
-All that we need to do to adapt this solution to our needs is defining the moments of a point set $P$, which are direct equivalent of the moments which we have defined for regions:
+All that we need to do to adapt this solution to our needs is to define the moments of a point set $P$, which are directly equivalent to the moments which we have defined for regions:
 
 \begin{align*}
 	m_{p,q} &= \sum_{(x,y) \in P} {x}^p {y}^q \\
@@ -69,7 +69,7 @@ Equivalent result may be also obtained directly using multivariate analysis - th
 \subsection{Outlier Suppression}
 
 \paragraph*{}
-It is often the case that, due to the imperfections of edge extraction or the object being analyzed, the input data contains points that to do not represent accurately the shape that we wish to extract; as demonstrated in the image on the right of \reffig{LineFittingResults}. Such points, called outliers, distort the outcome of the fitting and should be skipped or suppressed in the computation.
+It is often the case that, due to the imperfections of edge extraction or the object being analyzed, the input data contains points that do not represent accurately the shape that we wish to extract; as demonstrated in the image on the right of \reffig{LineFittingResults}. Such points, called outliers, distort the outcome of the fitting and should be skipped or suppressed in the computation.
 
 \subsubsection{Random Sample Consensus}
 

@@ -1,7 +1,7 @@
 \section{Fitting Approximate Primitives to Images}
 
 \paragraph*{}
-Utilizing the shape fitting techniques in the context of image analysis requires extraction of the points that the primitives will be fitted to. Typically such extraction is done by means of \refchap{1DEdgeDetection} or \refchap{2DEdgeDetection}, which allow to fit the shapes to step edges and ridges present in the image.
+Utilizing the shape fitting techniques in the context of image analysis requires extraction of the points to which the primitives will be fitted. Typically such extraction is done by means of \refchap{1DEdgeDetection} or \refchap{2DEdgeDetection}, which allow to fit the shapes to step edges or ridges present in the image.
 
 \paragraph*{}
 The methods of \refchap{1DEdgeDetection} allow to build particularly useful technique for fitting approximately positioned primitives to their actual occurences. The idea is to take a rough estimation of the primitive location and construct a set of scan lines going across the approximate primitive. By performing one-dimensional edge or ridge detection along each scan line, we obtain a set of points that, hopefully, represent the actual position of the primitive being located.
