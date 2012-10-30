@@ -4,7 +4,7 @@
 \textbf{Path}, the fundamental data type of contour analysis, is a simple list of points defining two-dimensional curve consisting of straight segments; along with one additional, boolean information indicating if the list is \textbf{closed} or \textbf{open}, i.e., if the first point should be interpreted as connected with the last one.
 
 \paragraph*{}
-Both types of paths occur naturally as the results of \refchap{2DEdgeDetection}, as demonstrated in \reffig{PathTypes}. Paths may be also extracted from regions by computing region contours (always closed paths) or medial axis (both open and closed).
+Both types of paths occur naturally as results of \refchap{2DEdgeDetection}, as demonstrated in \reffig{PathTypes}. Paths may be also extracted from regions by computing region contours (always closed paths) or medial axes (both open and closed).
 
 \twoFigures
 {ContourAnalysis/img/ClosedPaths}
@@ -16,7 +16,7 @@ Both types of paths occur naturally as the results of \refchap{2DEdgeDetection},
 \subsection{Characteristic Points}
 
 \paragraph*{}
-Each non-degenerate path represents infinite number of points on the segments between its defining points. To avoid confusion we will consequently refer to the defining points of a path as its \textbf{characteristic points}.
+Each non-degenerate path represents an infinite number of points on the segments between its defining points. To avoid confusion we will consequently refer to the defining points of a path as its \textbf{characteristic points}.
 
 \subsection{Polygons}
 

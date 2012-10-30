@@ -4,10 +4,10 @@
 Contour analysis can be thought of as a sub-pixel precise counterpart of \refchap{BlobAnalysis}, built upon processing of precise points organized in paths; in the same way that \refchap{BlobAnalysis} is based on processing of pixel-precise regions.
 
 \paragraph*{}
-The solutions based on contour analysis typically follow the schema of \refchap{BlobAnalysis} solutions:
+Solutions based on contour analysis typically follow the schema of \refchap{BlobAnalysis} solutions:
 
 \begin{enumerate}
 	\item \textbf{Extraction} - sub-pixel precise paths are extracted from the image, usually by means of \refchap{2DEdgeDetection}.
-	\item \textbf{Processing} - the paths are subject to transformations with the intention of rectifying the path imperfections or extracting its segments that we are particularily interested in.
+	\item \textbf{Processing} - the paths are subject to transformations with an intention of rectifying the path imperfections or extracting its segments that we are particularily interested in.
 	\item \textbf{Feature Extraction} - in the final part the numerical and geometrical features may be computed.
 \end{enumerate}
