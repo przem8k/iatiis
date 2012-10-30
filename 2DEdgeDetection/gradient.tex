@@ -1,7 +1,7 @@
 \section{Image Gradient}
 
 \paragraph*{}
-Derivative of a signal is a measure of local change in the signal value, and as such is a natural starting point for detection of step edges, regardless of the dimension of the space in which the signal is defined. Derivative of two-dimensional signal is usually called a \textbf{gradient}. 
+A derivative of a signal is a measure of local change in the signal value, and as such is a natural starting point for detection of step edges, regardless of the dimension of the space in which the signal is defined. A derivative of two-dimensional signal is usually called a \textbf{gradient}. 
 
 In the \refchap{1DEdgeDetection} chapter we have been using partial difference operators precessed by smoothing of the signal to obtain the derivative of a profile and identify its prominent extrema as the edge points. We will translate this approach to two-dimensional space preserving its core idea - calculation of signal derivative using smoothing and partial difference operators.
 
@@ -28,7 +28,7 @@ D_{V} =
 \end{figure}
 
 \paragraph*{}
-In effect we obtain two images (or one two-channel image), representing vertical and horizontal derivative at each pixel. Combining these two components into vectors representing two-dimensional gradient yields results demonstrated in \reffig{GradientVectors}, where the resulting gradient vectors were drawn onto the original image.
+In effect we obtain two images (or one two-channel image), representing vertical and horizontal derivatives at each pixel. Combining these two components into vectors representing two-dimensional gradient yields a result demonstrated in \reffig{GradientVectors}, where the resulting gradient vectors were drawn onto the original image.
 
 \oneFigure
 {img/2DEdgeDetection/GradientVectors}
@@ -145,7 +145,7 @@ Nixon and Aguado provide\cite{NixonAguado08} an interesting description of deriv
 \subsubsection{Scaling}
 
 \paragraph*{}
-When we derived the masks of Prewitt and Sobel operators we neglected the scaling of smoothing operators, i.e. we used smoothing masks such as $[1 \, 1 \, 1]$, rather than $\frac{1}{3} [1 \, 1 \, 1]$. The operators were defined in this way to allow for faster computation and are commonly used in this form.
+When we derived the masks of Prewitt and Sobel operators we neglected the scaling of the smoothing operators, i.e. we used smoothing masks such as $[1 \, 1 \, 1]$, rather than $\frac{1}{3} [1 \, 1 \, 1]$. The operators were defined in this way to allow for faster computation and are commonly used in this form.
 
 \paragraph*{}
 Whenever the smoothing operators are to be compared (or used interchangeably, e.g. in edge detection with fixed gradient magnitude threshold) it is important to remember to normalize their results, multiplying the outcome by the scaling factor of the smoothing operator omitted in the first place ($\frac{1}{3}$ for the Prewitt operator and $\frac{1}{4}$ for Sobel). Such scaling was applied to the results of the Sobel operator in \reffig{SobelVsBare}.

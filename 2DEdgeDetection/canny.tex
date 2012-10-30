@@ -1,7 +1,7 @@
 \section{Canny Edge Detector}
 
 \paragraph*{}
-Having discussed the concept of image gradient and a set of simple fixed-mask gradient operators now we move our attention to the complete step edge detection technique described\cite{Canny86} by Canny, the one-dimensional version of which was our method of choice for detection of step edges in image profiles. 
+Having discussed the concept of image gradient and a set of simple fixed-mask gradient operators, now we move our attention to the complete step edge detection technique described\cite{Canny86} by Canny (the one-dimensional version of which was our method of choice for detection of step edges in image profiles). 
 
 \paragraph*{}
 Let us recall that Canny's method for one dimension may be summarized as follows:
@@ -15,7 +15,7 @@ Let us recall that Canny's method for one dimension may be summarized as follows
 \end{enumerate}
 
 \paragraph*{}
-Canny method for two-dimensional edges retains this schema, but some of 2D-specific details of the individual steps are interesting enough to call for detailed discussion.
+Canny's method for two-dimensional edges retains this schema, but some of 2D-specific details of the individual steps are interesting enough to call for a detailed discussion.
 
 \subsection{Gradient by derivative of Gaussian}
 
@@ -38,7 +38,7 @@ The second interesting feature is \textbf{separability}, which means that the ap
 \end{align*}
 
 \paragraph*{}
-Therefore to perform the Gaussian smoothing on an image, we may simply apply the already discussed one-dimensional smoothing operator successively to each row, and then each column of the image. Gradient extraction based on such smoothing is demonstrated in \reffig{CannyGradient}.
+Therefore to perform the Gaussian smoothing on an image, we may simply apply the already discussed one-dimensional smoothing operator successively to each row, and then to each column of the image. Gradient extraction based on such smoothing is demonstrated in \reffig{CannyGradient}.
 
 \twoFigures
 {img/2DEdgeDetection/tooth_canny_low}
@@ -56,10 +56,10 @@ The example results look promising - in the image on the right the outline of th
 Once we have computed the image gradient, we need to threshold the gradient magnitude image selecting the high-gradient, prospective edge locations. Although simple global thresholding described in the \refchap{ImageThresholding} chapter could be employed for that, Canny pointed out an important drawback of this method in the context of edge detection.
 
 \paragraph*{}
-Let us assume that we set the minimum magnitude threshold value to $s$, and the image contains an edge mean magnitude of which is near to $s$. Even if the illumination of the scene is uniform, the gradient magnitude of edge pixels is bound to fluctuate around $s$ due to inevitable noise introduced by camera imperfections.
+Let us assume that we set the minimum magnitude threshold value to $s$, and the image contains an edge mean magnitude of which is near to $s$. Even if the illumination of the scene is uniform, the gradient magnitude of the edge pixels is bound to fluctuate around $s$ due to inevitable noise introduced by camera imperfections.
 
 \paragraph*{}
-In practice the fluctuation of edge gradient magnitude tend to be quite significant, leading to extraction of fragmented, incomplete edges. \reffig{CannyGlobalThresholding} demonstrates two ineffective global thresholding attempts on example gradient amplitude image. The results on the left are free from noise but incomplete, while lower threshold used to produce the outcome on the right introduces significant amount of noise to the results.
+In practice the fluctuation of edge gradient magnitude tend to be quite significant, leading to extraction of fragmented, incomplete edges. \reffig{CannyGlobalThresholding} demonstrates two ineffective global thresholding attempts on example gradient amplitude image. The results on the left are free from noise but incomplete, while lower threshold used to produce the outcome on the right introduces significant amount of noise.
 
 \twoFigures
 {img/2DEdgeDetection/tooth_canny_hist_high}
@@ -69,10 +69,10 @@ In practice the fluctuation of edge gradient magnitude tend to be quite signific
 {\basicWidth}
 
 \paragraph*{}
-Canny proposed\footnote{This approach is a two-dimensional equivalent of the method of proposed\cite{Schmitt38} by Schmitt in the context of electronic trigger, although Canny did not indicate his inspirations on that matter.} to address this issue by setting two thresholds, let us denote them by $l$ and $h$, where $l < h$. The locations of magnitude lower than $l$ are immediately discarded, while locations of magnitude higher than $h$ are immediately accepted. The locations of magnitude between $l$ and $h$ are split into connected components and each component is accepted only if it is adjacent to previously accepted (i.e. of magnitude higher than $h$) locations.
+Canny proposed\footnote{This approach is a two-dimensional equivalent of the method proposed\cite{Schmitt38} by Schmitt in the context of electronic trigger, although Canny did not indicate his inspirations on that matter.} to address this issue by setting two thresholds, let us denote them by $l$ and $h$, where $l < h$. The locations of magnitude lower than $l$ are immediately discarded, while locations of magnitude higher than $h$ are immediately accepted. The locations of magnitude between $l$ and $h$ are split into connected components and each component is accepted only if it is adjacent to previously accepted (i.e. of magnitude higher than $h$) locations.
 
 \paragraph*{}
-Such topological extension of the usual thresholding, called hysteresis thresholding, proves extremely useful in edge detection applications. \reffig{CannyHysteresisThresholding} demonstrates hysteresis thresholding of the example image using two threshold values used to produce results in \reffig{CannyGlobalThresholding} as $l$ and $h$. As we can see, the edges from the low threshold image are retained in their entirety, while all of the noise is lost.
+Such topological extension of the usual thresholding, called hysteresis thresholding, proves extremely useful in edge detection applications. \reffig{CannyHysteresisThresholding} demonstrates hysteresis thresholding of the example image using two threshold values used to produce results in \reffig{CannyGlobalThresholding} as $l$ and $h$. As we can see, the edges from the low threshold image are retained in their entirety, while all of the noise is attenuated.
 
 \oneFigure
 {img/2DEdgeDetection/tooth_canny_hist}
