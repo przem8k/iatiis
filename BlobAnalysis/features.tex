@@ -10,15 +10,15 @@ Once we have acquired a region that accurately represents the object that we int
 \textbf{Geometrical features} are defined in the context of spatial relations between pixels or points contained in the shape. Some of the features, such as circularity factor, are numeric properties, others, such as smallest bounding circle, take form of geometric primitives.
 
 \paragraph*{}
-Almost all of the shape features of both kind that we are going to cover are equally applicable to pixel-precise regions and subpixel-precise polygons, which we will discuss in detail in the \refchap{ContourAnalysis} chapter. To avoid duplication, in this section we will focus only on the few \textbf{region-specific features} and region-specific details of shape feature extraction.
+Almost all of the shape features of both kind that we are going to cover are equally applicable to pixel-precise regions and subpixel-precise polygons, which we will discuss in detail in the \refchap{ContourAnalysis} chapter. To avoid duplication, in this section we will focus only on few \textbf{region-specific features} and region-specific details of shape feature extraction.
 
 \subsection{Statistical Features}
 
 \paragraph*{}
-Statistical features of two-dimensional shapes may be conveniently generalized as so caled moments. Each moment is a numeric shape feature that sums a simple function of pixel (or point) cordinates over every pixel (or point) contained in the shape.
+Statistical features of two-dimensional shapes may be conveniently generalized as so called moments. Each moment is a numeric shape feature that sums a simple function of pixel (or point) coordinates over every pixel (or point) contained in the shape.
 
 \paragraph*{}
-Formally, we distinguish two types of moments, raw and central, the latter of which considers the coordinate arguments of the function in relation to the average (denoted $\overline{x}$, $\overline{y}$) of the appropriate pixel coordinate, thus achieving translation-invariance. For a given region $R$, its raw and central moments, are defined, accordingly, as:
+Formally, we distinguish two types of moments, raw and central, the latter of which considers the coordinate arguments of the function in relation to the average (denoted $\overline{x}$, $\overline{y}$) of the appropriate pixel coordinate, thus achieving translation-invariance. For a given region $R$, its raw and central moments, are defined, respectively, as:
 
 \begin{align*}
 	m_{p,q} &= \sum_{(x,y) \in R} x^p y^q \\
@@ -33,7 +33,7 @@ Both raw and central moments may be normalized, i.e. divided by the area of $R$,
 	m'_{p,q} &= \frac{1}{a} m_{p,q} \\
 	c'_{p,q} &= \frac{1}{a} c_{p,q}
 \end{align*}
-where $a$ denotes the area (number of pixels) of R. For instance, $m'_(1,0)$ computes the average of pixel x-coordinates, i.e. $\overline{x}$ which together with $m'_(0,1)$ form the mass center of $R$.
+where $a$ denotes the area (number of pixels) of R. For instance, $m'_{1,0}$ computes the average of pixel x-coordinates, i.e. $\overline{x}$ which together with $m'_{0,1}$ form the mass center of $R$.
 
 \paragraph*{}
 As previously indicated, we will discuss applications of these statistics in due course. The region-specific aspect of moment extraction that should be stressed here is that the region moments can be computed directly from their definition, as the number of region pixels is finite; as opposed to infinite number of points contained in continuous polygon.
@@ -55,7 +55,7 @@ The following \studio filters extract the statistical features of a region:
 \subsubsection{Contours}
 
 \paragraph*{}
-The contour of a region is a closed path of points on its boundary (or an array of such paths in case of disconnected region). Usually we assume that the region contour precisely encloses the area of region pixels, i.e. follows the edges of region boundary pixels, as demonstrated in \reffig{RegionContour}.
+The contour of a region is a sequence of points defining its boundary (or an array of such sequences in case of disconnected region), as demonstrated in \reffig{RegionContour}.
 
 \oneFigure
 {BlobAnalysis/img/region_contours}
@@ -64,15 +64,15 @@ The contour of a region is a closed path of points on its boundary (or an array 
 {\basicWidth}
 
 \paragraph*{}
-Such polygon may be computed very efficiently in RLE region representation. Let us observe that such contour is defined by the sequence of its one pixel long, directed, \textbf{vertical segments} - once we have such sequence, adding horizontal sections between them is trivial. 
+Such points may be computed very efficiently in RLE region representation. Let us observe that a contour of a region is defined by the sequence of its one pixel long, directed, \textbf{vertical segments} - once we have the vertical segments, adding horizontal sections between them is straightforward. 
 
 \paragraph*{}
-Moreover, all such vertical segments are easy to obtain from the RLE representation - these are in fact two sides of every point run in the region. Extraction of the contour therefore boils down to assigning successor to each vertical segment, i.e. answering a question for each such segment: which vertical segment will be next on the contour? This can be done one row of runs at the time with a careful linear scan of the point runs in the neighboring rows.
+Moreover, all such vertical segments are easy to obtain from the RLE representation - these are in fact two sides of every point run in the region. Extraction of the contour therefore boils down to assigning successor to each vertical segment, i.e. answering a question for each such segment: which vertical segment will be next on the contour? This can be done one row of runs at a time with a careful linear scan of the point runs in the neighboring rows.
 
 \subsubsection{Calculating Region Features from Path Features}
 
 \paragraph*{}
-Contour extraction is a particularly useful feature, because it essentialy converts pixel-precise region to subpixel-precise polygons; thus allowing convenient implementation of a number of region features that are more natural to define for polygons.
+Contour extraction is a particularly useful feature, because it essentially converts pixel-precise region to subpixel-precise polygons; thus allowing convenient implementation of a number of region features that are more natural to define for polygons.
 
 \twoFigures
 {BlobAnalysis/img/ContourFeatures_mid}
