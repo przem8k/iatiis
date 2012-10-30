@@ -1,7 +1,7 @@
 \section{Ridges}
 
 \paragraph*{}
-Ridges are brief bright or dark impulses on contrasting background. Differing from step edges in their definition, they also require slightly different method of extraction. We will start the description from the point in which we have just extracted and refined the 1D profile of image brightness, as illustrated in \reffig{RidgesProfile}.
+Ridges are brief bright or dark impulses on a contrasting background. Differing from step edges in their definition, they also require slightly different method of extraction. We will start the description from the point in which we have just extracted and refined the 1D profile of image brightness, as illustrated in \reffig{RidgesProfile}.
 
 \begin{figure}[h!]
     \begin{subfigure}[b]{\basicWidth}
@@ -33,7 +33,7 @@ Such operator would be a discreet equivalent of the ridge operator proposed by C
 \end{itemize}
 
 \paragraph*{}
-Both problems are illustrated by \reffig{RidgesNaiveResponse} - we can notice high impulse response for step edges on the boundary of the object. Moreover, as the ridge in the original image has three pixels in width, it appears in the resulting profile as a pair of consecutive step edges.
+Both problems are illustrated by \reffig{RidgesNaiveResponse} - we can notice a high impulse response for step edges on the boundary of the object. Moreover, as the ridge in the original image has three pixels in width, it appears in the resulting profile as a pair of consecutive step edges.
 
 \profileFigure
 {
@@ -59,13 +59,13 @@ R[i] & = \min( & \\
 	& ) &
 \end{eqnarray*}
 
-where $\overline{S[a..b]}$ denotes the average of S values between $a$-th and $b$-th element, mutually inclusive.
+where $\overline{S[a..b]}$ denotes the average of S values between $a$-th and $b$-th element, both inclusive.
 
 \paragraph*{}
-It should be noted that contrary to edge detection operator which could be applied regardless of the polarity of edges being extracted, our ridge detection operator (because of the minimum function) works specifically for bright ridges. To extract dark ridges, analogous equation with maximum operator should be used.
+It should be noted that contrary to the edge detection operator which could be applied regardless of the polarity of edges being extracted, our ridge detection operator (because of the minimum function) works specifically for bright ridges. To extract dark ridges, analogous equation with maximum operator should be used.
 
 \paragraph*{}
-\reffig{RidgesProperResponse} demonstrates the outcome of using such operator on the example data we consider in this section. The maximum operator suppresses the magnitude of negative values (indicating possible ridge candidates) but amplifies the magnitude of positive values. For clarity the drawing was cropped to negative-y part.
+\reffig{RidgesProperResponse} demonstrates the outcome of using such operator on the example data from \reffig{RidgesProfile}. The maximum operator suppresses the magnitude of negative values (indicating possible ridge candidates) but amplifies the magnitude of positive values. For clarity the drawing was cropped to negative-y part.
 
 \profileFigure
 {

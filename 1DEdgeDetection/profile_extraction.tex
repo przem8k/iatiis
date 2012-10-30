@@ -1,14 +1,14 @@
 \section{Profile Extraction}
 
 \paragraph*{}
-Before we apply any of the \textbf{1D Edge Detection} methods, firstly we need to acquire a 1D profile that is to be inspected. Computing a discrete profile of image brightness along a given path is relatively straightforward task.
+Before we apply any of the \textbf{1D Edge Detection} methods, firstly we need to acquire a 1D profile that is to be inspected. Computing a discrete profile of image brightness along a given path is a relatively straightforward task.
 
 \paragraph*{}
 The first step is to sample the scan path, selecting a set of equidistant (typically with distance of one pixel \cite[p. 150]{MVTec08}) points of interest along the path. Each of these points will correspond to one element of the constructed profile. The second step is to compute the brightness values \textit{related to} each of the points.
 
 \subsection{Multiple Sampling}
 \paragraph*{}
-We used the expression \textit{related to} rather than \textit{at} on purpose - although we could simply take the image brightness values at each point of interest, it is more prudent to use an average of a series of sampling points perpendicular to the scan line, as demonsted in \reffig{MultipleSampling}; thus achieving a simple mean of noise suppression. But what kind of average should we use to compute the result for a single point of interest?
+We used the expression \textit{related to} rather than \textit{at} on purpose - although we could simply take the image brightness values at each point of interest, it is more prudent to use an average of a series of sampling points perpendicular to the scan line, as demonsted in \reffig{MultipleSampling}; thus achieving a simple means of noise suppression. 
 
 \oneFigure
 {img/1DEdgeDetection/multiple_sampling_refined}
@@ -17,7 +17,7 @@ We used the expression \textit{related to} rather than \textit{at} on purpose - 
 {\basicWidth}
 
 \paragraph*{}
-As long as the whole range of sampling points fits within the object being inspected and its features are perpendicular to the scan path, the brightness information collected at each of the sampling points is equally good or bad as the information collected at the other ones. Because of that we may safely use the simplest arithmetic mean.
+But what kind of average should we use to compute the result for a single point of interest? As long as the whole range of sampling points fits within the object being inspected and its features are perpendicular to the scan path, the brightness information collected at each of the sampling points is equally good or bad as the information collected at the other ones. Because of that we may safely use the simplest arithmetic mean.
 
 \paragraph*{}
 We will refer to the number of points used to compute a single profile value as \textit{scan width}. The wider the scan, the stronger noise attenuation we get. However, if the 2D feature we are to inspect is not perfectly perpendicular to the scan line, the wide scan area will cause the edge in the resulting 1D profile to be stretched and thus harder to identify precisely. Increasing the scan width will also increase the computation time of the profile extraction, which depends linearly on the number of sampling points.
@@ -40,7 +40,7 @@ We will refer to the number of points used to compute a single profile value as 
 \subsection{Refinement}
 
 \paragraph*{}
-Even though reasonably wide scan area suppresses the noise significantly at the extraction level, we need to keep in mind that only random noise can be suppressed in this way. Real pictures contain small features\footnote{Possibly perpendicular to the scan line and thus not affected by averaging the sampling points.} of image texture irrelevant to the inspection task that need to be attenuated before further processing of the profile. 
+Even though a reasonably wide scan area suppresses the noise significantly at the extraction level, we need to keep in mind that only random noise can be suppressed in this way. Real pictures contain small features\footnote{Possibly perpendicular to the scan line and thus not affected by averaging the sampling points.} of image texture irrelevant to the inspection task that need to be attenuated before further processing of the profile. 
 
 \paragraph*{}
 Selecting the smoothing filter to refine the extracted profile is not an obvious choice. On the one hand we want to suppress the noise present in the profile, so that irrelevant intensity changes are not identified as edge points, on the other hand we want to achieve high precision of the edge localization. 
