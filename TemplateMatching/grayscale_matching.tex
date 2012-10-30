@@ -1,15 +1,15 @@
 \section{Brightness-Based Matching}
 
 \paragraph*{}
-Brightness-based matching evaluates possible template alignments using one of the traditional measures of image similarity based on the relation between the brightness of corresponding pixels of the images being compared.
+Brightness-based matching evaluates possible template alignments using measures of image similarity based on the relation between the brightness of the corresponding pixels of the images being compared.
 
 \subsection{Image Correlation and Image Difference}
 
 \paragraph*{}
-While some of the measures of image similarity have natural formulation which yields high values for well-correlated images and low values for the images differing significantly, other are easier to define conversely, as measures of difference between images. To distinguish between these two groups we will use the term \textbf{image correlation} when referring to direct measures of image similarity and \textbf{image difference} when considering measures of dissimilarity. Naturally, both are equally suitable for our needs.
+While some of the measures of image similarity have natural formulation which yields high values for well-correlated images and low values for images that differ significantly, other are easier to define conversely, as measures of difference between images. To distinguish between these two groups we will use the term \textbf{image correlation} when referring to direct measures of image similarity and \textbf{image difference} when considering measures of dissimilarity. Naturally, both are equally suitable for our needs.
 
 \paragraph*{}
-We will discuss three important measures of image similarity in the context of the simple comparison benchmark demonstrated in \reftab{ImageSimilarityMeasures}.
+We will discuss three important measures of image similarity in the context of a simple comparison benchmark demonstrated in \reftab{ImageSimilarityMeasures}.
 
 \begin{table}[h!]
 \centering
@@ -36,7 +36,7 @@ We will discuss three important measures of image similarity in the context of t
 \subsubsection{Mean Error (ME)}
 
 \paragraph*{}
-Perhaps the simplest measure of image difference is an average of its pixel-wise difference, i.e.:
+Perhaps the simplest measure of image difference is the average of its pixel-wise differences, i.e.:
 \[
 	\mbox{ME}(\mbox{Image}_1,\mbox{Image}_2) = \frac{1}{n} \sum_{x,y} |\mbox{Image}_1[x,y] - \mbox{Image}_2[x,y]|
 \]
@@ -44,7 +44,7 @@ Perhaps the simplest measure of image difference is an average of its pixel-wise
 where $n$ denotes the number of pixels within the image dimensions.
 
 \paragraph*{}
-It is important to note that the response of this measure to a single difference depends linearly on its magnitude. This is not an optimal behavior for template matching purposes - we should use a measure that will amplify the strong differences, otherwise a big number of small differences (which are inevitable due to the noise and lightning imperfections) will have impact on the result comparable with small number of extreme differences (which should weight significantly on the score of a possible match).
+It is important to note that the response of this measure to a single difference depends linearly on its magnitude. This is not an optimal behavior for template matching purposes - we should use a measure that will amplify strong differences, otherwise a big number of small differences (which are inevitable due to the noise and lightning imperfections) will have impact on the result comparable with a small number of extreme differences (which should weight significantly on the score of a possible match).
 
 \paragraph*{}
 This issue may be noticed in \reftab{ImageSimilarityMeasures} examples (b) and (c). The first one yields lower mean error, even though it misses important part of the template while the second one matches the structure of the template perfectly, but contains fine differences over its entire area. 
@@ -58,10 +58,10 @@ This problem is easy to address directly, by powering each term of the average:
 \]
 
 \paragraph*{}
-Indeed, we may notice that \textbf{MSE} of benchmark pair (c) is indeed less than half of \textbf{MSE} of (b).
+Indeed, we may notice that \textbf{MSE} of the benchmark pair (c) is indeed less than half of \textbf{MSE} of (b).
 
 \paragraph*{}
-This measure is already feasible for applications in which the lightning may be relied on to be constant and uniform. Unfortunately, any change in image brightness will heavily increase both \textbf{ME} and \textbf{MSE}. This effect may be noticed in the results for benchmark dataset (d), the second image of which is the result of linear transformation ($0.5x - 100$) of the first image.
+This measure is already feasible for applications in which the lightning may be relied on to be constant and uniform. Unfortunately, any change in the image brightness will heavily increase both \textbf{ME} and \textbf{MSE}. This effect may be noticed in the results for benchmark dataset (d), the second image of which is the result of linear transformation ($0.5x - 100$) of the first image.
 
 \subsubsection{Normalized Cross-Correlation (NCC)}
 
@@ -69,16 +69,16 @@ This measure is already feasible for applications in which the lightning may be 
 To overcome this issue we will move our attention towards an important measure of image correlation - normalized cross-correlation. 
 
 \paragraph*{}
-Normalized cross-correlation is based on the interpretation of image as a simple one-dimensional vector of its $n$ pixel values. Such interpretation is accurate as long as we compute the image similarity pixel-by-pixel, disregarding the spatial positions of the pixels.
+Normalized cross-correlation is based on an interpretation of an image as a simple one-dimensional vector of its $n$ pixel values. Such interpretation is accurate as long as we compute the image similarity pixel-by-pixel, disregarding the spatial positions of the pixels.
 
 \paragraph*{}
-For meaningful comparison of two such vectors, we need to subtract mean brightness of each image from its pixels values thus eliminating additive factor that would distort the proportions between individual dimensions of each vector. After such subtraction we will be left with two vectors, each having $n$ elements of the form $\mbox{Image}[i,j] - m$.
+For meaningful comparison of two such vectors, we need to subtract mean brightness of each image from its pixel values, thus eliminating the additive factor that would distort the proportions between individual dimensions of each vector. After such subtraction we will be left with two vectors, each having $n$ elements of the form $\mbox{Image}[i,j] - m$.
 
 \paragraph*{}
-Having eliminated the additive factor from each image, we may now deal with multiplicative factor by normalizing each vector, i.e. division of each element by the vector length computed as $\sqrt{\sum_{i,j} (\mbox{Image}[i,j] - m)}$, which happens to be the exact definition of standard deviation $\sigma$ of the original image pixel brightness.
+Having eliminated the additive factor from each image, we may now deal with the multiplicative factor by normalizing each vector, i.e. by division of each element by the vector length computed as $\sqrt{\sum_{i,j} (\mbox{Image}[i,j] - m)^2}$, which happens to be the exact definition of the standard deviation $\sigma$ of the original image pixel brightness.
 
 \paragraph*{}
-Once we have reduced each image to the form of normalized, $n$-dimensional vector, we may evaluate their similarity by computing the angle $\theta$ between them. Such angle may be easily obtained as the dot product of two normalized vectors $\mathbf{a}$ and $\mathbf{b}$ equals the cosine of the angle between them:
+Once we have reduced each image to the form of normalized, $n$-dimensional vector, we may evaluate their similarity by computing the angle $\theta$ between them. Such angle may be easily obtained, as the dot product of two normalized vectors $\mathbf{a}$ and $\mathbf{b}$ equals the cosine of the angle between them:
 \[
 	\cos(\theta) = \sum_{i=1}^n a_i b_i
 \] 
@@ -101,17 +101,17 @@ Having selected a feasible brightness-based measure of image similarity, we may 
 \subsubsection{Template Correlation Image}
 
 \paragraph*{}
-An exhaustive search for the template occurrences is straightforward to define - we may consider each possible alignment of the template over an image and compute the normalized cross-correlation factor between the template and the part of the image that it overlaps. Results of such search may be conveniently represented on an image, each pixel of which represents the similarity factor of the template aligned over the pixel. Example \textit{template correlation image} for the input data from \reffig{TemplateMatchingBoardInput} is demonstrated in \reffig{TemplateCorrelationImage}.
+An exhaustive search for the template occurrences is straightforward to define - we may consider each possible alignment of the template over the image and compute the normalized cross-correlation factor between the template and the part of the image that it overlaps. Results of such search may be conveniently represented on an image, each pixel of which represents the similarity factor of the template aligned over the pixel. Example \textit{template correlation image} for the input data from \reffig{TemplateMatchingBoardInput} is demonstrated in \reffig{TemplateCorrelationImage}.
 
 
 \oneFigure
 {TemplateMatching/img/board_correlation_image}
-{Example template correlation image. Each pixel takes value between $-1.0$ (black) and $1.0$ (white).}
+{Example template correlation image. Each pixel takes a value between $-1.0$ (black) and $1.0$ (white).}
 {TemplateCorrelationImage}
 {\basicWidth}
 
 \paragraph*{}
-Such image allows to identify the matching location in the classic way resembling the criteria that we have used to find edge points in the \refchap{1DEdgeDetection} chapter: by extracting locally maximal points (non-maximum suppression) of magnitude greater than a predefined threshold. Example results are demonstrated in \reffig{TemplateCorrelationResults}.
+Such image allows to identify the matching locations in the classic way resembling the criteria that we have used to find edge points in the \refchap{1DEdgeDetection} chapter: by extracting locally maximal points (non-maximum suppression) of magnitude greater than a predefined threshold. Example results are demonstrated in \reffig{TemplateCorrelationResults}.
 
 \twoFigures
 {TemplateMatching/img/board_correlation_maxima}
@@ -144,10 +144,10 @@ Let us define the notion of \textit{image pyramid} as a series of images, each i
 Pyramid matching is a technique proposed\cite{Tanimoto81} by Tanimoto, that utilizes image pyramids to combine advantages of high-precision search for template occurrences in the original images with the benefits of high-speed search in the downsampled images. 
 
 \paragraph*{}
-Pyramid search commences by computing the pyramids of both input images. The height of the pyramid is a parameter of the algorithm, which should be set to maximum value for which the template is still recognizable on the highest level of its pyramid.
+Pyramid search commences by computing pyramids of both the input images. The height of the pyramid is a parameter of the algorithm. It should be set to maximum value for which the template is still recognizable on the highest level of its pyramid.
 
 \paragraph*{}
-Once the image pyramids are computed, the exhaustive search for template occurrences is run using significantly downsampled images on the highest pyramid levels. Similar search is then repeated at successive pyramid levels down to the original images, however on each level only the template positions that scored high on the previous level are considered.
+Once the image pyramids are computed, the exhaustive search for template occurrences is run using significantly downsampled images on the highest pyramid level. Similar search is then repeated at successive pyramid levels down to the original images, however on each level only the template positions that scored high on the previous level are considered.
 
 \paragraph*{}
 In this way the image areas that are unlikely to contain template occurrences are pruned from the computation on the coarse level, while promising positions are pursued through every level and in the end are identified with high precision on the original images.
@@ -155,13 +155,13 @@ In this way the image areas that are unlikely to contain template occurrences ar
 \subsubsection{Multi-angle Matching}
 
 \paragraph*{}
-So far we have been assuming that the template to be identified has fixed orientation in relation to the image axis, which is rarely the case in practice. The search process that we have described has to be therefore extended to allow for rotations of the template.
+So far we have been assuming that the template to be identified has a fixed orientation in relation to the image axes, which is rarely the case in practice. The search process that we have described has to be therefore extended to allow for rotations of the template.
 
 \paragraph*{}
-To achieve so we will add two additional parameters to the specification of the problem instance - range of allowed orientations and the angular precision of the search. For instance, angle range ($-15^{\circ}$, $15^{\circ}$) and angle precision $1.0^{\circ}$ would mean that $31$ rotations of the input template shall be taken into account in the search routine. For each such rotations, separate pyramid of the template image will be computed.
+To achieve that, we will add two additional parameters to the specification of the problem instance: a range of allowed orientations and the angular precision of the search. For instance, angle range ($-15^{\circ}$, $15^{\circ}$) and angle precision $1.0^{\circ}$ would mean that $31$ rotations of the input template shall be taken into account in the search routine. For each such rotations, separate pyramid of the template image will be computed.
 
 \paragraph*{}
-In the search procedure itself, we need to identify possible match candidates using tuples of $(position, rotation)$, rather than sole positions. As such extension of the pyramid search increases the computational load roughly by the factor of the number of rotations to be considered, it is advisable to limit the range of angles being considered whenever possible (e.g. when technical conditions prevent significant deviations of the template occurrences orientation). Example results obtained using this technique are presented in \reffig{MultiAngle}
+In the search procedure itself we need to identify possible match candidates using tuples of $(position, rotation)$, rather than sole positions. As such extension of the pyramid search increases the computational load roughly by the factor of the number of rotations to be considered, it is advisable to limit the range of angles being considered whenever possible (e.g. when technical conditions prevent significant deviations of the template occurrences orientation). Example results obtained using this technique are presented in \reffig{MultiAngle}
 
 \oneFigure
 {TemplateMatching/img/board_graymatching_results}
@@ -175,13 +175,13 @@ Similar extension may be used to match the template on multiple scales, yet such
 \subsection{Offline Phase}
 
 \paragraph*{}
-From the above description of pyramid matching it is clear that certain amount of preprocessing is required both for the template and search image. It is important to note, that the computational load of preprocessing for these two images is \textbf{not} equally important.
+From the above description of pyramid matching it is clear that certain amount of preprocessing is required both for the template and the search image. It is important to note, that the computational load of preprocessing for these two images is \textbf{not} equally important.
 
 \paragraph*{}
-It is extremely rare to perform template matching with one-off template - usually the template is fixed and used for inspection of a whole series of images, e.g. being captured and analyzed online. The preprocessing of the template image almost always may be performed offline and as such does not need to be the focus of possible optimizations. The results of such preprocessing along with the template image are often saved in form of atomic datatype for easy reuse.
+It is extremely rare to perform template matching with one-off template - usually the template is fixed and used for inspection of a whole series of images, e.g. being captured and analyzed online. The preprocessing of the template image almost always may be performed offline and as such does not need to be the focus of possible optimizations. The results of such preprocessing along with the template image are often saved in a form of atomic datatype for easy reuse.
 
 \paragraph*{}
-The preprocessing of the search image on the other hand in most cases has to be performed online and therefore its efficiency may be crucial for the feasibility of whole template matching-based solution. It is worth noting that the extension of the pyramid matching to multiple orientations requires computing of separate pyramids of the \textbf{template image} for every possible rotation, while the preprocessing of the search image remains limited to calculation of a single pyramid.  
+The preprocessing of the search image on the other hand in most cases has to be performed online and therefore its efficiency may be crucial for the feasibility of the whole template matching-based solution. It is worth noting that the extension of the pyramid matching to multiple orientations requires computing of separate pyramids of the \textbf{template image} for every possible rotation, while the preprocessing of the search image remains limited to the calculation of a single pyramid.  
 
 \begin{refImpl}
 The measures of image similarity are implemented in \studio filters:
@@ -192,5 +192,5 @@ The measures of image similarity are implemented in \studio filters:
 First filter of each pair computes a single similarity value for two images of equal dimensions, while the second filter performs a template similarity evaluation of each possible template alignment and represents the results in form of an image, as previously described.
 
 \paragraph*{}
-Grayscale-based pyramid matching is implemented in two \studio filters: \filter{CreateGrayModel\_NCC}{TemplateMatching} and \filter{MatchGrayModel}{TemplateMatching} - first filter performs the offline, template preprocessing phase and stores the results in atomic, reusable datatype called \textit{model}, which can be later used to perform the actual matching using the second filter.
+Brightness-based pyramid matching is implemented in two \studio filters: \filter{CreateGrayModel\_NCC}{TemplateMatching} and \filter{MatchGrayModel}{TemplateMatching} - first filter performs the offline, template preprocessing phase and stores the results in atomic, reusable datatype called \textit{model}, which can be later used to perform the actual matching using the second filter.
 \end{refImpl}

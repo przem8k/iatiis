@@ -30,7 +30,7 @@ Moreover, both methods are inherently sensitive to occlusions and as such have f
 \subsection{Asymmetric Methods}
 
 \paragraph*{}
-To overcome the limitations of the symmetric edge-matching we need to move towards asymmetric methods. Steger proposed\cite{Steger02} to perform full edge detection in the template image, precisely identifying its contours; while each search image would be subject only to simple gradient computation on its entire area. Each possible match is then evaluated based on the correspondence of the gradient direction between the template and search image, but only at the positions of template edge pixels.
+To overcome the limitations of the symmetric edge-matching we need to move towards asymmetric methods. Steger proposed\cite{Steger02} to perform full edge detection in the template image, precisely identifying its contours; while each search image would be subject only to simple gradient computation on its entire area. Each possible match is then evaluated based on the correspondence of the gradient direction between the template and the search image, but only at the positions of template edge pixels.
 
 \paragraph*{}
 This idea is demonstrated in \reffig{AsymetricEdges}, where we use colors from the HSV circle to represent gradient directions.
@@ -45,17 +45,17 @@ This idea is demonstrated in \reffig{AsymetricEdges}, where we use colors from t
 {.3\textwidth}
 
 \paragraph*{}
-Such approach immediately eliminates the problem of accurate edge extraction in the search image, as no such extraction is performed. Moreover, it utilizes matching of the edge directions, not only their presence, which was earlier demonstrated\cite{Olson97} by Olson et al. as advantageous in eliminating false-positive results in case of Hausdorff distance metric.
+Such approach immediately eliminates the problem of accurate edge extraction in the search image, as no such extraction is performed. Moreover, it utilizes matching of the edge directions, not only their presence, which was earlier demonstrated\cite{Olson97} by Olson et al. as advantageous in eliminating false-positive results in the case of Hausdorff distance metric.
 
 \paragraph*{}
 The specific method of calculating the score of a match proposed by Steger is the simple sum of cosines of the angles between the corresponding gradient vectors, resembling the idea behind the normalized cross-correlation measure.
 
 \paragraph*{}
-Matching based on gradient direction does not preclude the application of pyramid matching schema. It is interesting to note that the asymmetric method actually outperforms the traditional grayscale-based template matching in terms of speed, as the evaluation of each possible match is limited to edge pixels of the template image; while the additional burden of computing the gradient of search image pyramid is not significant (compared with the dominating cost of the match evaluation).
+Matching based on gradient direction does not preclude the application of the pyramid schema. It is interesting to note that the asymmetric method actually outperforms the traditional grayscale-based template matching in terms of speed, as the evaluation of each possible match is limited to the edge pixels of the template image; while the additional burden of computing the gradient of search image pyramid is not significant (compared with the dominating cost of the match evaluation).
 
 \paragraph*{}
-The method also works well against occlusions, as each missing edge pixel in the search image contribute at most the penalty of $-1$ to the final score, which equals in magnitude the input of a perfectly matched gradient direction, yielding cosine value of $1$. A detailed evaluation of the performance of this method is given in \cite{UlrichSteger02}.
+The method also works well against occlusions, as each missing edge pixel in the search image contributes at most the penalty of $-1$ to the final score, which equals in magnitude the input of a perfectly matched gradient direction, yielding cosine value of $1$. A detailed evaluation of the performance of this method is given in \cite{UlrichSteger02}.
 
 \begin{refImpl}
-Edge-based template matching is implemented in two \studio filters: \filter{CreateEdgeModel}{TemplateMatching} and \filter{MatchEdgeyModel}{TemplateMatching}.
+Edge-based template matching is implemented in two \studio filters: \filter{CreateEdgeModel}{TemplateMatching} and \filter{MatchEdgeModel}{TemplateMatching}.
 \end{refImpl}
