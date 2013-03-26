@@ -100,7 +100,7 @@ The most commonly measure of entropy is the one proposed by Shannon, in which th
 where each element of the distribution $(v,f)$ represents that a value $v$ is taken by the fraction $f$ of the data, i.e. $\sum_{(v,f) \in D} f = 1.0$.
 
 \paragraph*{}
-Numerous attempts were made to employ analysis of entropic properties of the image intensity distribution to threshold selection, from early works of Pun to more recent investigations on applications of fuzzy entropy measures. We will demonstrate the method proposed\cite{KapurSahooWong85} by Kapur, Sahoo and Wong which is indicated\cite{SezginSankur04} as well-performing by by Sezgin and Sankur.
+Numerous attempts were made to employ analysis of entropic properties of the image intensity distribution to threshold selection, from early works of Pun to more recent investigations on applications of fuzzy entropy measures. We will demonstrate the method proposed\cite{KapurSahooWong85} by Kapur, Sahoo and Wong which is indicated\cite{SezginSankur04} as well-performing by Sezgin and Sankur.
 
 \paragraph*{}
 In this technique the image intensity distribution is split into foreground and background distributions at the intensity level $k$ for each possible value of $k$. Then the entropy of both distributions is computed and the $k$ which yields the largest sum of two entropies is selected as the threshold value.
@@ -167,5 +167,5 @@ As we have demonstrated, automatic threshold selection is not an easy task in ge
 If the system is supposed to operate at high levels of reliability, it would be prudent to use global thresholding with automatic threshold selection only if we can guarantee the conditions in which a method of our choice performs correctly. Often this will not be possible, in which case we should consider using dynamic thresholding (discussed in the next section) or discarding the thresholding methods at all in favor of \refchap{ContourAnalysis} or \refchap{TemplateMatching}.
 
 \begin{refImpl}
-\studio \,filter \filter{SelectThresholdValue}{ImageThresholding} implements the following threshold selection methods: Intermodes, Clustering\_KMeans, Clustering\_Otsu, Entropy. 
+\studio \,filter \filter{SelectThresholdValue}{ImageThresholding} implements the following threshold selection methods: HistogramIntermodes, ClusteringKMeans, ClusteringOtsu, Entropy. 
 \end{refImpl}

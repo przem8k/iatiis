@@ -192,5 +192,5 @@ The measures of image similarity are implemented in \studio filters:
 First filter of each pair computes a single similarity value for two images of equal dimensions, while the second filter performs a template similarity evaluation of each possible template alignment and represents the results in form of an image, as previously described.
 
 \paragraph*{}
-Brightness-based pyramid matching is implemented in two \studio filters: \filter{CreateGrayModel\_NCC}{TemplateMatching} and \filter{MatchGrayModel}{TemplateMatching} - first filter performs the offline, template preprocessing phase and stores the results in atomic, reusable datatype called \textit{model}, which can be later used to perform the actual matching using the second filter.
+Brightness-based pyramid matching is implemented in two \studio filters: \filter{CreateGrayModel}{TemplateMatching} and \filter{MatchGrayModel\_NCC}{TemplateMatching} - first filter performs the offline, template preprocessing phase and stores the results in atomic, reusable datatype called \textit{model}, which can be later used to perform the actual matching using the second filter.
 \end{refImpl}
