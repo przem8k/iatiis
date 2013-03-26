@@ -1,4 +1,4 @@
-\newcommand{\coverPage}[2]
+\newcommand{\coverPage}[3]
 {
 	\begin{titlingpage}
 	\begin{center}
@@ -15,18 +15,20 @@
 	{ \huge \bfseries #2}\\[0.4cm]
 
 	\textsc{\Large #1}\\[0.5cm]
-
+	\null
+	\vfill
+	{\small #3}
 	\end{center}
 	\end{titlingpage}
 
 
 
-	\thispagestyle{empty}
-	\newpage	
-
+	\thispagestyle{empty}	
+	\newpage
 }
 
 
 \coverPage
 {Przemys\l aw Pietrzkiewicz}
 {Image Analysis Techniques for Industrial Inspection Systems - Draft}
+{Copyright \textcopyright 2012-2013 Future Processing sp. z o.o.}
