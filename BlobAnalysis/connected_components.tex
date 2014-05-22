@@ -114,5 +114,5 @@ The intuitive concept of a region hole may be formalized as follows:
 An algorithm for extraction of the region holes may be derived directly from this definition. One detail we should remember about is to use the background connectivity when computing the connected components of the region complement, as discussed before. 
 
 \begin{refImpl}
-\studio filter \filter{SplitRegionIntoBlobs}{RegionGlobalTransforms} extracts an array of region connected components while \filter{RegionHoles}{RegionFeatures} returns an array of region holes computed as decribed above.
+\studio filter \filter{SplitRegionIntoBlobs}{RegionGlobalTransforms} extracts an array of region connected components while \filter{RegionHoles}{RegionFeatures} returns an array of region holes computed as decribed above. Other method of region splitting is available as filters \filter{SplitRegionIntoComponents}{RegionGlobalTransforms} and \filter{SplitRegionIntoExactlyNComponents}{RegionGlobalTransforms}.
 \end{refImpl}

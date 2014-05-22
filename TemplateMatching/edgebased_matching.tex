@@ -57,5 +57,5 @@ Matching based on gradient direction does not preclude the application of the py
 The method also works well against occlusions, as each missing edge pixel in the search image contributes at most the penalty of $-1$ to the final score, which equals in magnitude the input of a perfectly matched gradient direction, yielding cosine value of $1$. A detailed evaluation of the performance of this method is given in \cite{UlrichSteger02}.
 
 \begin{refImpl}
-Edge-based template matching is implemented in two \studio filters: \filter{CreateEdgeModel}{TemplateMatching} and \filter{MatchEdgeModel}{TemplateMatching}.
+Edge-based template matching is implemented in three \studio filters: \filter{CreateEdgeModel}{TemplateMatching}, \filter{LocateSingleObject\_Edges}{TemplateMatching} and \filter{LocateMultipleObjects\_Edges}{TemplateMatching}
 \end{refImpl}

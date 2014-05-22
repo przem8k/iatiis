@@ -46,8 +46,9 @@ The following \studio filters extract the statistical features of a region:
 \filter{RegionArea}{RegionFeatures}, 
 \filter{RegionElongation}{RegionFeatures}, 
 \filter{RegionMassCenter}{RegionFeatures}, 
+\filter{RegionMoment}{RegionFeatures},
 \filter{RegionOrientation}{RegionFeatures},
-\filter{RegionEllipticalAxes}{RegionFeatures}. 
+\filter{RegionEllipticAxes}{RegionFeatures}. 
 \end{refImpl}
 
 \subsection{Geometrical Features}
@@ -104,14 +105,15 @@ Other geometric features are not inherently related to pixel-precise regions, an
 
 \begin{refImpl}
 The following \studio filters extract the geometrical features of a region: 
+\filter{RegionBoundingBox}{RegionFeatures}, 
 \filter{RegionBoundingCircle}{RegionFeatures}, 
 \filter{RegionBoundingRectangle}{RegionFeatures}, 
 \filter{RegionCircularity}{RegionFeatures}, 
 \filter{RegionContours}{RegionFeatures}, 
 \filter{RegionConvexHull}{RegionGlobalTransforms}, 
 \filter{RegionConvexity}{RegionFeatures}, 
-\filter{RegionCompactness}{RegionFeatures}, 
 \filter{RegionDiameter}{RegionFeatures}, 
-\filter{RegionPerimeter}{RegionFeatures} and 
+\filter{RegionPerimeterLength}{RegionFeatures} and 
+\filter{RegionProjection}{RegionFeatures} and 
 \filter{RegionRectangularity}{RegionFeatures}.
 \end{refImpl}

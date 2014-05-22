@@ -81,5 +81,5 @@ Fortunately, more advanced methods of algebraic fitting by Pratt and Taubin achi
 Circle fitting may be easily modified to return circular arcs rather than full circles. Again, all that we need to do is to compute the orthogonal projection of the input points onto the resulting circle and select the smallest section of the circle that contains all projection points.
 
 \begin{refImpl}
-\studio filter \filter{FitCircleToPoints}{GeometryFeatures} implements a selection of algebraic line fitting methods along with optional iterative outlier suppression, while the \filter{FitArcToPoints}{GeometryFeatures} performs analogous fitting of circular arcs.
+\studio filter \filter{FitCircleToPoints}{Geometry2DFitting} implements a selection of algebraic line fitting methods along with optional iterative outlier suppression, while the \filter{FitArcToPoints}{Geometry2DFitting} performs analogous fitting of circular arcs.
 \end{refImpl}

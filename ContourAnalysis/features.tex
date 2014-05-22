@@ -159,13 +159,13 @@ All of these features assume values between $0$ and $1$, $1$ being achieved for 
 Some of the features being discussed in this section are well defined for all paths, including open and self-intersecting ones. These features are implemented in \studio by filters from the Path Features category:
 \filter{PathBoundingCircle}{PathFeatures}, 
 \filter{PathBoundingRectangle}{PathFeatures}, 
-\filter{PathLength}{PathFeatures} and
-\filter{RegionConvexHull}{PathFeatures}.
+\filter{PathConvexHull}{PathFeatures}
+\filter{PathDiameter}{PathFeatures} and
+\filter{PathLength}{PathFeatures}.
 
 \paragraph*{}
 The following \studio filters extract the features defined only for polygons: 
 \filter{ShapeConvexity}{ShapeFeatures}, 
-\filter{ShapeCircularity}{ShapeFeatures}, 
-\filter{ShapeDiameter}{ShapeFeatures} and 
+\filter{ShapeCircularity}{ShapeFeatures} and 
 \filter{ShapeRectangularity}{ShapeFeatures}.
 \end{refImpl}

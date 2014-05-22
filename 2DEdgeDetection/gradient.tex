@@ -151,5 +151,5 @@ When we derived the masks of Prewitt and Sobel operators we neglected the scalin
 Whenever the smoothing operators are to be compared (or used interchangeably, e.g. in edge detection with fixed gradient magnitude threshold) it is important to remember to normalize their results, multiplying the outcome by the scaling factor of the smoothing operator omitted in the first place ($\frac{1}{3}$ for the Prewitt operator and $\frac{1}{4}$ for Sobel). Such scaling was applied to the results of the Sobel operator in \reffig{SobelVsBare}.
 
 \begin{refImpl}
-Gradient operators discussed in this section are implemented by \studio filter \filter{GradientImage\_Mask}{ImageLocalTransform}.
+Gradient operators discussed in this section are implemented by \studio filters \filter{GradientImage\_Mask}{ImageLocalTransform} and \filter{GradientImage}{ImageLocalTransforms}.
 \end{refImpl}

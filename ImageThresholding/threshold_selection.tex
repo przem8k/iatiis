@@ -167,5 +167,5 @@ As we have demonstrated, automatic threshold selection is not an easy task in ge
 If the system is supposed to operate at high levels of reliability, it would be prudent to use global thresholding with automatic threshold selection only if we can guarantee the conditions in which a method of our choice performs correctly. Often this will not be possible, in which case we should consider using dynamic thresholding (discussed in the next section) or discarding the thresholding methods at all in favor of \refchap{ContourAnalysis} or \refchap{TemplateMatching}.
 
 \begin{refImpl}
-\studio \,filter \filter{SelectThresholdValue}{ImageThresholding} implements the following threshold selection methods: HistogramIntermodes, ClusteringKMeans, ClusteringOtsu, Entropy. 
+\studio \,filter \filter{SelectThresholdValue}{ImageThresholding} implements the following threshold selection methods: HistogramIntermodes, ClusteringKittler, ClusteringKMeans, ClusteringOtsu, Entropy. 
 \end{refImpl}

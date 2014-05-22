@@ -128,5 +128,5 @@ where the threshold $t$ may be either calculated from the distribution of distan
 Line fitting may be directly applied to fit segments to data points, as we may start with fitting a line to the points and then compute the resulting segment as a section of the line defined by the orthogonal projection of the input points onto the line.
 
 \begin{refImpl}
-\studio filter \filter{FitLineToPoints}{GeometryFeatures} implements the line fitting along with optional iterative outlier suppression, while the \filter{FitSegmentToPoints}{GeometryFeatures} performs analogous segment fitting.
+\studio filter \filter{FitLineToPoints}{Geometry2DFitting} implements the line fitting along with optional iterative outlier suppression, while the \filter{FitSegmentToPoints}{Geometry2DFitting} performs analogous segment fitting.
 \end{refImpl}
