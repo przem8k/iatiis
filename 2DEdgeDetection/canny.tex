@@ -92,7 +92,7 @@ To derive correct translation of non-maximum suppression into two dimensions we 
 We may use a similar approach to translate out parabola-fitting technique of acquiring sub-pixel precise positions of edge points to two-dimensions. If we sample the image at three points on the line parallel to gradient direction at a pixel and fit a parabola through the resulting, three-element profile, we obtain a direct equivalent of the fit that we were doing in one-dimensional case.
 
 \begin{refImpl}
-Edge detection method is implemented by four \studio filters, which share common logic, differing only in output data type. One can choose between Canny, Deriche and Lanser filters, or between Sobel and Prewitt algorithm when using textit{\_Mask} version of filters.
+Edge detection method is implemented by four \studio filters, which share common logic, differing only in output data type. One can choose between Canny, Deriche and Lanser filters, or between Sobel and Prewitt algorithms when using \textit{\_Mask} version of filters.
 \begin{itemize}
 	 \item \filter{DetectEdges\_AsPaths}{2DEdgeDetection} - returns extracted edges as array of paths.
 	 \item \filter{DetectEdges\_AsRegion}{2DEdgeDetection} - extracts edges and returns them as one region.
