@@ -97,7 +97,7 @@ That being said, it is often useful to adjust minimum magnitude threshold anyway
 \begin{refImpl}
 Step edge detection algorithms are implemented in three \studio filters. All of them share common extraction logic, differing only in post-processing method applied to select the final outcome.
 \begin{itemize}
-	\item \filter{ScanMultipleEdges}{1DEdgeDetection} - returns all of the extracted edgess.
+	\item \filter{ScanMultipleEdges}{1DEdgeDetection} - returns all of the extracted edges.
 	\item \filter{ScanExactlyNEdges}{1DEdgeDetection} - selects the most prominent set of edges of given cardinality.
 	\item \filter{ScanSingleEdge}{1DEdgeDetection} - wrapper over previous filter which selects the single most prominent edge.
 \end{itemize} 

@@ -29,7 +29,7 @@ As long as we may rely on the capsule to have a closed, dark contour (which we a
 In this example our aim is to count the teeth of a saw blade. Contrary to the previous example, now the region representing the object being inspected is flawlessly extracted using simple thresholding while the interesting part lies in the counting itself, i.e. in analysis of the extracted region.
 
 \paragraph*{}
-\reffig{BlobAnalysisCounting} demonstrates a morphology-based approach. Opening of the extracted region with big circular kernel removes the teeth, so that we may extract the saw teeths using region difference and connected components operators.
+\reffig{BlobAnalysisCounting} demonstrates a morphology-based approach. Opening of the extracted region with big circular kernel removes the teeth, so that we may extract the saw teeth using region difference and connected components operators.
 
 \paragraph*{}
 In industrial setting it would be prudent to perform slight dilation on the opened region before subtraction to make sure that none of the neighboring teeth pair will remain connected after that.
