@@ -25,6 +25,8 @@ Just in case, to install a package in Ubuntu, type:
 
 > sudo apt-get install PACKAGE_NAME
 
+There is also possibility to compile book on Windows. One can use Cygwin. Installation of pdf related packages, including luatex, during setup is needed. One should also install make, as it is not selected to install by default. There is also pdfsam available for Windows, but its commandline inteface is not-so-handy. pdfsam is last step of build, it simply splits books into chapters. If you don't need splitted chapters, Cygwin is the fastest and the simpliest method to compile book on Windows.
+
 ### Getting the repository ###
 
 For people not familiar with Git and/or Github, the roadmap is the following:
