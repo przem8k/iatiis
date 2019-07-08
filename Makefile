@@ -5,5 +5,3 @@ full: mvg.tex TemplateMatching.tex 1DEdgeDetection.tex BlobAnalysis.tex ShapeFit
 	bibtex mvg.aux
 	lualatex -shell-escape mvg.tex
 	lualatex -shell-escape mvg.tex
-	rm -f split/*.pdf
-	pdfsam-console -f mvg.pdf -o split/ -s BLEVEL -bl 1 split

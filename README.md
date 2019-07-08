@@ -12,6 +12,17 @@ Now the book is open-sourced and developed by the community and members of the [
 
 This section describes the primary setup needed to compile/develop the book.
 
+### Using Vagrant to build the book ###
+
+Most convenient way to build book is to use vagrant.
+
+To build book use following commands:
+
+* vagrant up (may take 20min to setup)
+* vagrant shh
+* cd /vagrant
+* make 
+
 ### System setup ###
 
 The recommended system is *Ubuntu 12.10 Quantal Quetzal*. The following packages should be installed:
@@ -20,6 +31,8 @@ The recommended system is *Ubuntu 12.10 Quantal Quetzal*. The following packages
 * texlive-latex-recommended
 * texlive-latex-extra
 * pdfsam
+
+In *Ubuntu 18.4* also *texlive-luatex* is needed.
 
 Just in case, to install a package in Ubuntu, type:
 
