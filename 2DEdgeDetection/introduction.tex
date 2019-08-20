@@ -4,10 +4,10 @@
 In the \refchap{1DEdgeDetection} chapter we have discussed a set of techniques designed to detect high-contrast features in one-dimensional profiles. Let us recall that doing so we were not interested in one-dimensional image profiles by themselves, but in two-dimensional image features intersecting the line from which the profile was extracted: we have been transferring the extracted edge points back to the original image, acquiring fragments of information about the edges present in the image.
 
 \paragraph*{}
-As we know how to detect individual edge points in an image, we may wonder if we could use the same techniques to detect entire edges - repeatedly detecting edge points and connecting them to form two-dimensional objects. The answer to this question depends on the context of the detection.
+As we know how to detect individual edge points in an image, we may wonder if we could use the same techniques to detect entire edges -- repeatedly detecting edge points and connecting them to form two-dimensional objects. The answer to this question depends on the context of the detection.
 
 \paragraph*{}
-We cannot do that when we have no information about the edges that we are going to detect, as \textbf{1D Edge Detection} techniques relay on the position and orientation of the scan line, which has to be roughly perpendicular to the primitive being inspected. However, when we do have an estimate of the feature being extracted, such approach is valid and promising - we will discuss this idea further in the \refchap{ShapeFitting} chapter.
+We cannot do that when we have no information about the edges that we are going to detect, as \textbf{1D Edge Detection} techniques relay on the position and orientation of the scan line, which has to be roughly perpendicular to the primitive being inspected. However, when we do have an estimate of the feature being extracted, such approach is valid and promising -- we will discuss this idea further in the \refchap{ShapeFitting} chapter.
 
 \paragraph*{}
 In this chapter we will look into the problem of \textbf{2D Edge Detection} from the ground up, incorporating the two-dimensional nature of the features into the detection algorithm, and obtain techniques that identify the edges in an image without any prior knowledge about them.

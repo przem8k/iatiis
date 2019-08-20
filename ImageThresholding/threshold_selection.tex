@@ -4,7 +4,7 @@
 If the lightning is reasonably uniform throughout the image, but changes over time (which is usually the case whenever the system is not fully isolated from the sunlight) the threshold values should be adjusted accordingly. As the system should be essentially unsupervised in operation, we need to employ a technique that will allow us to determine the feasible threshold automatically, given only the image to be thresholded.
 
 \paragraph*{}
-Applying such technique would also eliminate the bias introduced by manual adjustment of the threshold parameters - usually there is a range of feasible threshold values and the extracted objects appear smaller or bigger depending on the selected value.
+Applying such technique would also eliminate the bias introduced by manual adjustment of the threshold parameters -- usually there is a range of feasible threshold values and the extracted objects appear smaller or bigger depending on the selected value.
 
 \paragraph*{}
 Automatic threshold selection has been subject to extensive research and a rich set of different methods has been developed. A survey\cite{SezginSankur04} by Sezgin and Sankur mentions 31 different methods of automatic selection of global thresholding values. We will demonstrate a selection of techniques particularly popular in the industrial applications.
@@ -60,7 +60,7 @@ This makes the method in its basic form not advisable for most of the industrial
 \subsection{Histogram Shape Analysis}
 
 \paragraph*{}
-In the previous section we have seen two examples of images having bimodal histograms with a clear valley between two modes corresponding to the range of feasible threshold values. Some of the popular threshold selection methods look for this valley algorithmically - either directly or indirectly, analyzing the shape properties of image histogram. 
+In the previous section we have seen two examples of images having bimodal histograms with a clear valley between two modes corresponding to the range of feasible threshold values. Some of the popular threshold selection methods look for this valley algorithmically -- either directly or indirectly, analyzing the shape properties of image histogram. 
 
 \paragraph*{}
 In one of the first papers\cite{PrewittMendelsohn66} written on the threshold selection problem Prewitt and Mendelsohn proposed to smooth the image histogram iteratively until only two local maxima are preserved, and then select the threshold value as a mean of this two remaining maxima. \reffig{DisplacedIntermodes} demonstrates a successful application of this method to an example for which the mean brightness method failed.
@@ -88,7 +88,7 @@ Intermodes method performs well as long as the image histogram is essentially bi
 \subsection{Entropy}
 
 \paragraph*{}
-Entropy of a distribution (e.g. distribution of the pixel brightness, i.e. image histogram) is a quantitative measure of its \textit{disorder} - it is high when the fractions of pixels taking the individual intensities are similar throughout the range of possible pixel values\footnote{Such situation represents high disorder because the pixel values are uniformly scattered over the entire domain of pixel intensities.} and low when certain values are overrepresented in the image.
+Entropy of a distribution (e.g. distribution of the pixel brightness, i.e. image histogram) is a quantitative measure of its \textit{disorder} -- it is high when the fractions of pixels taking the individual intensities are similar throughout the range of possible pixel values\footnote{Such situation represents high disorder because the pixel values are uniformly scattered over the entire domain of pixel intensities.} and low when certain values are overrepresented in the image.
 
 \paragraph*{}
 The most commonly measure of entropy is the one proposed by Shannon, in which the entropy of a distribution  $D$ is defined as:
@@ -126,7 +126,7 @@ Such approach to threshold selection can yield good results on images for which 
 \subsection{Clustering}
 
 \paragraph*{}
-Threshold selection problem may be also formulated in terms of clustering - indeed, our aim is to divide the full intensity spectrum into two clusters, foreground and background intensities, separated by the threshold value. In this section we will demonstrate two techniques that follow this interpretation of the problem. 
+Threshold selection problem may be also formulated in terms of clustering -- indeed, our aim is to divide the full intensity spectrum into two clusters, foreground and background intensities, separated by the threshold value. In this section we will demonstrate two techniques that follow this interpretation of the problem. 
 
 \subsubsection{K-Means}
 

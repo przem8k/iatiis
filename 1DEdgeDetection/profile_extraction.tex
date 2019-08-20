@@ -8,7 +8,7 @@ The first step is to sample the scan path, selecting a set of equidistant (typic
 
 \subsection{Multiple Sampling}
 \paragraph*{}
-We used the expression \textit{related to} rather than \textit{at} on purpose - although we could simply take the image brightness values at each point of interest, it is more prudent to use an average of a series of sampling points perpendicular to the scan line, as demonstrated in \reffig{MultipleSampling}; thus achieving a simple means of noise suppression. 
+We used the expression \textit{related to} rather than \textit{at} on purpose -- although we could simply take the image brightness values at each point of interest, it is more prudent to use an average of a series of sampling points perpendicular to the scan line, as demonstrated in \reffig{MultipleSampling}; thus achieving a simple means of noise suppression. 
 
 \oneFigure
 {img/1DEdgeDetection/multiple_sampling_refined}
@@ -46,7 +46,7 @@ Even though a reasonably wide scan area suppresses the noise significantly at th
 Selecting the smoothing filter to refine the extracted profile is not an obvious choice. On the one hand we want to suppress the noise present in the profile, so that irrelevant intensity changes are not identified as edge points, on the other hand we want to achieve high precision of the edge localization. 
 
 \paragraph*{}
-These two criteria cannot be considered independently - smoothing of the profile suppresses the noise, but also lowers the precision. Canny determined\cite{Canny86} that the optimal trade-off between noise reduction and lose of precision is achieved with the Gaussian smoothing filter defined as follows:
+These two criteria cannot be considered independently -- smoothing of the profile suppresses the noise, but also lowers the precision. Canny determined\cite{Canny86} that the optimal trade-off between noise reduction and lose of precision is achieved with the Gaussian smoothing filter defined as follows:
 
 \[
     g_{\sigma}(x)= \frac{1}{\sqrt{2\pi \sigma^2}} e^{-\frac{x^2}{2 \sigma^2}}
@@ -57,7 +57,7 @@ where the standard deviation $\sigma$ is a parameter of the filter.
 \subsubsection{Discreet Gaussian Filter}
 
 \paragraph*{}
-The Gaussian function is defined in continuous, infinite domain - to obtain a discreet approximation of the filter, we may sample $g_{\sigma}(x)$ at integer coordinates\cite{JainKasturi95}. Moreover, as the value of the Gaussian function quickly decreases with the increase of $|x|$, we may limit the discreet filter to a finite neighborhood of $x = 0$ without significant effect on the results of the smoothing. 
+The Gaussian function is defined in continuous, infinite domain -- to obtain a discreet approximation of the filter, we may sample $g_{\sigma}(x)$ at integer coordinates\cite{JainKasturi95}. Moreover, as the value of the Gaussian function quickly decreases with the increase of $|x|$, we may limit the discreet filter to a finite neighborhood of $x = 0$ without significant effect on the results of the smoothing. 
 
 \paragraph*{}
 The well known fact called a three-sigma rule states that more that $97\%$ of the Gaussian function integral is concentrated within $3 \sigma$ distance from $x = 0$. It is therefore reasonable to sample the Gaussian function at $2r + 1$ points, where $r$ is a small multiple of $\sigma$, e.g. $3 \lceil \sigma \rceil$; thus obtaining a mask in the following form:

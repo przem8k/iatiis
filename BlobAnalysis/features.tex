@@ -65,10 +65,10 @@ The contour of a region is a sequence of points defining its boundary (or an arr
 {\basicWidth}
 
 \paragraph*{}
-Such points may be computed very efficiently in RLE region representation. Let us observe that a contour of a region is defined by the sequence of its one pixel long, directed, \textbf{vertical segments} - once we have the vertical segments, adding horizontal sections between them is straightforward. 
+Such points may be computed very efficiently in RLE region representation. Let us observe that a contour of a region is defined by the sequence of its one pixel long, directed, \textbf{vertical segments} -- once we have the vertical segments, adding horizontal sections between them is straightforward. 
 
 \paragraph*{}
-Moreover, all such vertical segments are easy to obtain from the RLE representation - these are in fact two sides of every point run in the region. Extraction of the contour therefore boils down to assigning successor to each vertical segment, i.e. answering a question for each such segment: which vertical segment will be next on the contour? This can be done one row of runs at a time with a careful linear scan of the point runs in the neighboring rows.
+Moreover, all such vertical segments are easy to obtain from the RLE representation -- these are in fact two sides of every point run in the region. Extraction of the contour therefore boils down to assigning successor to each vertical segment, i.e. answering a question for each such segment: which vertical segment will be next on the contour? This can be done one row of runs at a time with a careful linear scan of the point runs in the neighboring rows.
 
 \subsubsection{Calculating Region Features from Path Features}
 

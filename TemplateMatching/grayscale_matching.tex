@@ -44,7 +44,7 @@ Perhaps the simplest measure of image difference is the average of its pixel-wis
 where $n$ denotes the number of pixels within the image dimensions.
 
 \paragraph*{}
-It is important to note that the response of this measure to a single difference depends linearly on its magnitude. This is not an optimal behavior for template matching purposes - we should use a measure that will amplify strong differences, otherwise a big number of small differences (which are inevitable due to the noise and lightning imperfections) will have impact on the result comparable with a small number of extreme differences (which should weight significantly on the score of a possible match).
+It is important to note that the response of this measure to a single difference depends linearly on its magnitude. This is not an optimal behavior for template matching purposes -- we should use a measure that will amplify strong differences, otherwise a big number of small differences (which are inevitable due to the noise and lightning imperfections) will have impact on the result comparable with a small number of extreme differences (which should weight significantly on the score of a possible match).
 
 \paragraph*{}
 This issue may be noticed in \reftab{ImageSimilarityMeasures} examples (b) and (c). The first one yields lower mean error, even though it misses important part of the template while the second one matches the structure of the template perfectly, but contains fine differences over its entire area. 
@@ -66,7 +66,7 @@ This measure is already feasible for applications in which the lightning may be 
 \subsubsection{Normalized Cross-Correlation (NCC)}
 
 \paragraph*{}
-To overcome this issue we will move our attention towards an important measure of image correlation - normalized cross-correlation. 
+To overcome this issue we will move our attention towards an important measure of image correlation -- normalized cross-correlation. 
 
 \paragraph*{}
 Normalized cross-correlation is based on an interpretation of an image as a simple one-dimensional vector of its $n$ pixel values. Such interpretation is accurate as long as we compute the image similarity pixel-by-pixel, disregarding the spatial positions of the pixels.
@@ -101,7 +101,7 @@ Having selected a feasible brightness-based measure of image similarity, we may 
 \subsubsection{Template Correlation Image}
 
 \paragraph*{}
-An exhaustive search for the template occurrences is straightforward to define - we may consider each possible alignment of the template over the image and compute the normalized cross-correlation factor between the template and the part of the image that it overlaps. Results of such search may be conveniently represented on an image, each pixel of which represents the similarity factor of the template aligned over the pixel. Example \textit{template correlation image} for the input data from \reffig{TemplateMatchingBoardInput} is demonstrated in \reffig{TemplateCorrelationImage}.
+An exhaustive search for the template occurrences is straightforward to define -- we may consider each possible alignment of the template over the image and compute the normalized cross-correlation factor between the template and the part of the image that it overlaps. Results of such search may be conveniently represented on an image, each pixel of which represents the similarity factor of the template aligned over the pixel. Example \textit{template correlation image} for the input data from \reffig{TemplateMatchingBoardInput} is demonstrated in \reffig{TemplateCorrelationImage}.
 
 
 \oneFigure
@@ -178,7 +178,7 @@ Similar extension may be used to match the template on multiple scales, yet such
 From the above description of pyramid matching it is clear that certain amount of preprocessing is required both for the template and the search image. It is important to note, that the computational load of preprocessing for these two images is \textbf{not} equally important.
 
 \paragraph*{}
-It is extremely rare to perform template matching with one-off template - usually the template is fixed and used for inspection of a whole series of images, e.g. being captured and analyzed online. The preprocessing of the template image almost always may be performed offline and as such does not need to be the focus of possible optimizations. The results of such preprocessing along with the template image are often saved in a form of atomic datatype for easy reuse.
+It is extremely rare to perform template matching with one-off template -- usually the template is fixed and used for inspection of a whole series of images, e.g. being captured and analyzed online. The preprocessing of the template image almost always may be performed offline and as such does not need to be the focus of possible optimizations. The results of such preprocessing along with the template image are often saved in a form of atomic datatype for easy reuse.
 
 \paragraph*{}
 The preprocessing of the search image on the other hand in most cases has to be performed online and therefore its efficiency may be crucial for the feasibility of the whole template matching-based solution. It is worth noting that the extension of the pyramid matching to multiple orientations requires computing of separate pyramids of the \textbf{template image} for every possible rotation, while the preprocessing of the search image remains limited to the calculation of a single pyramid.  
@@ -192,5 +192,5 @@ The measures of image similarity are implemented in \studio filters:
 First filter of each pair computes a single similarity value for two images of equal dimensions, while the second filter performs a template similarity evaluation of each possible template alignment and represents the results in form of an image, as previously described.
 
 \paragraph*{}
-Brightness-based pyramid matching is implemented in three \studio filters: \filter{CreateGrayModel}{TemplateMatching}, \filter{LocateSingleObject\_NCC}{TemplateMatching} and \filter{LocateMultipleObjects\_NCC}{TemplateMatching} - first filter performs the offline, template preprocessing phase and stores the results in atomic, reusable datatype called \textit{model}, which can be later used to perform the actual matching using the second and third filter.
+Brightness-based pyramid matching is implemented in three \studio filters: \filter{CreateGrayModel}{TemplateMatching}, \filter{LocateSingleObject\_NCC}{TemplateMatching} and \filter{LocateMultipleObjects\_NCC}{TemplateMatching} -- first filter performs the offline, template preprocessing phase and stores the results in atomic, reusable datatype called \textit{model}, which can be later used to perform the actual matching using the second and third filter.
 \end{refImpl}

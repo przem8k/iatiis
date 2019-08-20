@@ -23,17 +23,17 @@ The task is slightly more complicated if we know the desired number of stripes i
 \paragraph*{}
 Let us define a partial solution to the problem as follows:
 \begin{description}
-	\item \texttt{Best[Prefix][Count]} - sublist of the first \texttt{Prefix} step edges of alternating edge-polarities having \texttt{Count} elements that yields the biggest sum of edge strengths.
+	\item \texttt{Best[Prefix][Count]} -- sublist of the first \texttt{Prefix} step edges of alternating edge-polarities having \texttt{Count} elements that yields the biggest sum of edge strengths.
 \end{description}
 
 \paragraph*{}
-Having computed the results for \texttt{Prefix} $=p$ we can compute the results for \texttt{Prefix} $=p+1$ in linear time - for each \texttt{Count} $=c$ we need to consider only two cases, either using the $p+1$-th step edge to extend the optimal result of \texttt{Best[p][count-1]} or not, in which case the result for the subproblem will be equal to \texttt{Best[p][count]}.
+Having computed the results for \texttt{Prefix} $=p$ we can compute the results for \texttt{Prefix} $=p+1$ in linear time -- for each \texttt{Count} $=c$ we need to consider only two cases, either using the $p+1$-th step edge to extend the optimal result of \texttt{Best[p][count-1]} or not, in which case the result for the subproblem will be equal to \texttt{Best[p][count]}.
 
 \begin{refImpl}
 Stripe detection algorithms are implemented in three \studio filters. All of them share common extraction logic, differing only in post-processing method applied to select the final outcome.
 \begin{itemize}
-	\item \filter{ScanMultipleStripes}{1DEdgeDetection} - maximizes the number of returned stripes.
-	\item \filter{ScanExactlyNStripes}{1DEdgeDetection} - constructs the most prominent set of stripes of given cardinality.
-	\item \filter{ScanSingleStripe}{1DEdgeDetection} - wrapper over previous filter which selects the single most prominent stripe.
+	\item \filter{ScanMultipleStripes}{1DEdgeDetection} -- maximizes the number of returned stripes.
+	\item \filter{ScanExactlyNStripes}{1DEdgeDetection} -- constructs the most prominent set of stripes of given cardinality.
+	\item \filter{ScanSingleStripe}{1DEdgeDetection} -- wrapper over previous filter which selects the single most prominent stripe.
 \end{itemize} 
 \end{refImpl}

@@ -33,7 +33,7 @@ Such operator would be a discreet equivalent of the ridge operator proposed by C
 \end{itemize}
 
 \paragraph*{}
-Both problems are illustrated by \reffig{RidgesNaiveResponse} - we can notice a high impulse response for step edges on the boundary of the object. Moreover, as the ridge in the original image has three pixels in width, it appears in the resulting profile as a pair of consecutive step edges.
+Both problems are illustrated by \reffig{RidgesNaiveResponse} -- we can notice a high impulse response for step edges on the boundary of the object. Moreover, as the ridge in the original image has three pixels in width, it appears in the resulting profile as a pair of consecutive step edges.
 
 \profileFigure
 {
@@ -91,8 +91,8 @@ All methods of post-processing of the extracted step edge points described in St
 \begin{refImpl}
 Ridge detection algorithms are implemented in three \studio filters. All of them share common extraction logic, differing only in post-processing method applied to select the final outcome.
 \begin{itemize}
-	\item \filter{ScanMultipleRidges}{1DEdgeDetection} - returns all of the extracted ridges.
-	\item \filter{ScanExactlyNRidges}{1DEdgeDetection} - selects the most prominent set of ridges of given cardinality.
-	\item \filter{ScanSingleRidge}{1DEdgeDetection} - wrapper over previous filter which selects the single most prominent ridge.
+	\item \filter{ScanMultipleRidges}{1DEdgeDetection} -- returns all of the extracted ridges.
+	\item \filter{ScanExactlyNRidges}{1DEdgeDetection} -- selects the most prominent set of ridges of given cardinality.
+	\item \filter{ScanSingleRidge}{1DEdgeDetection} -- wrapper over previous filter which selects the single most prominent ridge.
 \end{itemize} 
 \end{refImpl}

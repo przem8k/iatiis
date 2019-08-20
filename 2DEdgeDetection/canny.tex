@@ -26,7 +26,7 @@ The Gaussian function, which we have discussed in the \refchap{1DEdgeDetection} 
 \]
 
 \paragraph*{}
-Apart from the optimal\footnote{Under the criteria assumed by Canny.} trade-off between noise attenuation and edge preservation, the two-dimensional Gaussian filter has two useful, 2D-specific features. The first one is \textbf{isotropy} - the response of the filter depends only on the distance from $(x,y)$ to $(0,0)$; thus the smoothing does not introduce any bias dependent on the direction of the image edges. 
+Apart from the optimal\footnote{Under the criteria assumed by Canny.} trade-off between noise attenuation and edge preservation, the two-dimensional Gaussian filter has two useful, 2D-specific features. The first one is \textbf{isotropy} -- the response of the filter depends only on the distance from $(x,y)$ to $(0,0)$; thus the smoothing does not introduce any bias dependent on the direction of the image edges. 
 
 \paragraph*{}
 The second interesting feature is \textbf{separability}, which means that the application of the two-dimensional Gaussian filter is equivalent to successive application of two one-dimensional operators, each processing the signal in different dimension. Indeed:
@@ -48,7 +48,7 @@ Therefore to perform the Gaussian smoothing on an image, we may simply apply the
 {\basicWidth}
 
 \paragraph*{}
-The example results look promising - in the image on the right the outline of the object is prominent and consistently brighter that any other element of the image; the noise is effectively suppressed. On the other hand, the edges in the image clearly have excessive width, which inhibits the precision of edge localization. Conversely, image on the left exhibits fine edges, but also worse separation of edge and noise intensities. It is worth stressing that accurate adjustment of $\sigma$ is crucial for performance of the algorithm.
+The example results look promising -- in the image on the right the outline of the object is prominent and consistently brighter that any other element of the image; the noise is effectively suppressed. On the other hand, the edges in the image clearly have excessive width, which inhibits the precision of edge localization. Conversely, image on the left exhibits fine edges, but also worse separation of edge and noise intensities. It is worth stressing that accurate adjustment of $\sigma$ is crucial for performance of the algorithm.
 
 \subsection{Hysteresis Thresholding}
 
@@ -94,9 +94,9 @@ We may use a similar approach to translate out parabola-fitting technique of acq
 \begin{refImpl}
 Edge detection method is implemented by four \studio filters, which share common logic, differing only in output data type. One can choose between Canny, Deriche and Lanser filters, or between Sobel and Prewitt algorithms when using \textit{\_Mask} version of filters.
 \begin{itemize}
-	 \item \filter{DetectEdges\_AsPaths}{2DEdgeDetection} - returns extracted edges as array of paths.
-	 \item \filter{DetectEdges\_AsRegion}{2DEdgeDetection} - extracts edges and returns them as one region.
-	 \item \filter{DetectEdges\_AsPaths\_Mask}{2DEdgeDetection} - works as DetectEdges\_AsPaths, but can be used with Sobel or Prewitt filters for gradient computing.
-	 \item \filter{DetectEdges\_AsRegion\_Mask}{2DEdgeDetection} - the same as previous filter, but result is stored in region rather than in array of paths.
+	 \item \filter{DetectEdges\_AsPaths}{2DEdgeDetection} -- returns extracted edges as array of paths.
+	 \item \filter{DetectEdges\_AsRegion}{2DEdgeDetection} -- extracts edges and returns them as one region.
+	 \item \filter{DetectEdges\_AsPaths\_Mask}{2DEdgeDetection} -- works as DetectEdges\_AsPaths, but can be used with Sobel or Prewitt filters for gradient computing.
+	 \item \filter{DetectEdges\_AsRegion\_Mask}{2DEdgeDetection} -- the same as previous filter, but result is stored in region rather than in array of paths.
 \end{itemize}
 \end{refImpl}

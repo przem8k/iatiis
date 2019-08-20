@@ -211,7 +211,7 @@ Similarly to dilation, we may also formulate erosion in terms of kernel decompos
 The operations of dilation and erosion are closely related, but it is important to note that they are not inverse\footnote{Actually neither of these operation has an inverse, as such operation would have to magically guess where the lone pixels lost in erosion or holes filled in dilation were located.} of each other, i.e., erosion of a region does not necessarily \textit{cancel out} previously applied dilation; counterexample being presented in \reftab{RegionDilation} and \reftab{RegionErosion}. Quite contrary, consecutive application of dilation and erosion is extremely useful operation and will be discussed soon.
 
 \paragraph*{}
-Although dilation is not an inverse of erosion, another relation between the operations holds - they are duals of each other, meaning that dilation of a region is equivalent to erosion of its background (complement), and conversely.
+Although dilation is not an inverse of erosion, another relation between the operations holds -- they are duals of each other, meaning that dilation of a region is equivalent to erosion of its background (complement), and conversely.
 
 \[
 	Erode(R, K) = Dilate(R^{\complement}, K)^{\complement}
@@ -223,7 +223,7 @@ Although dilation is not an inverse of erosion, another relation between the ope
 Before we define the next operator, let us get back for a moment to the dilation operator. As we remember, dilation expands the region in the way defined by the structuring element. It is worth noting that during this expansion small holes and region cavities may get completely filled in. This effect is worth attention as filling gaps of a region\footnote{Which could be introduced for instance by local glare of the lightning affecting the results of thresholding.} is a common need in industrial inspection.
 
 \paragraph*{}
-Unfortunately, dilation does not address this need precisely - the missing parts gets filled in, but also the region boundaries are expanded. It would be more convenient to have an operator that avoids the second effect while keeping the first.
+Unfortunately, dilation does not address this need precisely -- the missing parts gets filled in, but also the region boundaries are expanded. It would be more convenient to have an operator that avoids the second effect while keeping the first.
 
 \paragraph*{}
 The closing operator addresses this need by dilating the region and eroding it right after that:
@@ -235,7 +235,7 @@ The closing operator addresses this need by dilating the region and eroding it r
 Initial dilation fills in the region gaps and the succeeding erosion brings the expanded region back to its original dimensions (but does not restore the gaps that were completely filled in). 
 
 \paragraph*{}
-It is worth noting that we use the reflected kernel for the second operation - if we recall that dilation may be formulated as a union of translations corresponding to individual pixels of the kernel ($\bigcup_{[k_x, k_y] \in K} Translate(R, [-k_x, -k_y])$), it is clear that we need to use the opposite translations to keep the region in its position.
+It is worth noting that we use the reflected kernel for the second operation -- if we recall that dilation may be formulated as a union of translations corresponding to individual pixels of the kernel ($\bigcup_{[k_x, k_y] \in K} Translate(R, [-k_x, -k_y])$), it is clear that we need to use the opposite translations to keep the region in its position.
 
 \newarray\closingInput
 \readarray{closingInput}{%

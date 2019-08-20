@@ -4,7 +4,7 @@
 It is often the case that we are interested in a specific section of the obtained object contour, e.g. if we want to measure the angle between two specific straight segments of the object boundary. Segmentation techniques extract the sections of a path that represent simple geometric primitives such as straight segments or circular arcs.
 
 \paragraph*{}
-The task of path segmentation may be also formulated in terms of path approximation - if we approximate a path with a simple polygon, we can split it into sections corresponding to individual segments of the resulting polygon, thus obtaining segmentation into straight segments.
+The task of path segmentation may be also formulated in terms of path approximation -- if we approximate a path with a simple polygon, we can split it into sections corresponding to individual segments of the resulting polygon, thus obtaining segmentation into straight segments.
 
 \paragraph*{}
 The algorithm that will be our basis for developing the path segmentation methods was introduced as an algorithm for path polygonal approximation.
@@ -53,7 +53,7 @@ Results of this approach are demonstrated in \reffig{SegmentationBasedOnRamer}.
 \subsection{Circular Arcs}
 
 \paragraph*{}
-Another common type of feature that may be identified in object contours are circular arcs. A number of approach may be used to look for arciform sections directly - one idea would be to analyze turn angles at consecutive characteristic points looking for runs of roughly constant curvature, as would be expected of a circular arc. Unfortunately, this approach does not perform well for big arcs - it is often the case that the turn angles at individual characteristic points are very weak and are easily affected by noise.
+Another common type of feature that may be identified in object contours are circular arcs. A number of approach may be used to look for arciform sections directly -- one idea would be to analyze turn angles at consecutive characteristic points looking for runs of roughly constant curvature, as would be expected of a circular arc. Unfortunately, this approach does not perform well for big arcs -- it is often the case that the turn angles at individual characteristic points are very weak and are easily affected by noise.
 
 \paragraph*{}
 Another approach would be to adapt the Ramer algorithm to use arcs rather than straight segments. The modification is not straightforward, as two endpoints of a path section do not define a unique arc (as they did in case of segments), so we would need to fit an arc to each section by means of \refchap{ShapeFitting}. While this does not pose a big problem, we may note that the contours being inspected rarely consist solely of circular arcs\footnote{Full circles are a common case, but these represent a single primitive and thus do not need to be segmented.}; usually they are a combination of straight and arciform sections.
@@ -69,11 +69,11 @@ Two problems may be encountered when this method is applied:
 
 \begin{itemize}
 	\item When the arc being fit to a pair of consecutive straight sections has especially big radius and small length, so that it is close to a segment, the resulting improvement of the approximation is tiny and classification of the part as an arciform section may be confusing.
-	\item Once two straight sections are joined, the resulting arc approximation may be so accurate that it will preclude further joining of the resulting section - a perfectly arciform path initially segmented into numerous straight parts has little chances of being fully joined.
+	\item Once two straight sections are joined, the resulting arc approximation may be so accurate that it will preclude further joining of the resulting section -- a perfectly arciform path initially segmented into numerous straight parts has little chances of being fully joined.
 \end{itemize}
 
 \paragraph*{}
-First issue may be addressed by limiting the radii of the arcs being fitted to a predefined threshold (which will be a parameter of the algorithm) - if the resulting arc is to big we simply do not join the sections we are considering. This simple solution is perfectly feasible as long as the arcs we intend to extract have reasonably high relation of length to radius.
+First issue may be addressed by limiting the radii of the arcs being fitted to a predefined threshold (which will be a parameter of the algorithm) -- if the resulting arc is too big we simply do not join the sections we are considering. This simple solution is perfectly feasible as long as the arcs we intend to extract have reasonably high relation of length to radius.
 
 \paragraph*{}
 A natural solution to the second problem is indiscriminate joining of the consecutive sections whenever the maximum distance between the path section and the fitted arc is within the maximum distance we used for the initial Ramer segmentation.

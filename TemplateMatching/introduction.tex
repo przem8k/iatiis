@@ -1,23 +1,23 @@
 \section{Introduction}
 
 \paragraph*{}
-We have already discussed a number of methods that may be utilized for object localization. For instance - we can use simple \refchap{ImageThresholding} (possibly together with \refchap{BlobAnalysis}) to identify objects of contrasting brightness. \refchap{1DEdgeDetection} may be applied to locate object boundaries whenever we already know its approximate position. \refchap{ContourAnalysis} allows to identify objects by analysing the paths which we have previously extracted using \refchap{2DEdgeDetection} etc.
+We have already discussed a number of methods that may be utilized for object localization. For instance -- we can use simple \refchap{ImageThresholding} (possibly together with \refchap{BlobAnalysis}) to identify objects of contrasting brightness. \refchap{1DEdgeDetection} may be applied to locate object boundaries whenever we already know its approximate position. \refchap{ContourAnalysis} allows to identify objects by analysing the paths which we have previously extracted using \refchap{2DEdgeDetection} etc.
 
 \paragraph*{}
 While these methods allow to construct \textbf{tailored solutions} for particular applications, identification problems may turn out to be too complex to allow for a convenient application of any of the above. Moreover, specialized solutions are inherently coupled with the particular object to be found, which makes it hard to update the inspection system when the problem specification changes (e.g. because one of the components used in the production is replaced by another).
 
 \paragraph*{}
-In this chapter we will discuss the most general-purpose technique of object localization - \textbf{template matching}, which allows to identify parts of an image that match, under some criterion of similarity, an arbitrarily chosen image template. Such methods not only allow to solve identification problems that otherwise could not be tackled, but also provide a convenient (yet often more computationally expensive) alternative to the methods that we have discussed before. 
+In this chapter we will discuss the most general-purpose technique of object localization -- \textbf{template matching}, which allows to identify parts of an image that match, under some criterion of similarity, an arbitrarily chosen image template. Such methods not only allow to solve identification problems that otherwise could not be tackled, but also provide a convenient (yet often more computationally expensive) alternative to the methods that we have discussed before. 
 
 \twoFigures
 {TemplateMatching/img/board_template_padded}
 {TemplateMatching/img/board}
-{An example input for a template matching problem - occurrences of the template depicted on the left are to be found in the image of the right.}
+{An example input for a template matching problem -- occurrences of the template depicted on the left are to be found in the image of the right.}
 {TemplateMatchingBoardInput}
 {\basicWidth}
 
 \paragraph*{}
-The most important part of any template matching method is the specific measure of image similarity that will be used to evaluate possible matches. We need such measure not only to design the algorithm, but also to define the task in the first place - if we are supposed to find the template occurrences, we need to specify what does it mean that a template \textit{occurs} at some position in an image. 
+The most important part of any template matching method is the specific measure of image similarity that will be used to evaluate possible matches. We need such measure not only to design the algorithm, but also to define the task in the first place -- if we are supposed to find the template occurrences, we need to specify what does it mean that a template \textit{occurs} at some position in an image. 
 
 \paragraph*{}
 A template aligned over an image at some position corresponds to a section of the image that it overlaps. If we assume that the possible template alignments are pixel-precise, the problem of evaluating the quality of the match is essentially a problem of calculating the similarity of two images of equal dimensions.
