@@ -19,7 +19,7 @@ Most convenient way to build book is to use vagrant.
 To build book use following commands:
 
 * vagrant up (may take 20min to setup)
-* vagrant shh
+* vagrant ssh
 * cd /vagrant
 * make 
 
