@@ -1,4 +1,4 @@
-# Image Analysis Techniques for Industrial Inspection Systems #
+# Image Analysis Techniques for Industrial Inspection Systems (iatiis)
 
 Open source book on industrial machine vision techniques.
 
