@@ -4,7 +4,7 @@ Open source book on industrial machine vision techniques.
 
 ## Origin ##
 
-The first version of the book was created as a Master Thesis of [pietrzkiewicz](http://github.com/ppiet) during his work in the [Adaptive Vision](http://www.adaptive-vision.com) project. 
+The first version of the book was created as a Master Thesis of [przem8k](http://github.com/przem8k) during his work in the [Adaptive Vision](http://www.adaptive-vision.com) project. 
 
 Now the book is open-sourced and developed by the community and members of the [Adaptive Vision](http://www.adaptive-vision.com) project.
 
